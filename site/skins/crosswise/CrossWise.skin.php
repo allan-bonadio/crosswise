@@ -38,7 +38,7 @@ class SkinCrossWise extends SkinTemplate {
 
 	// no longer used in 1.22
 	function getStylesheet() {
-		return 'common/CrossWise.css';
+		return 'crosswise/CrossWise.css';
 	}
 	// no longer used in 1.22
 	function getSkinName() {
@@ -263,7 +263,7 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 		$s .= "<a href=". cwFullWikiURL("Help:Glossary") .">Glossary</a> &nbsp; |  &nbsp; \n";
 		$s .= "<a href=mailto:allan-at-TactileInt.com?Subject=CrossWise>Feedback\n";
 		$s .= "<img width=16 height=16 ".
-			"src=	$wgScriptPath/skins/common/images/cwTelecom.gif /></a>\n";
+			"src=	$wgScriptPath/skins/crosswise/cwTelecom.gif /></a>\n";
 		$s .= "</p>\n";
 
 		// the normal wiki footer that I mostly ignore.  Hidden.
