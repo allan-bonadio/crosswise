@@ -1,0 +1,3 @@
+- what is sitemap.xml?  Seems automatically generated; get to the bottom of this
+- do more tdd style testing
+

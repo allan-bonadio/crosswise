@@ -1,0 +1,74 @@
+
+
+<textarea id=entry onkeyup='if (event.keyCode == 13) newEntry(event);' style='width: 80em; height: 10em;'></textarea>
+<pre id=result style='border-left: solid 1px #666; padding: 1px; margin: 1em; background-color: #eee;' >
+</pre>
+
+<script>
+function ID(x) { return document.getElementById(x) }
+
+function cwToStr(val) {
+	switch (typeof val) {
+	case 'undefined':
+		return 'undefined';
+
+	case 'boolean':
+	case 'number':
+	case 'function':
+		return val .toString();
+		break;
+
+	case 'string':
+		return "'"+ val.replace(/[\'"]/g, '\$&').replace(/\n/mg, '\n').replace(/\t/mg, '\t') +"'";
+
+	case 'object':
+		if (null === val) return 'null';
+		if (val.constructor == Array) {
+			var r = '';
+			for (i = 0; i < val.length; i++)
+				r += cwToStr(val[i]) +', ';
+			return '['+ r.substr(0, r.length-2) +']';
+		}
+		else {
+			var r = '';
+			for (k in val) {
+				r += k +': '+ cwToStr(val[k]) +', ';
+			}
+			return '{'+ r.substr(0, r.length-2) +'}';
+		}
+	}
+}
+
+
+function newEntry(ev) {
+	var rawInput = ID('entry').value.trim();
+	
+	if (true) {
+		// take multi-line statements and try to turn each into one long line
+		// yes vertical tab.  
+		var modularInput = rawInput.replace(/ \\\n/mg, "\v");
+		
+		var entries = modularInput.split("\n");
+		var outText = '';
+		for (var e = 0; e < entries.length; e++) {
+			entry = entries[e];
+			try {
+				var res = eval(entry);
+				outText += ' '+ entry.replace(/\v/g, '\n ') +"\n = "+ cwToStr(res) +"\n";
+			} catch (ex) {
+				outText += ' '+ entry.replace(/\v/g, '\n ') +"\n =! "+ ex.message +"\n";
+			
+			}
+		}
+	}
+	
+	else {
+		var res = eval(rawInput);
+		var outText = ' '+ rawInput +"\n = "+ cwToStr(res) +"\n";
+	}
+
+	ID('result').innerHTML = outText;
+}
+
+</script>
+

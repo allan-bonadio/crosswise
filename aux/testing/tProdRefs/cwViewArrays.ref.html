@@ -1,0 +1,1240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+<head>
+<title>Arrays in JavaScript vs PHP vs Ruby - CrossWise</title>
+		<meta name="description" content="CrossWise compares web scripting languages, feature-for-feature, to help you master the syntax and semantic details of each programming language.  This page shows how each language varies for Arrays" />
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.0" />
+		<meta name="keywords" content="View" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="CrossWise (en)" />
+		<link rel="alternate" type="application/rss+xml" title="CrossWise RSS Feed" href="/index.php?title=Special:RecentChanges&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="CrossWise Atom Feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+		<link rel="stylesheet" href="/skins/common/wikiprintable.css?207" type="text/css" media="print" />
+		<link rel="stylesheet" href="/skins/common/shared.css?207" type="text/css" />
+		<link rel="stylesheet" href="/skins/common/oldshared.css?207" type="text/css" />
+		<link rel="stylesheet" href="/skins/common/CrossWise.css?207" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" media="print" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:CrossWise.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" type="text/css" />		<script type= "text/javascript">/*<![CDATA[*/
+		var skin = "CrossWise";
+		var stylepath = "/skins";
+		var wgArticlePath = "/index.php/$1";
+		var wgScriptPath = "";
+		var wgScript = "/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://cw.tactileint.com";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "View";
+		var wgTitle = "View";
+		var wgAction = "view";
+		var wgArticleId = "83";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "en";
+		var wgContentLanguage = "en";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 600;
+		var wgVersion = "1.15.0";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?207"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=CrossWise"><!-- site js --></script>				<script type="text/javascript" src="/skins/common/ajax.js?207"></script>
+		</head>
+
+<body bgcolor='#FFFFFF' onload='' class='mediawiki ltr ns-0 ns-subject page-View skin-CrossWise'>
+<!--[if IE]><style>pre {white-space: pre; word-wrap:break-word;}</style><![endif]-->
+<![if !IE]><style>pre {white-space: pre-wrap;}</style><![endif]>
+
+<div id='content'>
+<div id='top'>
+<div id="logo"><a href='/index.php/Main_Page'><img align='right' src='/skins/common/images/CrossWiseLogo.jpg' alt='[Main Page]' /></a></div>
+<h1 class="pagetitle">Arrays in JavaScript vs PHP vs Ruby</h1>
+<p class='subtitle'><span onclick="if (!event.shiftKey) return;document.getElementById('topLinksBar').style.display='block';document.getElementById('footer').style.display='block'">From</span>
+ CrossWise
+ &nbsp; | &nbsp; <a href="/index.php/Special:UserLogin" title="Special:UserLogin">Log in / create account</a><br />
+<span onclick="var b = document.getElementById('hazyLayer').style;b.display = (b.display=='block') ? 'none' : 'block'" class=cwButton style=margin-left:-2px>Languages</span>&nbsp; | &nbsp; 
+View Chapter &nbsp; <select onchange='var sel = event.target || event.srcElement; location = sel.value' name=req>
+<option value=choose>Choose Chapter</option>
+<option value='/++Arrays/JavaScript,PHP,Ruby'> Arrays</option>
+<option value='/++Binary_Data/JavaScript,PHP,Ruby'> Binary Data</option>
+<option value='/++Booleans_and_Logic/JavaScript,PHP,Ruby'> Booleans and Logic</option>
+<option value='/++Control_Constructs/JavaScript,PHP,Ruby'> Control Constructs</option>
+<option value='/++Conditionals/JavaScript,PHP,Ruby'>* Conditionals</option>
+<option value='/++Loops/JavaScript,PHP,Ruby'>* Loops</option>
+<option value='/++Functions,_Blocks_and_Methods/JavaScript,PHP,Ruby'>* Functions, Blocks and Methods</option>
+<option value='/++Exceptions_and_Error_Handling/JavaScript,PHP,Ruby'>* Exceptions and Error Handling</option>
+<option value='/++Dates_and_Times/JavaScript,PHP,Ruby'> Dates and Times</option>
+<option value='/++Debugging/JavaScript,PHP,Ruby'> Debugging</option>
+<option value='/++Hashes/JavaScript,PHP,Ruby'> Hashes</option>
+<option value='/++IO,_Files,_Filesystem/JavaScript,PHP,Ruby'> IO, Files, Filesystem</option>
+<option value='/++Input/JavaScript,PHP,Ruby'>* Input</option>
+<option value='/++Output/JavaScript,PHP,Ruby'>* Output</option>
+<option value='/++Files/JavaScript,PHP,Ruby'>* Files</option>
+<option value='/++Directories/JavaScript,PHP,Ruby'>* Directories</option>
+<option value='/++Numbers/JavaScript,PHP,Ruby'> Numbers</option>
+<option value='/++Ints/JavaScript,PHP,Ruby'>* Ints</option>
+<option value='/++Floats/JavaScript,PHP,Ruby'>* Floats</option>
+<option value='/++Big_Numbers/JavaScript,PHP,Ruby'>* Big Numbers</option>
+<option value='/++Objects/JavaScript,PHP,Ruby'> Objects</option>
+<option value='/++Strings/JavaScript,PHP,Ruby'> Strings</option>
+<option value='/++Constructing_Strings/JavaScript,PHP,Ruby'>* Constructing Strings</option>
+<option value='/++Searching_with_Strings/JavaScript,PHP,Ruby'>* Searching with Strings</option>
+<option value='/++String_Conversions/JavaScript,PHP,Ruby'>* String Conversions</option>
+<option value='/++Regexes/JavaScript,PHP,Ruby'>* Regexes</option>
+<option value='/++Variables,_Values_and_Names/JavaScript,PHP,Ruby'> Variables, Values and Names</option>
+</select>
+ &nbsp; 
+</p>
+
+
+<div id='topLinksBar' style=display:none><a href="/index.php/Main_Page" title="Main Page">Main Page</a> |
+<strong><a href="/index.php?title=View&amp;action=edit" title="View">View source</a></strong> |
+<a href="/index.php?title=View&amp;action=history" title="View" rel="archives">Page history</a> |
+<form id="specialpages" method="get" action="http://cw.tactileint.com/redirect.php">
+<select name="wpDropdown">
+<option value="Special:SpecialPages">Special pages</option>
+<option value="Special:BrokenRedirects">Broken redirects</option>
+<option value="Special:DeadendPages">Dead-end pages</option>
+<option value="Special:DoubleRedirects">Double redirects</option>
+<option value="Special:LongPages">Long pages</option>
+<option value="Special:AncientPages">Oldest pages</option>
+<option value="Special:LonelyPages">Orphaned pages</option>
+<option value="Special:FewestRevisions">Pages with the fewest revisions</option>
+<option value="Special:WithoutInterwiki">Pages without language links</option>
+<option value="Special:ProtectedPages">Protected pages</option>
+<option value="Special:ProtectedTitles">Protected titles</option>
+<option value="Special:ShortPages">Short pages</option>
+<option value="Special:UncategorizedCategories">Uncategorized categories</option>
+<option value="Special:UncategorizedFiles">Uncategorized files</option>
+<option value="Special:UncategorizedPages">Uncategorized pages</option>
+<option value="Special:UncategorizedTemplates">Uncategorized templates</option>
+<option value="Special:UnusedCategories">Unused categories</option>
+<option value="Special:UnusedFiles">Unused files</option>
+<option value="Special:UnusedTemplates">Unused templates</option>
+<option value="Special:WantedCategories">Wanted categories</option>
+<option value="Special:WantedFiles">Wanted files</option>
+<option value="Special:WantedPages">Wanted pages</option>
+<option value="Special:WantedTemplates">Wanted templates</option>
+<option value="Special:AllPages">All pages</option>
+<option value="Special:PrefixIndex">All pages with prefix</option>
+<option value="Special:Categories">Categories</option>
+<option value="Special:Disambiguations">Disambiguation pages</option>
+<option value="Special:ListRedirects">List of redirects</option>
+<option value="Special:UserLogin">Log in / create account</option>
+<option value="Special:BlockList">Blocked IP addresses and usernames</option>
+<option value="Special:ChangePassword">Change password</option>
+<option value="Special:Preferences">Preferences</option>
+<option value="Special:Contributions">User contributions</option>
+<option value="Special:ListGroupRights">User group rights</option>
+<option value="Special:ListUsers">User list</option>
+<option value="Special:NewFiles">Gallery of new files</option>
+<option value="Special:Log">Logs</option>
+<option value="Special:Watchlist">My watchlist</option>
+<option value="Special:NewPages">New pages</option>
+<option value="Special:RecentChanges">Recent changes</option>
+<option value="Special:RecentChangesLinked">Related changes</option>
+<option value="Special:Tags">Valid change tags</option>
+<option value="Special:ListFiles">File list</option>
+<option value="Special:FilePath">File path</option>
+<option value="Special:MIMESearch">MIME search</option>
+<option value="Special:FileDuplicateSearch">Search for duplicate files</option>
+<option value="Special:Upload">Upload file</option>
+<option value="Special:Statistics">Statistics</option>
+<option value="Special:AllMessages">System messages</option>
+<option value="Special:Version">Version</option>
+<option value="Special:LinkSearch">External links</option>
+<option value="Special:Random">Random page</option>
+<option value="Special:RandomRedirect">Random redirect</option>
+<option value="Special:MostLinkedCategories">Most linked-to categories</option>
+<option value="Special:MostLinkedFiles">Most linked-to files</option>
+<option value="Special:MostLinkedPages">Most linked-to pages</option>
+<option value="Special:MostLinkedTemplates">Most linked-to templates</option>
+<option value="Special:MostCategories">Pages with the most categories</option>
+<option value="Special:MostRevisions">Pages with the most revisions</option>
+<option value="Special:Export">Export pages</option>
+<option value="Special:WhatLinksHere">What links here</option>
+<option value="Special:BookSources">Book sources</option>
+<option value="Special:PopularPages">Popular pages</option>
+<option value="Special:Search">Search</option>
+</select>
+<input type='submit' value="Go" name='redirect' />
+</form>
+ |
+<a href="/index.php/Special:UserLogin" title="Special:UserLogin">Log in / create account</a>
+<br /> |
+<a href="/index.php?title=View&amp;ch=Arrays%2FJavaScript%2CPHP%2CRuby&amp;printable=yes" rel="alternate">Printable version</a>&#32;|&#32;<a href="/index.php/CrossWise:General_disclaimer" title="CrossWise:General disclaimer">Disclaimers</a>&#32;|&#32;<a href="/index.php/CrossWise:Privacy_policy" title="CrossWise:Privacy policy">Privacy policy</a><br clear='all' /></div>
+</div>
+</div>
+
+<div id='article'><p><script src=/skins/common/prototype.js type=text/javascript></script>
+<style> table.rulesTab {background:#444; position:relative; width:100%; table-layout:fixed} .langRow {background:#ffc; font-size: 140%;      font-weight: bolder; text-align:center} tr.needRow {} tr.needRow td {padding-top:3px;padding-left: 6px;background:#ffc} tr.needRow td.linkRow a {vertical-align: middle; padding:3px} small.needDesc {float:right; font-size: 80%;      padding-top: .2em; padding-right: .4em; color:#880} tr.rulesRow { } tr.rulesRow td {padding-left: 6px; vertical-align:top; color:#444; font-size: 80%;} tr.rulesRow td pre {margin-left: -6px; font-size: 120%} tr.langChoiceRow { } tr.langChoiceRow td {padding: 2px} div.langChoiceButton {padding: 2px 1em; } div.langChoiceButtonLook {border: outset gray 4px; cursor:pointer;  		text-align: center; font-size: 140%; font-weight: bolder} th.JavaScriptCol {background-color:#aaf} col.JavaScriptCol   {background-color:#f8f8ff;} td.JavaScriptCol pre {background-color:#eef} th.PHPCol {background-color:#afa} col.PHPCol   {background-color:#f8fff8;} td.PHPCol pre {background-color:#efe} th.RubyCol {background-color:#faa} col.RubyCol   {background-color:#fff8f8;} td.RubyCol pre {background-color:#fee} </style>
+<![if gte IE 7]><style> div.neCorn {position: absolute; width:6px; height:6px; right:0; top:0;  background: url(/skins/common/images/cwCorners.gif) no-repeat right top} div.nwCorn {position: absolute; width:6px; height:6px; left:0; top:0;  background: url(/skins/common/images/cwCorners.gif) no-repeat left top} div.seCorn {position: absolute; width:6px; height:6px; right:0; bottom:0;  background: url(/skins/common/images/cwCorners.gif) no-repeat right bottom} div.swCorn {position: absolute; width:6px; height:6px; left:0; bottom:0;  background: url(/skins/common/images/cwCorners.gif) no-repeat left bottom}</style><![endif]>
+</p>
+<br clear=right style='height: 8px'><div id=hazyLayer style='position:fixed; left:8px;right: 8px; height:100%; background-color:rgba(255,255,255,0.75); z-index:10; display:none;'>
+<div style=height:4em; ></div>
+<div id=hazyBox style='z-index:20; border-style: solid none; border-color: #ccc; border-width: 2px; background-color:#fff'><form id=langChoiceForm method=post style='padding:1em 0'><div ><div id=plusButton title='click to add YET ANOTHER column' style='float:right; cursor:pointer; width: 98px; height:39px; background-image: url(/skins/common/images/PlusButton.png);'></div>
+<br clear=right /><div></div></div>
+<table class=rulesTab><tr class=langRow><th id=lcCol_0 style=display:table-cell>Column 0</th><th id=lcCol_1 style=display:table-cell>Column 1</th><th id=lcCol_2 style=display:table-cell>Column 2</th><th id=lcCol_3 style=display:none>Column 3</th><th id=lcCol_4 style=display:none>Column 4</th><th id=lcCol_5 style=display:none>Column 5</th><th id=lcCol_6 style=display:none>Column 6</th><th id=lcCol_7 style=display:none>Column 7</th><th id=lcCol_8 style=display:none>Column 8</th><th id=lcCol_9 style=display:none>Column 9</th><th id=lcCol_10 style=display:none>Column 10</th><th id=lcCol_11 style=display:none>Column 11</th><th id=lcCol_12 style=display:none>Column 12</th></tr>
+<tr class=langChoiceRow><td style=display:table-cell><div id=butJavaScript_0 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:table-cell><div id=butJavaScript_1 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:table-cell><div id=butJavaScript_2 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_3 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_4 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_5 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_6 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_7 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_8 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_9 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_10 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_11 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+<td style=display:none><div id=butJavaScript_12 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >JavaScript 1.5</div></td>
+</tr><tr class=langChoiceRow><td style=display:table-cell><div id=butPHP_0 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:table-cell><div id=butPHP_1 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:table-cell><div id=butPHP_2 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_3 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_4 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_5 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_6 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_7 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_8 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_9 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_10 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_11 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+<td style=display:none><div id=butPHP_12 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >PHP 5.2</div></td>
+</tr><tr class=langChoiceRow><td style=display:table-cell><div id=butRuby_0 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:table-cell><div id=butRuby_1 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:table-cell><div id=butRuby_2 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_3 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_4 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_5 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_6 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_7 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_8 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_9 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_10 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_11 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+<td style=display:none><div id=butRuby_12 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Ruby 1.8.6</div></td>
+</tr><tr class=langChoiceRow><td style=display:table-cell><div id=butPython_0 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:table-cell><div id=butPython_1 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:table-cell><div id=butPython_2 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_3 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_4 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_5 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_6 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_7 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_8 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_9 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_10 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_11 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+<td style=display:none><div id=butPython_12 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff >Python 2.7.2</div></td>
+</tr><tr class=langChoiceRow><td style=display:table-cell><div id=butnone_0 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:table-cell><div id=butnone_1 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:table-cell><div id=butnone_2 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_3 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_4 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_5 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_6 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_7 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_8 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_9 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_10 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_11 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+<td style=display:none><div id=butnone_12 class='langChoiceButton langChoiceButtonLook' style=background-color:#fff  >none</div></td>
+</tr></table><div style=text-align:center;padding:1em;>click None to remove a column</div><div class='langRow langChoiceButtonLook' style='padding: 1em; border: outset gray 4px; text-align: center; '>click here to start using your new arrangement</div>			<br clear=right /><div></div>
+<p>		</form>
+</p>
+	</div>
+</div>
+<script>
+
+var origLangSettings = ["JavaScript", "PHP", "Ruby"];
+var langSettings = new Array(origLangSettings.length);
+var theLangs = {JavaScript: {onColor: '#aaf', offColor: '#eef'}, PHP: {onColor: '#afa', offColor: '#efe'}, Ruby: {onColor: '#faa', offColor: '#fee'}, Python: {onColor: '#daf', offColor: '#f8eeff'}, none: {onColor: '#888', offColor: '#ccc'}};
+////function $(id) {return document.getElementById(id)}
+
+// set button assembly in col to given lang in response to user click or whatever
+function setLangChoiceCol(col, lang) {
+	langSettings[col] = lang;
+	for (var la in theLangs) {
+		var but = $('but'+ la +'_'+ col);
+		if (langSettings[col] == la) {
+			but.style.backgroundColor = theLangs[la].onColor;
+			but.style.borderStyle = 'inset';
+		}
+		else {
+			but.style.backgroundColor = '#fff';  //theLangs[la].offColor;
+			but.style.borderStyle = 'outset';
+		}
+	}
+}
+
+function resetLangSettings() {
+	var col;
+	for (col = 0; col < origLangSettings.length; col++)
+		setLangChoiceCol(col, origLangSettings[col]);
+	while (langSettings.length > origLangSettings.length)
+		langSettings.pop();
+}
+
+function downLangChoiceButton(event) {
+	var butEl = event.target || event.srcElement;
+	butEl.style.backgroundColor = '#000';
+}
+
+// a click on one of the cells in this table.  don't sumit yet!
+function clickLangChoiceButton(event) {
+	var butEl = event.target || event.srcElement;
+	
+	// which button is it
+	var id = butEl.id.split('_', 2);
+	var lang = id[0].substr(3);
+	var col = id[1];
+	setLangChoiceCol(col, lang);
+	event.stop();
+}
+
+
+var columnActivateDisplay = 'table-cell';
+
+function plusClick(event) {
+	var newCol = langSettings.length;
+	var h = $('lcCol_'+ newCol);
+	if (!h) return true;
+	try {
+		h.style.display = columnActivateDisplay;
+	} catch (e) {
+		// IE strikes again.  v7 and 6.
+		h.style.display = columnActivateDisplay = 'block';
+	}
+	
+	for (var la in theLangs) {
+		var td = $('but'+ la +'_'+ newCol).parentNode;
+		td.style.display = columnActivateDisplay;
+		//td.style.display = 'table-cell';
+	}
+	setLangChoiceCol(newCol, 'none');
+	
+	event.stop();  // or the background will submit it!
+}
+
+function onLangSubmit(ev) {
+	$('hazyLayer').style.display = 'none';  // instant feedback
+
+	// take our url and chop off existing lang codes
+	var href = location.href
+	// 1rmore slashes, plus plus, 1rmore nonslashes,slash, nonslashes to the end
+	// get rid of last segment.  if there.
+	href = href.replace(/\/+(\+\+[^\/]+)\/[^\/]+$/, '/$1');
+	
+	// slap on the new language codes.  But Ulp! omit None entries
+	href += '/' + langSettings.join(',').replace(/,none/g, '').replace(/^none,/, '');
+	ev.stop();
+	location.href = href;
+	// doesn't even submit!  never gets here. $('langChoiceForm').submit();
+}
+
+function onLoadLangChoiceDialog() {
+	resetLangSettings();
+	$('hazyLayer').observe('click', onLangSubmit);
+	
+	// all the handlers for all the buttons
+	var buts = document.getElementsByClassName('langChoiceButton');
+	for (b = 0; b < buts.length; b++) {
+		buts[b].observe('click', clickLangChoiceButton);
+		buts[b].observe('mousedown', downLangChoiceButton);
+	}
+	$('plusButton').observe('click', plusClick);
+	$('plusButton').observe('mousedown', function() {
+			$('plusButton').style.backgroundImage = 'url(/skins/common/images/PlusButtonPressed.png)';
+		});
+	$('plusButton').observe('mouseup', function() {
+			$('plusButton').style.backgroundImage = 'url(/skins/common/images/PlusButton.png)';
+		});
+}
+
+addOnloadHook(onLoadLangChoiceDialog);
+
+
+</script><form method=post><table class=rulesTab><col class=JavaScriptCol style=display:table-column;visibility:on /><col class=PHPCol style=display:table-column;visibility:on /><col class=RubyCol style=display:table-column;visibility:on /><tr id=langChoiceRow style=display:none><td style=vertical-align:top' ><div>choose new language for this column:</div>
+<div class=chooseLangsRadios style='background-color:#aaf' ><input type=radio name=colLang0 id=colLangJavaScript0 value=JavaScript checked /><label for=colLangJavaScript0>JavaScript</label></div>
+<div class=chooseLangsRadios style='background-color:#afa' ><input type=radio name=colLang0 id=colLangPHP0 value=PHP /><label for=colLangPHP0>PHP</label></div>
+<div class=chooseLangsRadios style='background-color:#faa' ><input type=radio name=colLang0 id=colLangRuby0 value=Ruby /><label for=colLangRuby0>Ruby</label></div>
+<div class=chooseLangsRadios style='background-color:#daf' ><input type=radio name=colLang0 id=colLangPython0 value=Python /><label for=colLangPython0>Python</label></div>
+<div class=chooseLangsRadios style='float:left; background-color:#eee' ><input type=radio name=colLang0 id=colLangNone0 value=None /><label for=colLangNone0>None</label></div>
+<td style=vertical-align:top' ><div>choose new language for this column:</div>
+<div class=chooseLangsRadios style='background-color:#aaf' ><input type=radio name=colLang1 id=colLangJavaScript1 value=JavaScript /><label for=colLangJavaScript1>JavaScript</label></div>
+<div class=chooseLangsRadios style='background-color:#afa' ><input type=radio name=colLang1 id=colLangPHP1 value=PHP checked /><label for=colLangPHP1>PHP</label></div>
+<div class=chooseLangsRadios style='background-color:#faa' ><input type=radio name=colLang1 id=colLangRuby1 value=Ruby /><label for=colLangRuby1>Ruby</label></div>
+<div class=chooseLangsRadios style='background-color:#daf' ><input type=radio name=colLang1 id=colLangPython1 value=Python /><label for=colLangPython1>Python</label></div>
+<div class=chooseLangsRadios style='float:left; background-color:#eee' ><input type=radio name=colLang1 id=colLangNone1 value=None /><label for=colLangNone1>None</label></div>
+<td style=vertical-align:top' ><div>choose new language for this column:</div>
+<div class=chooseLangsRadios style='background-color:#aaf' ><input type=radio name=colLang2 id=colLangJavaScript2 value=JavaScript /><label for=colLangJavaScript2>JavaScript</label></div>
+<div class=chooseLangsRadios style='background-color:#afa' ><input type=radio name=colLang2 id=colLangPHP2 value=PHP /><label for=colLangPHP2>PHP</label></div>
+<div class=chooseLangsRadios style='background-color:#faa' ><input type=radio name=colLang2 id=colLangRuby2 value=Ruby checked /><label for=colLangRuby2>Ruby</label></div>
+<div class=chooseLangsRadios style='background-color:#daf' ><input type=radio name=colLang2 id=colLangPython2 value=Python /><label for=colLangPython2>Python</label></div>
+<div class=chooseLangsRadios style='float:left; background-color:#eee' ><input type=radio name=colLang2 id=colLangNone2 value=None /><label for=colLangNone2>None</label></div>
+<br clear=both /><div style=float:right><input type=submit name=ChLangCols value='Save Changes' /></div>
+</tr>
+<tr class=langRow><th class=JavaScriptCol>JavaScript 1.5<div class=nwCorn></div>
+<div class=neCorn></div>
+<div class=swCorn></div>
+<div class=seCorn></div>
+</th>
+<th class=PHPCol>PHP 5.2</th>
+<th class=RubyCol>Ruby 1.8.6</th>
+</tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals = ['dog', 'pig', 'chicken'];
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>$animals = array('dog', 'pig', 'chicken');
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals = ['dog', 'pig', 'chicken']
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Array_Is_a_Hash?'>Array Is a Hash? <small class=needDesc>are arrays in this language really 'associative arrays', that is, the same as hashes?</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>Yes, for the most part.  Arrays can store values under character string and other kinds of keys, just like any other object.  But the array methods only work on integers zero and above.  
+</p>
+<pre>animals.toString()
+= 'dog,pig,chicken'
+animals['pet'] = 'turtle';
+animals[-55] = 'spider';
+animals.toString()
+= 'dog,pig,chicken'
+animals.length
+= 3
+for (k in animals) console.log(k);
+=&gt; 0
+=&gt; 1
+=&gt; 2
+=&gt; pet
+=&gt; -55
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<p>Yes, an 'associative array'.  Keys can either be integers or strings.  
+</p><p>PHP arrays remember their element's assigned order.  Some operations use the assigned order of elements rather than the indices; see <a href="#Shift" title="">#Shift</a> and <a href="#Unshift" title="">#Unshift</a> below for an example.  
+</p><p>See <a href='/++Hashes/JavaScript,PHP,Ruby'>Hashes</a> for more info.
+</p>
+</td>
+
+
+<td class=RubyCol>
+<p>No, unrelated.
+</p>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Array_Is_an_Object?'>Array Is an Object? <small class=needDesc>are arrays a class of Object?  or are they outside of the class system?</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>Arrays are instances of a class Array, which adds a few methods and properties to a plain object.
+</p>
+</td>
+
+
+<td class=PHPCol>
+<p>No, unrelated.
+</p>
+</td>
+
+
+<td class=RubyCol>
+<p>An Array is an instance of class Array, but elements of an Array are unrelated to members of the Array object. 
+</p>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='New_Empty_Array'>New Empty Array <small class=needDesc>Make a new array with zero elements.</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>either:
+</p>
+<pre>ar = [ ]
+ar = new Array()
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<p>literal:
+</p>
+<pre>$ar = array();
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<p>either:
+</p>
+<pre>ar = [ ]
+ar = Array.new
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='New_Solo_Array'>New Solo Array <small class=needDesc>Make a new array with one specific element.</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>either
+</p>
+<pre>ar = ['rose']
+ar = new Array('rose')
+</pre>
+<p>The constructor uses it as a count if the element is an integer, but this use is a bit antiquated.
+</p>
+<pre>new Array(4)
+= [undefined, undefined, undefined, undefined]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>$ar = array('rose');
+</pre>
+<p>To start an array in an unused variable, start appending onto it:
+</p>
+<pre>$ar[] = 'rose';
+$ar= array( 'rose')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>ar = ['rose']
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='New_Literal_Array'>New Literal Array <small class=needDesc>Make a new array with specific elements listed.</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>easiest: an array with three elements:
+</p>
+<pre>ar = [ -27, 'world', 3.14159 ]
+</pre>
+<p>Trailing commas are harmless:
+</p>
+<pre>buzz = [ -27, 'world', 3.14159, ]
+buzz= [ -27, 'world', 3.14159]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<p>either:
+</p>
+<pre>$ar = array(-27, 'world', 3.14159);
+$ar= array(0 =&gt; -27, 1 =&gt; 'world', 2 =&gt; 3.14159)
+</pre>
+<p>Trailing commas are harmless:
+</p>
+<pre>$buzz = array(-27, 'world', 3.14159, );
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>ar = [ -27, 'world', 3.14159 ]
+</pre>
+<p>Trailing commas are harmless:
+</p>
+<pre>buzz = [ -27, 'world', 3.14159, ]
+</pre>
+<p>shortcut to make an array of word strings:
+</p>
+<pre>ar =&nbsp;%w{ ice water water\ vapor 47 }
+ar= ['ice', 'water', 'water vapor', '47']
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='New_Literal_Array_with_Gaps'>New Literal Array with Gaps <small class=needDesc>some arrays are sparse, with islands of slots filled in, but empty spaces in between.</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>ar = [-27]
+ar[4] = 'world';
+ar[5] = 3.14159;
+ar= [-27, undefined, undefined, undefined, "world", 3.14159]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<p>if creating:
+</p>
+<pre>$ar = array(-27, 10 =&gt; 'world', 3.14159);
+$ar= array(0 =&gt; -27, 10 =&gt; 'world', 11 =&gt; 3.14159)
+</pre>
+<p>if existing:
+</p>
+<pre>$ar[4] = 'world';
+$ar[5] = 3.14159;
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>ar = [-27]
+ar[4, 2] = ['world', 3.14159];
+ar= [-27, nil, nil, nil, "world", 3.14159]
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Fill_Array'>Fill Array <small class=needDesc>Make a new array, or fill an existing array, with copies of the same value.</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>often it's easier to just fill it literally
+</p>
+<pre>['horse', 'horse', 'horse']
+</pre>
+<p>or something like this:
+</p>
+<pre>ar = new Array(33);
+for (var i = 0; i &lt; ar.length; ++i)
+    ar[i] = 'horse';
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>array_fill(0, 3, 'horse')
+= array('horse', 'horse', 'horse')
+</pre>
+<p>creates a new array
+</p>
+<pre>array_pad($animals,  7, 'horse')
+=  $animals = array('dog', 'pig', 'chicken', 'horse', 'horse', 'horse', 'horse')
+</pre>
+<p>adds 7-count($animals) copies of horse
+</p>
+</td>
+
+
+<td class=RubyCol>
+<p>to create a new filled array:
+</p>
+<pre>ar = Array.new(3, 'horse')
+ar= ['horse', 'horse', 'horse']
+ar = ['horse'] * 3
+ar= ['horse', 'horse', 'horse']
+</pre>
+<p>on an existing array:
+</p>
+<pre>animals.fill('horse')
+animals= ['horse', 'horse', 'horse']
+</pre>
+<p>same:
+</p>
+<pre>animals.fill('horse', 0, 3)
+animals.fill('horse', 0...3)
+animals.fill('horse', 0..2)
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Get_Array_Element'>Get Array Element <small class=needDesc>get the value out of a specific cell of the array</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals[1]
+= 'pig'
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>$animals[1]
+= 'pig'
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals[1]
+= 'pig'
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Get_Out-Of-Bounds_Element'>Get Out-Of-Bounds Element <small class=needDesc>what happens when you use an integer beyond the ends?</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals[7]
+= undefined
+animals[-44]
+= undefined
+
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>$animals[7]
+= null
+</pre>
+<pre>$animals[-2]
+= null
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals[7]
+= nil
+</pre>
+<p>Negative indices refer to elements back from the end
+</p>
+<pre>animals[-2]
+= 'pig'
+animals[-7]
+= nil
+</pre>
+<p><br />
+</p>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Set_Array_Element'>Set Array Element <small class=needDesc>change the value of a specific cell of the array</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals[1] = 'cat';
+animals= ['dog', 'cat', 'chicken']
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>$animals[1] = 'cat';
+$animals= array('dog', 'cat', 'chicken')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals[1] = 'cat'
+animals= ['dog', 'cat', 'chicken']
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Set_Out-Of-Bounds_Element'>Set Out-Of-Bounds Element <small class=needDesc>what happens when you try to change an element that's way out?</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>negative and string indices are allowed but are hidden from its arrayness
+</p>
+<pre>animals[-2] = 'turtle'
+console.dir(animals);
+=&gt; ['dog', 'pig', 'chicken']
+animals[-2]
+= 'turtle'
+</pre>
+<p>higher indices expand the array
+</p>
+<pre>animals[7] = 'turtle'
+animals= ["dog", "pig", "chicken", undefined, undefined, undefined, undefined, "turtle"]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<p>Any assignment to an unused key or index makes a new element.
+</p>
+<pre>$animals[-2] = 'turtle';
+$animals=  array(0 =&gt; 'dog', 1 =&gt; 'pig', 2 =&gt; 'chicken', -2 =&gt; 'turtle')
+$animals[7] = 'turtle';
+$animals=  array(0 =&gt; 'dog', 1 =&gt; 'pig', 2 =&gt; 'chicken', -2 =&gt; 'turtle', 7 =&gt; 'turtle')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<p>negative indices count from end
+</p>
+<pre>animals[-2] = 'turtle'
+animals= ['dog', 'turtle', 'chicken']
+</pre>
+<p>higher indices expand the array
+</p>
+<pre>animals[7] = 'turtle'
+animals= ['dog', 'pig', 'chicken', nil, nil, nil, nil, 'turtle']
+</pre>
+<p>negative indices beyond the current size give an error.  Negative indices are illegal and impossible.
+</p>
+<pre>animals[-4] = 'turtle'
+=! index -4 out of array
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Push'>Push <small class=needDesc>modify array to include one extra element on end</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals.push('cat');
+animals= ['dog', 'pig', 'chicken', 'cat']
+animals.push('cat', 'cat');
+animals= ['dog', 'pig', 'chicken', 'cat', 'cat', 'cat']
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>$animals[] =  'cat';
+$animals=  array(0 =&gt; 'dog', 1 =&gt; 'pig', 2 =&gt; 'chicken', 3 =&gt; 'cat')
+$animals[] =  'cat';
+$animals[] =  'cat';
+$animals=  array(0 =&gt; 'dog', 1 =&gt; 'pig', 2 =&gt; 'chicken', 3 =&gt; 'cat', 4 =&gt; 'cat', 5 =&gt; 'cat')
+</pre>
+<p>The new index used depends on the highest index ever used on that array.  Ever.
+</p>
+<pre>$animals[9] =  'horse';
+$animals[7] = 'aardvark';
+$animals[] =  'cat';
+$animals=  array('dog', 'pig', 'chicken', 9 =&gt; 'horse', 7 =&gt; 'aardvark', 10 =&gt; 'cat')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals &lt;&lt; 'cat'
+animals= ['dog', 'pig', 'chicken', 'cat']
+</pre>
+<p>that returns the array so you can chain:
+</p>
+<pre>animals &lt;&lt; 'cat' &lt;&lt; 'cat' &lt;&lt; 'cat'
+animals= ['dog', 'pig', 'chicken', 'cat', 'cat', 'cat']
+</pre>
+<p>or:
+</p>
+<pre>animals.push('cat', 'cat').push('cat')
+animals= ['dog', 'pig', 'chicken', 'cat', 'cat', 'cat']
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Pop'>Pop <small class=needDesc>modify array to remove one element on end; return that element</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals.pop()
+= 'chicken'
+animals= ['dog', 'pig']
+</pre>
+<p>if empty:
+</p>
+<pre>[ ].pop()
+= undefined
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>array_pop($animals)
+= 'chicken'
+$animals= array(0 =&gt; 'dog', 1 =&gt; 'pig')
+</pre>
+<p>if empty:
+</p>
+<pre>$g = array();
+array_pop($g)
+= null
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals.pop
+= 'chicken'
+animals= ['dog', 'pig']
+</pre>
+<p>if empty:
+</p>
+<pre>[ ].pop
+= nil
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Unshift'>Unshift <small class=needDesc>modify array to include one extra element at start</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals.unshift('cat')
+= 4
+animals= ['cat', 'dog', 'pig', 'chicken']
+</pre>
+<p>empty slots shift along with filled ones:
+</p>
+<pre>animals[5] = 'bear'
+animals.unshift('cat')
+animals= ["cat", "dog", "pig", "chicken", undefined, undefined, "bear"]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>array_unshift($animals, 'cat');
+$animals=  array('cat', 'dog', 'pig', 'chicken',)
+</pre>
+<p>Array is renumbered in the process, in assignment order, not key order:
+</p>
+<pre>$a = array(300=&gt;'dog', 200=&gt;'pig', 100=&gt;'chicken');
+array_unshift($a, 'cat');
+$a= array (0 =&gt; 'cat', 1 =&gt; 'dog', 2 =&gt; 'pig', 3 =&gt; 'chicken',)
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals.unshift('cat')
+animals= ['cat', 'dog', 'pig', 'chicken']
+</pre>
+<p>empty slots shift along with filled ones:
+</p>
+<pre>animals[4] = 'bear'
+animals.unshift('cat')
+= ["cat", "dog", "pig", "chicken", nil, nil, "bear"]
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Shift'>Shift <small class=needDesc>modify array to remove one element at start; return that element</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>animals.shift()
+= 'dog'
+animals= ['pig', 'chicken']
+</pre>
+<pre>[ ].shift()
+= undefined
+</pre>
+<p>even if there's empty slots:
+</p>
+<pre>animals[9] = 'bear'
+animals.shift()
+= 'dog'
+animals= ["pig", "chicken", undefined, undefined, undefined, undefined, undefined, undefined, "bear"]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>array_shift($animals)
+= 'dog'
+$animals= array('pig', 'chicken')
+</pre>
+<pre>$g = array();
+array_shift($g)
+= null
+</pre>
+<p>Array is renumbered in the process, in assigned order, not key order:
+</p>
+<pre>$a = array(300=&gt;'dog', 200=&gt;'pig', 100=&gt;'chicken');
+array_shift($a)
+= 'dog'
+$a= array(0 =&gt; 'pig', 1 =&gt; 'chicken')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<pre>animals.shift
+= 'dog'
+animals= ['pig', 'chicken']
+</pre>
+<pre>[ ].shift
+= nil
+</pre>
+<p>even if there's empty slots:
+</p>
+<pre>animals[9] = 'bear'
+animals.shift
+= 'dog'
+animals= ["pig", "chicken", nil, nil, nil, nil, nil, nil, "bear"]
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Concatenate'>Concatenate <small class=needDesc>modify array, or construct new array, to include the elements of another array on its end</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>returns new array:
+animals.concat(['bear', 'ostrich'])
+["dog", "pig", "chicken", "bear", "ostrich"]
+</p><p>allows multiple arguments:
+</p>
+<pre>animals.concat(['bear', 'ostrich'], ['fish'], animals)
+= ['dog', 'pig', 'chicken', 'bear', 'ostrich', 'fish', 'dog', 'pig', 'chicken']
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>array_splice($animals, count($animals), 0, array('bear', 'ostrich'));
+$animals= array('dog', 'pig', 'chicken', 'bear', 'ostrich')
+</pre>
+<pre>array_merge($animals, array('bear', 'ostrich'));
+$animals= array('dog', 'pig', 'chicken', 'bear', 'ostrich')
+</pre>
+<p>array_merge() works differently with string arguments
+</p><p>In both cases above, existing keys are ignored; order comes implied in the array.  Resulting keys are renumbered starting with 0.
+</p>
+<pre>$animals = array_merge(array(88=&gt;'bear', 4=&gt;'ostrich'), $animals);
+$animals= array('bear', 'ostrich', 'dog', 'pig', 'chicken', )
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<p>returns new array:
+</p>
+<pre>animals + ['bear', 'ostrich']
+= ['dog', 'pig', 'chicken', 'bear', 'ostrich']
+</pre>
+<p>modifies:
+</p>
+<pre>animals += ['bear', 'ostrich']
+animals= ['dog', 'pig', 'chicken', 'bear', 'ostrich']
+</pre>
+<p>or if you prefer:
+</p>
+<pre>animals.concat(['bear', 'ostrich'])
+animals= ['dog', 'pig', 'chicken', 'bear', 'ostrich']
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Iterate'>Iterate <small class=needDesc>loop that visits each element of the array</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<pre>for (var i = 0; i &lt; animals.length; ++i)
+	console.log("Where is that "+ animals[i] +"? ");
+=&gt; Where is that dog?
+=&gt; Where is that pig?
+=&gt; Where is that chicken?
+</pre>
+<p>Packages like jQuery and Prototype have methods to do this more gracefully.
+</p>
+<pre>for (k in animals)
+	console.log("Where is that "+ animals[k] +"? ");
+=&gt; Where is that dog?
+=&gt; Where is that pig?
+=&gt; Where is that chicken?
+</pre>
+<p>That's actually the hashtable way to iterate through all entries; it'll also include various instance variables and methods that are attached to this object.
+</p>
+</td>
+
+
+<td class=PHPCol>
+<pre>foreach ($animals as $ani)
+    print("Where is that $ani? ");
+=&gt; Where is that dog? Where is that pig? Where is that chicken? 
+</pre>
+<p>This goes in implied order, not key order.
+</p><p>or with the index:
+</p>
+<pre>foreach ($animals as $ix =&gt; $ani)
+    print("($ix) Where is that $ani? ");
+=&gt; (0) Where is that dog? (1) Where is that pig? (2) Where is that chicken? 
+</pre>
+<p>To iterate with a callback function, use array_walk().
+</p><p>PHP arrays also contain an implied pointer that's more flexible but more dangerous.  Mostly you'll find these in older code.  The main problem is that the loops usually end if they encounter a <b>false</b> value like 0, null or an empty string.   foreach() uses this pointer, but safely.  Mostly these loops looked like this:
+</p>
+<pre>for ($ani = reset($animals); $ani; $ani = next($animals))
+	print("$ani ");
+=&gt; dog pig chicken 
+</pre>
+<p>They still work OK if no value encountered is false, but their use is discouraged.  
+</p>
+</td>
+
+
+<td class=RubyCol>
+<p>by value:
+</p>
+<pre>animals.each {|ani| print("Where is that #{ani}? ") }
+=&gt; Where is that dog? Where is that pig? Where is that chicken?
+</pre>
+<p>by index:
+</p>
+<pre>animals.each_index {|ix| print("Where is that #{animals[ix]}? ") }
+=&gt; Where is that dog? Where is that pig? Where is that chicken?
+</pre>
+<p>both:
+</p>
+<pre>animals.each_with_index {|ani, ix| print("(#{ix}) Where is that #{ani}? ") }
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Map'>Map <small class=needDesc>reconstruct array, passing each element through a function you write</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>Sorry, must be done manually.  Packages like Prototype have methods to do this better.
+</p>
+<pre>mapProc = function(ani) {return "Don't scare the "+ ani +"!!"};
+newan = new Array(animals.length);
+for (var i = 0; i &lt; animals.length; ++i) {
+	newan[i] = mapProc(animals[i]);
+	console.log(newan[i]);
+}
+=&gt; Don't scare the dog!!
+=&gt; Don't scare the pig!!
+=&gt; Don't scare the chicken!!
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<pre>function dontScare($ani) { return "Don't scare the $ani!!"; }
+array_map('dontScare', $animals)
+= array( 'Don\'t scare the dog!!', 'Don\'t scare the pig!!', 'Don\'t scare the chicken!!')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<p>return new array:
+</p>
+<pre>animals.map {|ani| "Don't scare the #{ani}!!" }
+= ["Don't scare the dog!!", "Don't scare the pig!!", "Don't scare the chicken!!"]
+</pre>
+<p>modify existing array:
+</p>
+<pre>animals.map! {|ani| "Don't scare the #{ani}!!" }
+animals= ["Don't scare the dog!!", "Don't scare the pig!!", "Don't scare the chicken!!"]
+</pre>
+</td>
+
+</tr>
+<tr class=needRow><td colspan=3><a name='Filter'>Filter <small class=needDesc>reconstruct array, including only those elements approved by a function you write</small></a></td></tr>
+<tr class=rulesRow>
+
+<td class=JavaScriptCol>
+<p>Sorry, must be done manually.  Packages like Prototype have ways to do this better.
+</p>
+<pre>filterProc = function(ani) {return ani.indexOf('g') &gt;= 0};
+newan = [];
+for (var i = 0; i &lt; animals.length; ++i)
+	if (filterProc(animals[i]))
+		newan.push(animals[i]);
+newan= ["dog", "pig"]
+</pre>
+</td>
+
+
+<td class=PHPCol>
+<p>Construct an array with just the animals that contain the letter 'g':
+</p>
+<pre>function hasG($ani) {return strpos($ani, 'g')&nbsp;!== false;}
+array_filter($animals, 'hasG')
+= array('dog', 'pig')
+</pre>
+</td>
+
+
+<td class=RubyCol>
+<p>just the animals that contain the letter 'g':
+</p>
+<pre>animals.select {|ani| ani['g'] }
+=  ["dog", "pig"]
+</pre>
+<p>invert the sense
+</p>
+<pre>animals.reject {|ani|&nbsp;!ani['g'] }
+=  ["dog", "pig"]
+</pre>
+<p>select() and reject() also work on any Enumerable, producing an array, like this:
+</p>
+<pre>(1...100).select {|n| n&nbsp;% 13 == 0 }
+= [13, 26, 39, 52, 65, 78, 91]
+</pre>
+</td>
+
+</tr>
+</table></form>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 84/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+
+<div class="printfooter">
+<p>Retrieved from "<a href="http://cw.tactileint.com/index.php/View">http://cw.tactileint.com/index.php/View</a>"</p>
+
+</div>
+
+</div><br clear='all' />
+<p class=subtitle>
+<a href=http://www.mediawiki.org/ style=float:right ><img width=81 height=31 src=http://cw.tactileint.com/skins/common/images/poweredby_mediawiki_88x31.png /></a>
+<a href=http://cw.tactileint.com/index.php/Help%3AAbout>About</a> &nbsp; |  &nbsp; 
+<a href=http://cw.tactileint.com/index.php/Bug%20List>Bug List</a> &nbsp; |  &nbsp; 
+<a href=http://cw.tactileint.com/index.php/Help%3AGlossary>Glossary</a> &nbsp; |  &nbsp; 
+<a href=mailto:allan-at-TactileInt.com?Subject=CrossWise>Feedback
+<img width=16 height=16 src=	/skins/common/images/cwTelecom.gif /></a>
+</p>
+
+<div id='footer' style=display:none><hr /><strong><a href="/index.php?title=View&amp;action=edit" title="View">View source</a></strong>&#32;|&#32;
+<a href="/index.php?title=Talk:View&amp;action=edit&amp;redlink=1" class="new" title="Talk:View (page does not exist)">Discuss this page</a>&#32;|&#32;
+<a href="/index.php?title=View&amp;action=history" title="View" rel="archives">Page history</a>&#32;|&#32;
+<a href="/index.php/Special:WhatLinksHere/View" title="Special:WhatLinksHere/View">What links here</a>&#32;|&#32;
+<a href="/index.php/Special:RecentChangesLinked/View" title="Special:RecentChangesLinked/View">Related changes</a>
+<br /><br />
+
+<br /><a href="/index.php/Main_Page" title="Main Page">Main Page</a> | <a href="/index.php/CrossWise:About" title="CrossWise:About">About CrossWise</a> | <form id="searchform" name="search" class="inline" method="post" action="/index.php/Special:Search">
+<input type="text" id="searchInput" name="search" size="19" value="" />
+<input type="submit" name="go" value="Go" />&nbsp;<input type="submit" name="fulltext" value="Search" />
+</form>
+</div>
+
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</body></html>

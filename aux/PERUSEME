@@ -1,0 +1,58 @@
+This has auxilliary files for CrossWise that aren't part of the website proper.
+
+
+======================================================= test accts
+
+see also my_accts.txt
+
+Allan fa
+Pat
+Nobody fa - deleted users are merged into this user
+
+
+======================================================= files
+--- maint scripts:
+pushCW.sh - upload the current CW local working site to the target producton site
+startCW.sh - create a new CW site from scratch
+update.sh - equivalent to 'svn up' for sharing dev between machines, 
+	gets changes from elsewhere.  Does wiki site dir, cwAux and wiki DB
+
+migrateDB.sh - Exports or Imports the content to/from CrossWise
+   in the process, deletes contributor names & dates
+
+
+--- smoke test of production website:
+testProd.sh - run tests, promote actuals to refs, etc
+tProdRefs - actual and reference outputs of tests
+
+
+--- related to featSrc and audit, testing examples:
+fSrc - similar to featSrc in extensions dir?
+test.wiki
+featSrcWork.sh
+stats.rb
+
+
+--- others:
+my_accts.txt my MediaWiki accounts on CW as per DB
+confEdit - ConfirmEdit mw plugin stuff
+
+
+--- others, i dunno, probably keep:
+captchaQuestions.php - for use with ConfirmEdit plugin, 
+	questions for that captcha mode I never got working
+
+
+
+--- certainly junk:
+untitled text 5
+
+
+--- others, i dunno, probably junk:
+local.xml - and...
+remote.xml - two db dumps I downloaded for comparison and forgot to delete i think
+
+spamPages2Dec2011 - the big hack attack, nov 2011-jan 2012
+x.html
+x.php
+x.rb

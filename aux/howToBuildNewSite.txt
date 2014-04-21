@@ -1,0 +1,66 @@
+How to Build a new CrossWise site
+
+get mediawiki, latest version. Or version 1.22.1 or so.
+unzip it into a dir that does php
+
+
+########################################### From scratch
+surf to / to start the standard installations (as in mw directions)
+	User rights profile: Account creation required
+	Copyright and license:  No license footer
+	Return email address: orgmgr@tactileint.org
+	extensions:
+		- confirmEdit
+		- Nuke
+		- Renameuser
+		- SimpleAntiSpam
+		-? Title Blacklist
+	DISABLE file uploads
+	Settings for object caching: No caching
+Figure out the LocalSettings.php file, some 3-way diff between santiago's and its original.
+toss in a %phpinfo.php file
+
+Anyway, you can surf to /index.php not necessarily /.  OF course %phpinfo.
+You can log in as Allan, or whatever default root account you set for mediawiki.
+
+It installs all the plugins but only activates the ones you check on.  So delete the rest:
+rm -Rf Cite Gadgets ImageMap InputBox Interwiki LocalisationUpdate ParserFunctions PdfHandler Poem SpamBlacklist SyntaxHighlight_GeSHi WikiEditor 
+
+Cite/
+Gadgets/
+ImageMap/
+InputBox/
+Interwiki/
+LocalisationUpdate/
+ParserFunctions/
+PdfHandler/
+Poem/
+SpamBlacklist/
+SyntaxHighlight_GeSHi/
+WikiEditor/
+
+Get footlog to work - copy footLog into extensions; hack LocalSettings.php to fit.  Should show up as teal bar at bottom of page content.
+with footlog - http://dcw/index.php?title=Main_Page
+without - http://dcw/index.php?title=Main_Page
+
+Get cw plugin to work - ath this point just loadingwithout error.  Again copy over and hack LocalSettings.php.  No effect on main page.
+
+
+########################################### From SrcControl
+LocalSettings.php should be under source control.
+
+########################################### CW database
+	
+
+# do these to make the dev database givertake
+# mysql> create database cw_dev default character set utf8;
+# mysql> grant all on cw_dev.* to solomon@localhost identified by 'password';
+
+
+
+
+
+ 
+ 
+ 
+ 

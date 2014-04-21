@@ -1,0 +1,17 @@
+* Without logging in (or logged out):
+
+** main page
+*** test any view link > that page
+*** test languages toggle
+*** change your languages
+*** change your languages to zero languages (all none)
+
+** Verify page: any and all
+** /--Test_Links
+
+------------------------------ misc things/variations to test
+ * must test with/without cookies
+ * must test the Test_Link page
+ * Every feature must pass FeatureSource!!
+ 
+ 
