@@ -1,0 +1,88 @@
+#!/usr/bin/env ruby -w
+# Feature Source Ruby_Arrays generated 2009-11-06 19:52:44 -0800 on kashmir
+def toStr(value)
+	return value.to_s
+end
+
+def unEqual(actual, expected)
+	return actual != expected
+end
+
+def verEqual(actual, expected, lineNo)
+	if unEqual(actual, expected)
+		puts "!!"+"!! test failed, `#actual` != `#expected`.\nShould be: \n = #actual"
+	end
+end
+
+def ___(text = '')
+	puts text
+end
+
+def rule______________________________(needName)
+	puts "===" + needName + "==="
+end
+
+
+require 'stringio'
+#printQueue = '';
+testOut = StringIO.new('', 'w')
+testIn = StringIO.new('', 'r')
+
+# verify that print content matches up with  expectations
+def verPrint(expected)
+	actual = testIn.gets
+	if actual != expected
+        cwErrorText += "\n!!"+"!! print test failed, should be\n"+ 
+            " => "+ actual +"\n"+
+            "!!"+"!! rather than "+ expected +"\n\n"
+	end
+end
+
+# run, catching stdout and errors
+def cwRun(proc)
+   testIn.string = testOut.string = ''
+   origStdout = $stdout
+   $stdout = testOut
+   proc();
+   leftovers = testIn.gets(null)
+   $stdout = origStdout
+   puts cwErrorText;
+   if leftovers.length > 0
+      #puts("\n!!"+"!! print leftovers "+ leftovers.length +" leftover chars: ")
+      if leftovers.length < 60
+         puts cwPrintText
+      else
+         puts cwPrintText[0, 57] +"..."
+      end
+   end
+end
+
+
+
+
+
+rule______________________________ 'Set Array Element'
+___ ' animals[1] = \'cat\''
+___ ' animals= [\'dog\', \'cat\', \'chicken\']'
+___
+
+
+begin
+  class Examp_Set_Out_Of_Bounds_Element_2
+ animals = ['dog', 'pig', 'chicken']
+begin
+      animals[-4] = 'cat'
+      ___ '!!'+'!! Error test in Examp_Set_Out_Of_Bounds_Element_2 incorrectly succeeded!  No message `index -4 out of array`.'
+rescue Exception
+      if ! $!.message['index -4 out of array']
+          ___ '!!'+'!! Error: test in Examp_Set_Out_Of_Bounds_Element_2 failed, ‘.
+							but message excludes `index -4 out of array`.  Try this line:'
+          ___ ' =! '+ $!.message
+end
+  end
+rescue Exception
+  puts 'Error in Example: '+ $!.message
+  puts $!.backtrace.join("\n")
+end
+
+

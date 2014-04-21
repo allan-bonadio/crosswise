@@ -1,0 +1,13 @@
+these are cs/mediawiki accounts, as listed in cwuser table.
+
+------------------------ santiago
+bureaucrat acct:
+Allan
+fx
+
+------------------------ no no
+test account:
+pat
+fx
+
+
