@@ -5,6 +5,7 @@ HISTORY
 INSTALL
 README
 .DS_Store
+.gitreview
 README.mediawiki
 RELEASE-NOTES-1.22
 StartProfiler.sample
@@ -38,3 +39,4 @@ thumb.php5
 thumb_handler.php
 thumb_handler.php5
 wiki.phtml
+htaccess-dot
