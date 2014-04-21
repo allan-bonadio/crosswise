@@ -1,0 +1,85 @@
+body {
+	/* Background color is set separately on page type with bgcolor attr */
+	background-color: white;
+	color: black; 
+	font-family: verdana,helvetica,arial;
+}
+#specialform { display: inline; }
+#powersearch {
+  background: #DDEEFF; border-style: solid; border-width: 1px; padding: 2px;
+}
+
+a.interwiki, a.external { color: #36B; }
+
+/* padding: 2px; border: 0px; text-decoration:underline;  */
+a[href]:link { color: #038; padding: 1px; 
+	text-decoration: underline; line-height:130%}
+a[href]:hover { color: #000;}
+a.new:link { color: #9ac;}
+a.new:hover { color: #679;}
+a[href]:visited {  color: #803;
+	text-decoration: underline; line-height:130%}
+a[href]:visited:hover {  color: #400}
+a[href]:active { color: #eef; background-color: #004;}
+
+a.editBut:link, a.editBut:visited    {font-size:50%; font-weight: bold;
+	padding: 1px; border: none;
+	background-color: #004;
+	color: #dde}
+a.editBut:hover {background-color: #448; color: #fff}
+a.editBut:active {background-color: #88f; color: $000; padding: 0;border: 1px solid #000;}
+
+/* [[]] links to nonexistent pages */
+/*a.new {background-color: rgba(0,0,0,0.1)}*/
+a.new {color: #c00}
+
+.cwButton { color: #038; text-decoration: underline; cursor:pointer; border: 0px; padding: 2px}
+.cwButton:hover { border: 1px dotted #444; padding: 1px; }
+.cwButton:active { background-color: #000; color: #fff; }
+/*a.interwiki, a.external { color: #3366BB; }*/
+
+a.printable { text-decoration: underline; }
+a.stub { color:#772233; text-decoration:none; }
+
+.toc, #toc {margin-top: 10px; border: inset 1px #884; 
+	background-color: #f8f8ff; font-size: 70%}
+
+h1.pagetitle { padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; 
+	font-family:Copperplate,Capitals,Arial Black,Georgia}
+h2, h3, h4, h5, h6 { margin-bottom: 0; 
+	font-family:Copperplate,Impact,Capitals,Arial Black,Georgia}
+textarea { overflow: auto; }
+p.subtitle { padding-top: 0; margin-top: 0; vertical-align: baseline;
+	font-family:Copperplate,Impact, Capitals,Arial Black,Georgia}
+select { padding-top: 0; margin-top: 0;  font-size: 100%;
+	font-family:Copperplate,Impact,Capitals,Arial Black,Georgia}
+.copperplate { font-family:Copperplate,Impact,Capitals,Arial Black,Georgia}
+
+
+div#top {}
+div#topbar {background-color: #eee; font-size:70%}
+div#article { clear: right; margin-top: 0}
+
+/* cross wise */
+pre {
+	/* see skin for white-space and wrap attrs */
+	padding: .4em;
+	color: #000;
+	background-color: #f8f8ff;
+	line-height: 1.1em;
+	margin: 0;
+	/* font-size: 120%;  depends on your fonts */
+	font-family: Lucida Console, Monaco, Andale Mono, Courier;
+	border: outset 1px #ccb;
+}
+tt {
+	font-size:125%;
+	color: #000;
+	background-color: #eee;
+	font-family: Monaco, Lucida Console, Andale Mono, Courier;
+}
+
+/* prose between pre tags is enclosed in p tags.  Override browser def. */
+p {margin: .5em 0}
+
+

@@ -1,0 +1,16 @@
+# /robots.txt file for cw.tactileint.com
+# mail allan @ tactile int . com
+
+User-agent: *
+
+Disallow: /LocalSettings.php
+Disallow: /tcwPush.sh
+Disallow: /wikiDefs.sh
+Disallow: /sourceDownload.php
+Disallow: /extensions
+Disallow: /iedit.php
+Disallow: /skins
+
+# regenerated occasionally from the verify page
+Sitemap: http://cw.tactileint.com/sitemap.xml
+
