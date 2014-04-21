@@ -1,0 +1,4 @@
+*.diff.txt
+*.act.html
+act.html
+.DS_Store
