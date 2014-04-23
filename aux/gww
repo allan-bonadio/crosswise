@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# search thru Crosswise src, both MW and CW, avoiding images, for a text string
+
+# -I on a mac excludes bin files
+grep -srI --exclude-dir=image "$@" $wROOT $wAUX $wCW/testing 
+
+
