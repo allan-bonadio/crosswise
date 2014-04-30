@@ -741,7 +741,7 @@ function cwTestLinks($input, $args, $parser) {
 	$output .= " function TestAllLinks() {\n";
 	$output .= "   var errors = '';\n";
 	$output .= " \n";
-	$output .= "   var waTags = $('WikiLinkTestCases').select('a');\n";
+	$output .= "   var waTags = $('#WikiLinkTestCases').find('a');\n";
 $output .= " console.log(waTags[0].href);\n";
 $output .= " console.log(waTags[1].href);\n";
 $output .= " console.log(waTags[2].href);\n";
@@ -761,7 +761,7 @@ $output .= " console.log('http://". $cwHttpHost .
 									$wgScript ."/Category:Arrays')\n";
 	$output .= "     errors += '4th `:Category:Arrays` failed \\n';\n";
 	$output .= " \n";
-	$output .= "   var trTags = $('CWLinkTestCases').select('tr');\n";
+	$output .= "   var trTags = $('#CWLinkTestCases').find('tr');\n";
 	$output .= "   var chapters = ". json_encode($testChapters) .";\n";
 	$output .= "   var chapURLs = ". 
 					json_encode(array_map('cwFullViewURL', $testChapters)) .";\n";
@@ -779,9 +779,9 @@ $output .= "       console.debug(aTag.href);\n";
 	$output .= "   }\n";
 	$output .= " \n";
 	$output .= "   if (errors)\n";
-	$output .= "     $('testRes').innerHTML = errors;\n";
+	$output .= "     $('#testRes').html(errors);\n";
 	$output .= "   else\n";
-	$output .= "     $('testRes').innerHTML = '<h1>All Link Tests Succeeded</h1>';\n";
+	$output .= "     $('#testRes').html('<h1>All Link Tests Succeeded</h1>');\n";
 	$output .= " }\n";
 	$output .= " \n";
 	$output .= " </script>\n";

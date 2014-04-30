@@ -84,6 +84,8 @@ function cwAddAuditToEditPageL($editPage) {
 global $parserAfterTidyText;
 $parserAfterTidyText = null;
 
+// called in the later phases of html generation to get rid of WM's 
+// disruptive formatting, exp <p>s.  
 function cwParserAfterTidy(&$parser, &$text) {
 	global $parserAfterTidyText;
 	
