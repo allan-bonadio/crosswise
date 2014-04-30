@@ -39,8 +39,9 @@ $wgSitename = "CrossWise";
 if (isset($_SERVER) && isset($_SERVER['HTTP_HOST'])) {
 	// a typical web request
 	$cwHttpHost = $_SERVER['HTTP_HOST'];
-	$cwSubDom = (strpos($cwHttpHost, 'cw.') !== false);  // should always be true
-	$cwStagingDist = (strpos($cwHttpHost, 'tcw.') !== false);
+	$cwSubDom = (strpos($cwHttpHost, 'cw.') !== false || substr($cwHttpHost, -2) == 'cw');  // should always be true
+	$cwStagingDist = (strpos($cwHttpHost, 'tcw') !== false);  // alternate pre-production source tree
+	////echo("the subdom is '$cwSubDom' the host is '$cwHttpHost' and the staging is '$cwStagingDist'");
 	if ($cwSubDom)
 		$cwDebug = ($cwHttpHost[0] == 'd');
 	else
@@ -349,6 +350,7 @@ if ($cwDebug) {
 	// always on see above $wgParserCacheType = CACHE_NONE;
 }
 else {
+	// dummies for production
 	function flLog($x) { }
 	function flExport($x) { }
 }
