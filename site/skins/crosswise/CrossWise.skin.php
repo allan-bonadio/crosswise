@@ -48,8 +48,10 @@ class SkinCrossWise extends SkinTemplate {
 	// no longer used in 1.22
 	// special for CW: show therequirement in the title if view pg
 	function pageTitle() {
+		die(__FILE__ . __LINE__);////
+
 		global $wgOut, $wgRequest, $wgTitle;
-		global $cwDoingViewPage, $cwChapter, $allTheLangs;
+		global $cwDoingViewPage, $cwChapter, $cwPageTitle, $allTheLangs;
 
 //flTraceBack('in my skw: pageTitle and setting cwdvp false');
 		// this was causing lang button to turn to view source $cwDoingViewPage = false;
@@ -80,9 +82,11 @@ class SkinCrossWise extends SkinTemplate {
 	
 	// lines near the top of the page, starting with the subtitle 'from Crosswise'
 	function subTitleLines() {
-		global $cwDoingViewPage, $cwChapter, $wgRequest, $wgUser;
+		global $cwDoingViewPage, $cwChapter, $cwPageTitle, $wgRequest, $wgUser;
 flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 		
+		die(__FILE__ . __LINE__);////
+
 		// make the subtitle active; activates full header and footer
 		$subTitle = $this->pageSubtitle();
 
@@ -138,6 +142,8 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 	// then starts #article, which encloses the actual content
 	function doBeforeContent() {
 		global $cwDoingViewPage, $cwChapter, $wgUser, $wgRequest;
+		
+		die(__FILE__ . __LINE__);////
 
 		// this is needed to make word wrap correctly outside of IE, and to work 
 		// at all in IE.  6 & 7 dont have pre-wrap, so you get a scroll bar.  ugh. 
@@ -185,6 +191,9 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 
 	// links at top of each page
 	function topLinks() {
+	
+		die(__FILE__ . __LINE__);////
+		
 		global $wgOut, $wgUser, $wgEnableUploads;
 		$sep = " |\n";
 
@@ -250,6 +259,9 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 		global $cwHttpHost, $wgScriptPath;
 		$s = "\n</div><br clear='all' />\n";
 		
+				die(__FILE__ . __LINE__);////
+
+		
 		// what do I want to put in the footer....
 		$s .= "<p class=subtitle>\n";
 		$s .= "<a href=http://www.mediawiki.org/ style=float:right >".
@@ -292,200 +304,48 @@ class CrossWiseTemplate extends BaseTemplate {
 	 * class, and a wrapper for MediaWiki's localization database, and
 	 * outputs a formatted page.
 	 */
-	public function execute() {
-		global $wgRequest;
- 
+////	public function OldExecute() {
+////		global $wgRequest;
+//// 
+////		$skin = $this->data['skin'];
+//// 
+////		// suppress warnings to prevent notices about missing indexes in $this->data
+////		wfSuppressWarnings();
+//// 
+////		$this->html( 'headelement' );
+////
+////
+////		/////////////////////// adapted from http://www.mediawiki.org/wiki/Manual:Skinning
+////
+////
+////
+////		if( $this->data['sitenotice'] ) {
+////			? > <div id="siteNotice">< ? $this->html('sitenotice') ? ></div>< ? 
+////		} 
+////		
+////	? >
+////		<h1 id="firstHeading">< ? $this->html('title'); ? ></h1>
+////		<div id="contentSub">< ? $this->html('subtitle') ? ></div>
+////	< ?
+////		$this->html('bodytext');
+////		if( $this->data['catlinks'] )
+////			$this->html('catlinks');
+////			
+////		/* recommended by the mediawiki people http://www.mediawiki.org/wiki/Manual:Skinning/Tutorial 
+////			the following, just moving down the page. search for snippets to understand.  */? >
+////		<div id="mw-js-message" style="display:none;"></div>
+////		< ?php if ( $this->data['newtalk'] ) { ? >$this->data['newtalk']< ?php } ? >newtalk
+////		< ?php if ( $this->data['sitenotice'] ) { ? >$this->data['sitenotice']< ?php } ? >sitenotice
+////		< ?php $this->text( 'sitename' ); ? >sitename< ?
+////		
+////	}
+	
+	/////////////////////////////// supporting functions for execute, the template function
+	
+	// small site logo in corner
+	private function exSiteLogo() {
 		$skin = $this->data['skin'];
- 
-		// suppress warnings to prevent notices about missing indexes in $this->data
-		wfSuppressWarnings();
- 
-		$this->html( 'headelement' );
-
-
-		/////////////////////// adapted from http://www.mediawiki.org/wiki/Manual:Skinning
-
-
-
-		if( $this->data['sitenotice'] ) {
-			?><div id="siteNotice"><? $this->html('sitenotice') ?></div><? 
-		} 
-		
-	?>
-		<h1 id="firstHeading"><? $this->html('title'); ?> inTHeH1FoeRSURE</h1>
-		<div id="contentSub"><? $this->html('subtitle') ?></div>
-	<?
-		$this->html('bodytext');
-		if( $this->data['catlinks'] )
-			$this->html('catlinks');
-			
-		/* recommended by the mediawiki people http://www.mediawiki.org/wiki/Manual:Skinning/Tutorial 
-			the following, just moving down the page. search for snippets to understand.  */?>
-		<div id="mw-js-message" style="display:none;"></div>
-		<?php if ( $this->data['newtalk'] ) { ?>$this->data['newtalk']<?php } ?>newtalk
-		<?php if ( $this->data['sitenotice'] ) { ?>$this->data['sitenotice']<?php } ?>sitenotice
-		<?php $this->text( 'sitename' ); ?>sitename
-		<h1 id="firstHeading" class="firstHeading"><?php $this->html('title') ?>theSecondOne</h1> title of page
-		<div id="content">contentNeedthihs? and a <div id="bodyContent">bodyCOntentNeedthis?
-		<div id="siteSub"><?php $this->msg( 'tagline' ); ?></div>
-		<?php if ( $this->data['subtitle'] ) { $this->html( 'subtitle' ); } ?>dasSubtitle
-		<?php if ( $this->data['undelete'] ) { $this->html( 'undelete' ); } ?>dasUndelete
-
-		<?php $this->html( 'bodytext' ) ?> that was da body
-		<?php $this->html( 'dataAfterContent' ); ?>OrElseSomeExtensionsWontWorkRIght?
-		<?php $this->html( 'catlinks' ); ?>dat was da catlinks
-
-
-		<ul>
-		<?php foreach ( $this->getPersonalTools() as $key => $item ) { ?>
-			<?php echo $this->makeListItem($key, $item); ?>
- 
-		<?php } ?>
-		</ul>thatWasThePersonalTools
-
-<ul>
-<?php foreach ( $this->data['content_navigation']['namespaces'] as $key => $tab ) { ?>
-	<?php echo $this->makeListItem( $key, $tab ); ?>
- 
-<?php } ?>
-</ul>thatwas"just the namespaces category of links"useThatOrElse:
-		
-		
-		
-		<?php foreach ( $this->data['content_navigation'] as $category => $tabs ) { ?>
-<ul>
-<?php foreach ( $tabs as $key => $tab ) { ?>
-	<?php echo $this->makeListItem( $key, $tab ); ?>
- 
-<?php } ?>
-</ul>
-<?php } ?>datWas"all the categories of links as separate lists"OruseTheAbovewhatever
-
-<ul>
-<?php
-	foreach ( $this->data['content_navigation'] as $category => $tabs ) {
-		foreach ( $tabs as $key => $tab ) { ?>
-			<?php echo $this->makeListItem( $key, $tab ); ?>
- 
-<?php
-		}
-	} ?>
-</ul>dawazAYetA3tdWayToDoCategories
-
-
-<ul>
-<?php
-	foreach ( $this->data['content_actions'] as $key => $tab ) { ?>
-		<?php echo $this->makeListItem( $key, $tab ); ?>
- 
-<?php
-	} ?>
-</ul>flatContentActionsTscheckItOut
-
-
-Sidebar:IcompletelyBluewThisOffCheckoutTHPage http://www.mediawiki.org/wiki/Manual:Skinning/Tutorial
-also languageLInks
-
-
-<ul>
-<?php
-	foreach ( $this->getToolbox() as $key => $tbitem ) { ?>
-		<?php echo $this->makeListItem( $key, $tbitem ); ?>
- 
-<?php
-	}
-	wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this ) ); ?>
-</ul>daToolbox!IthinkIwant tolimit this like the FromblockInV1
-
-
-Search FormBlewThatOffToo
-
-<?php
-foreach ( $this->getFooterLinks() as $category => $links ) { ?>
-<ul>
-<?php
-	foreach ( $links as $key ) { ?>
-	<li><?php $this->html( $key ) ?></li>
- 
-<?php
-	} ?>
-</ul>
-<?php
-} ?>FooterLinksTry1
-
-<ul>
-<?php foreach ( $this->getFooterLinks( "flat" ) as $key ) { ?>
-	<li><?php $this->html( $key ) ?></li>
- 
-<?php } ?>
-</ul>FooterLinksTry2
-
-
-footer icons i blew off too
-"Taking care of special cases"
-Go read that on down
-
-
-
-
-
-
-
-		
-
-<?php
-	echo Html::element( 'a', array(
-		'href' => $this->data['nav_urls']['mainpage']['href'],
-		'style' => "background-image: url({$this->data['logopath']});" )
-		+ Linker::tooltipAndAccesskeyAttribs('p-logo') ); ?>
-
-	?>
-
-		<!-- "page toolbar" -->
-		<div id="p-cactions" class="portlet">
-			<h5><? $this->msg('views') ?></h5> <!-- Page Toolbar Label/Caption [optional] -->
-			<div class="pBody">
-				<ul><? 
-					foreach( $this->data['content_actions'] as $key => $tab ) {
-						echo '
-					<li id="', Sanitizer::escapeId( "ca-$key" ), '"';
-						if ( $tab['class'] ) {
-							echo ' class="', htmlspecialchars($tab['class']), '"';
-						}
-						echo '><a href="', htmlspecialchars($tab['href']), '"',
-							$skin->tooltipAndAccesskeyAttribs('ca-'.$key), '>',
-							htmlspecialchars($tab['text']),
-							'</a></li>';
-					}?>
-				</ul>
-			</div>
-		</div>
-
-		<!-- "User Toolbar" -->
-		<div class="portlet" id="p-personal">
-			<h5><? $this->msg('personaltools') ?></h5> <!-- User Toolbar Label/Caption [optional] -->
-			<div class="pBody">
-				<ul>
-				<? foreach( $this->data['personal_urls'] as $key => $item ) { ?>
-					<li id="<?= Sanitizer::escapeId( "pt-$key" ) ?>"<? 
-						if ($item['active'])
-							?> class="active"<? ; ?>
-					>
-					<a href="<?= htmlspecialchars( $item['href'] ) ?>"
-						<?= $skin->tooltipAndAccesskeyAttribs('pt-'.$key) ?> <?
-						if( !empty( $item['class'] ) ) { ?>
-							class="<?= htmlspecialchars( $item['class'] ) ?>" <?
-						}?>
-					>
-						<?= htmlspecialchars( $item['text'] ) ?>
-					</a>
-				</li><?
-				} ?>
-				</ul>
-			</div>
-		</div>
-
-
+		?>
 		<!-- "Site Logo" -->
 		<div class="portlet" id="p-logo">
 			<a href="<?= htmlspecialchars($this->data['nav_urls']['mainpage']['href']) ?>" 
@@ -493,148 +353,202 @@ Go read that on down
 				<img src="<?= htmlspecialchars( $this->data['logopath'] ) ?>" border="0" />
 			</a>   
 		</div>
-		<script type="<? $this->text('jsmimetype') ?>">
-			if (window.isMSIE55)
-				fixalpha();
-		</script> <!-- IE alpha-transparency fix -->
-
-
-		<!-- "Toolbox" -->
-			<div class="portlet" id="p-tb">
-				<h5><? $this->msg('toolbox') ?></h5>
-				<div class="pBody">
-					<ul>
-						<? if( $this->data['notspecialpage'] ) { ?>
-							<li id="t-whatlinkshere">
-								<a href="<?= htmlspecialchars($this->data['nav_urls']['whatlinkshere']['href']) ?>"
-									<?= $skin->tooltipAndAccesskeyAttribs('t-whatlinkshere') ?>
-								>
-									<? $this->msg('whatlinkshere') ?>
-								</a>
-							</li>
-							<? if( $this->data['nav_urls']['recentchangeslinked'] ) { ?>
-								<li id="t-recentchangeslinked">
-									<a href="<?= htmlspecialchars($this->data['nav_urls']['recentchangeslinked']['href']) ?>"
-										<?= $skin->tooltipAndAccesskeyAttribs('t-recentchangeslinked') ?>
-									>
-									<? $this->msg('recentchangeslinked') ?>
-									</a>
-								</li>
-							<? }
-						}
-						
-						if( isset( $this->data['nav_urls']['trackbacklink'] ) ) {
-							?><li id="t-trackbacklink">
-								<a href="<?= htmlspecialchars($this->data['nav_urls']['trackbacklink']['href']) ?>"
-									<?= $skin->tooltipAndAccesskeyAttribs('t-trackbacklink') ?>
-								>
-								<? $this->msg('trackbacklink') ?>
-								</a>
-							</li><?
-						}
-						if( $this->data['feeds'] ) {
-							?><li id="feedlinks"><?
-							foreach($this->data['feeds'] as $key => $feed) {
-								?><span id="feed-<?= Sanitizer::escapeId($key) ?>">
-								<a href="<?= htmlspecialchars($feed['href']) ?>"
-									<?= $skin->tooltipAndAccesskeyAttribs('feed-'.$key) ?>
-								>
-								<?= htmlspecialchars($feed['text'])?>
-								</a>&nbsp;
-								</span>
-							<? } 
-							?></li><? 
-						}
- 
-						foreach( array( 'contributions', 'blockip', 'emailuser', 'upload', 'specialpages' ) as $special ) {
- 
-							if( $this->data['nav_urls'][$special] ) {
-								?><li id="t-<?= $special ?>">
-									<a href="<?= htmlspecialchars($this->data['nav_urls'][$special]['href'])?>"
-										<?= $skin->tooltipAndAccesskeyAttribs('t-'.$special) ?>
-									>
-									<? $this->msg($special) ?>
-									</a>
-								</li>
-							<?}
-						}
- 
-						if( !empty( $this->data['nav_urls']['print']['href'] ) ) {
-							?><li id="t-print">
-								<a href="<?= htmlspecialchars($this->data['nav_urls']['print']['href']) ?>"
-									<?= $skin->tooltipAndAccesskeyAttribs('t-print') ?>
-								>
-									<? $this->msg('printableversion') ?>
-								</a>
-							</li><? 
-						}
- 
-						if( !empty( $this->data['nav_urls']['permalink']['href'] ) ) {
-							?><li id="t-permalink">
-								<a href="<?= htmlspecialchars($this->data['nav_urls']['permalink']['href']) ?>"
-									<?= $skin->tooltipAndAccesskeyAttribs('t-permalink') ?>
-								>
-									<? $this->msg('permalink') ?>
-								</a>
-							</li><? 
-						} elseif( $this->data['nav_urls']['permalink']['href'] === '' ) {
-							?><li id="t-ispermalink"<?= $skin->tooltip('t-ispermalink') ?>>
-								<? $this->msg('permalink') ?>
-							</li><? 
-						}
- 
-						wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this ) );
-				?>
-			</ul>
-		</div>
-	</div>
-
-
-
-
-
-	<div id="footer"><?
-	// new syntax style - put the ? > junk at the end of each line.
-	if ( $this->data['poweredbyico'] ) { ?>
-		<div id="f-poweredbyico"><? $this->html('poweredbyico') ?></div><?
+		<?
 	}
-	if ( $this->data['copyrightico'] ) { ?>
-		<div id="f-copyrightico"><? $this->html('copyrightico') ?></div><?
-	 }
-	// generate additional footer links
-	$footerlinks = array(
-		'lastmod', 'viewcount', 'numberofwatchingusers', 'credits', 'copyright',
-		'privacy', 'about', 'disclaimer', 'tagline',
-	);?>
-	<ul id="f-list"><? 
-		foreach ( $footerlinks as $aLink ) {
-			if ( isset( $this->data[$aLink] ) && $this->data[$aLink] ) { ?>
-				<li id="<?= $aLink ?>"><? $this->html( $aLink ) ?></li><?
-	 		}
+		
+	// title plus tagline below it
+	private function exTitle() {
+		global $wgOut, $wgRequest, $wgTitle;
+		global $cwDoingViewPage, $cwChapter, $cwPageTitle;
+
+		echo "<div id=pageTitleBlock>\n";
+		echo "<h1 id=firstHeading class=firstHeading>$cwPageTitle</h1>\n";
+
+		// "from CrossWise".  watch out something modifies this - it wriggles out of containing elements
+		echo $this->msg( 'tagline' );  /////
+
+		echo '</div>';  // end of page title block
+	}
+	
+
+	// login, preferences, etc buttons in top right corner
+	private function exPersonalTools() {
+		echo "<ul id=personalToolsBar class=horizontal>\n";
+			foreach ( $this->getPersonalTools() as $key => $item )
+				echo $this->makeListItem($key, $item);
+		echo "</ul>\n";
+	}
+		
+		
+	// buttons like 'edit' or 'talk page' or 'history', for editors of normal pages.  OR,
+	// the Languages button and Chapters menu for view page.
+	private function exContentActions() {
+		global $wgOut, $wgRequest, $wgTitle;
+		global $cwDoingViewPage, $cwChapter, $cwPageTitle;
+
+		echo "<ul id=contentActionsToolbar class=horizontal>\n";
+		if ($cwDoingViewPage) {
+			$langsButton = "<span id=langsButton  ".
+				"class=cwButton style=margin-left:-2px>Languages</span>".
+				"&nbsp; | &nbsp; \n";
+
+			$reqMenu = "View Chapter &nbsp; ". formatReqMenu(
+				$wgRequest->getVal('ch', 'choose'), false, true, 'cwViewURLPath');
+			$reqMenu = str_replace("<select ", "<select onchange='".
+				'var sel = event.target || event.srcElement; '.
+				'location = sel.value'.
+				"' ", 
+				$reqMenu);
+			//'location = sel.options[sel.selectedIndex].value'.
+			
+			echo <<<HOW_DO_YOU_KNOW_THAT
+			<script>
+			jQuery(function() {
+				$('#langsButton').click(function(ev) {
+					$('#hazyLayer').show();
+				});
+			});
+			</script>
+HOW_DO_YOU_KNOW_THAT;
+			
+			echo $langsButton . $reqMenu ." &nbsp; \n";
+
 		}
-	?>
-	</ul>
-</div>
+		else {
 
+			// normal pages: all the content actions: edit, history, discussion, ...
+			foreach ( $this->data['content_actions'] as $key => $tab )
+				echo $this->makeListItem( $key, $tab );
+		}
+		echo "</ul>\n";
+	}
+		
+	// main stuff
+	private function exBodyText() {
+		$this->html( 'bodytext' );
+		$this->html( 'dataAfterContent' );
+	}
+	
+	private function exFooterLinks() {
+		global $cwDoingViewPage, $cwChapter, $cwPageTitle;
+		?>
+		<ul class=horizontal><?
 
+		// "footer links"  privacy etc, but also view count and last mod datetime
+		if (!$cwDoingViewPage) {
+			// on the view page, don't display the latest change to the 'view' page!
+			// just bag it for now
+			echo '<li style="font-size: .7em;">';
+			$this->html('lastmod');
+			echo '</li> &nbsp;';
+		}
+		echo '<li>';
+		//$this->html('viewcount');
+		//echo '</li> &nbsp; <li>';
+		$this->html('privacy');
+		echo '</li> &nbsp; <li>';
+		$this->html('about');
+		echo '</li> &nbsp; <li>';
+		$this->html('disclaimer');
+		echo "</li>\n";
 
-
-
-
-<!-- scripts and debugging information -->
-<? $this->html('bottomscripts'); /* JS call to runBodyOnloadHook */ ?>
-<? $this->html('reporttime') ?>
-<? if ( $this->data['debug'] ): ?>
-<!-- Debug output:
-	<? $this->text( 'debug' ); ?>
+		if ( $this->data['poweredbyico'] ) {
+			echo '<li id="f-poweredbyico">';
+			$this->html('poweredbyico');
+			echo '</li>';
+		}
+		if ( $this->data['copyrightico'] ) {
+			echo '<li id="f-copyrightico">';
+			$this->html('copyrightico');
+			echo '</li>';
+		}
+		echo "</ul>\n";
+	}
+		
+	//----------------------New Template-------------------------------
+		
+	public function execute() {
+		global $wgOut, $wgRequest, $wgTitle;
+		global $cwDoingViewPage, $cwChapter, $cwPageTitle;
  
-	-->
-<? endif; ?>
+		// Goes First! generates the <head and stuff above <body
+		$this->html( 'headelement' );
 
-</body>
-</html>
-<? 
-	wfRestoreWarnings();
+ 		// DECIDE on the title and overal kind of page it is (view or not)
+ 		if ($this->data['title']) {
+			$cwPageTitle = $this->data['title'];
+			if ($cwPageTitle == 'View') {
+				// our hacked-up view page.  Instead of the edit/history buttons, do a language button and a menu choosing .
+			
+				$cwDoingViewPage = true;
+				$cwPageTitle = $wgRequest->getVal('ch', '');
+				if ($cwPageTitle == '')
+					$cwPageTitle = 'CrossWise Table of Contents';
+				else {
+					// possible languages on end
+					$pti = explode('/', $cwPageTitle, 2);
+					$cwChapter = $cwPageTitle = $pti[0];
+					if (!empty($pti[1])) {
+						$langs = str_replace(',', ' vs ', $pti[1]);
+						$cwPageTitle .= " in " . $langs;
+					}
+				}
+			}
+			else {
+				// else normal wiki title for page
+				$cwDoingViewPage = false;
+			}
+		}
+
+
+		// suppress warnings to prevent notices about missing indexes in $this->data
+		wfSuppressWarnings();
+		
+ 		// the head block: top few inches of every page.  Logo icon on left defines top and bottom.
+ 		echo "<div id=headBlock style=position:relative >\n";
+			$this->exSiteLogo();
+			$this->exPersonalTools();  // logout etc northeast corner
+
+			// the title.  big text <h1
+			$this->exTitle();
+			$this->exContentActions();
+			?>
+			<br clear=both>
+		</div>
+		<div id="content"  <?= $cwDoingViewPage ? '' : ' class=padPage ' ?>>
+		<div id="bodyContent"><?
+			if ( $this->data['undelete'] )
+				$this->html( 'undelete' );  // ?? what is this?
+
+			$this->exBodyText();
+		
+			// category links: small directory of all pages in this category
+			$this->html( 'catlinks' );
+
+			$this->exFooterLinks();
+		
+			// i have no idea what this is but it usually shows up blank
+			echo Html::element( 'a', array(
+				'href' => $this->data['nav_urls']['mainpage']['href'],
+				'style' => "background-image: url({$this->data['logopath']});" )
+				+ Linker::tooltipAndAccesskeyAttribs('p-logo') ); 
+		?>
+		</div>
+
+		<!-- MediaWiki scripts and debugging information -->
+		<? $this->html('bottomscripts'); /* JS call to runBodyOnloadHook */ ?>
+		<? $this->html('reporttime') ?>
+		<? if ( $this->data['debug'] ): ?>
+		<!-- Debug output:
+			<? $this->text( 'debug' ); ?>
+ 
+			-->
+		<? endif; ?>
+
+		</body>
+		</html>
+		<? 
+		wfRestoreWarnings();
 	} // end of execute() method
 } // end of class
 
@@ -690,5 +604,7 @@ function cwConvertPageTitleBeforePageDisplay(&$out, &$sk) {
 
 	return true;
 }
+
+
 
 
