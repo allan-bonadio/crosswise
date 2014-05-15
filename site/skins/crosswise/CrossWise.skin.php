@@ -37,49 +37,10 @@ class SkinCrossWise extends SkinTemplate {
 
 
 	// no longer used in 1.22
-	function getStylesheet() {
-		return 'crosswise/CrossWise.css';
-	}
-	// no longer used in 1.22
 	function getSkinName() {
 		return "CrossWise";
 	}
 
-	// no longer used in 1.22
-	// special for CW: show therequirement in the title if view pg
-	function pageTitle() {
-		die(__FILE__ . __LINE__);////
-
-		global $wgOut, $wgRequest, $wgTitle;
-		global $cwDoingViewPage, $cwChapter, $cwPageTitle, $allTheLangs;
-
-//flTraceBack('in my skw: pageTitle and setting cwdvp false');
-		// this was causing lang button to turn to view source $cwDoingViewPage = false;
-		$ti = $wgOut->getPageTitle();
-//shouldnt need		if (0 == $wgTitle->getNamespace()) {
-//shouldnt need			// the Main namespace
-//shouldnt need			if ('View' == $ti) {
-//shouldnt need				// VIEW pages - our whole raison d'être
-//shouldnt need				$cwDoingViewPage = true;
-//shouldnt need				$ti = $wgRequest->getVal('ch', '');
-//shouldnt need				if ($ti == '')
-//shouldnt need					$ti = 'Table of Contents';
-//shouldnt need				else if ($p = strpos($ti, '/')) {
-//shouldnt need					// remove '/PHP,Ruby' on end of ch
-//shouldnt need					$ti = substr($ti, 0, $p);
-//shouldnt need					// but wait!  do this so search engines pick it up
-//shouldnt need					$langs = str_replace(',', ' vs ', substr($ti, $p + 1));
-//shouldnt need					$ti .= " in " . $langs;
-//shouldnt need				}
-//shouldnt need				$ti = str_replace('_', ' ', $ti);
-//shouldnt need				$wgOut->setHTMLTitle($ti);
-//shouldnt need			}
-//shouldnt need		}
-		$s = '<h1 class="pagetitle">' . $ti . "</h1>\n";
-		
-		return $s;
-	}
-	
 	// lines near the top of the page, starting with the subtitle 'from Crosswise'
 	function subTitleLines() {
 		global $cwDoingViewPage, $cwChapter, $cwPageTitle, $wgRequest, $wgUser;
@@ -96,9 +57,7 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 			"document.getElementById('footer').style.display='block'\">From</span>\n", 
 			$subTitle);
 		if ($cwDoingViewPage)
-			$thatButton = "<span onclick=\"".
-				"var b = document.getElementById('hazyLayer').style;".
-				"b.display = (b.display=='block') ? 'none' : 'block'\" ".
+			$thatButton = "<span id=languagesButton ".
 				"class=cwButton style=margin-left:-2px>Languages</span>".
 				"&nbsp; | &nbsp; \n";
 		else
@@ -137,57 +96,6 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 		return str_replace('</p>', $stLines, $subTitle);
 	}
 
-	// no longer used in 1.22
-	// actually does #content, which encloses the top part,
-	// then starts #article, which encloses the actual content
-	function doBeforeContent() {
-		global $cwDoingViewPage, $cwChapter, $wgUser, $wgRequest;
-		
-		die(__FILE__ . __LINE__);////
-
-		// this is needed to make word wrap correctly outside of IE, and to work 
-		// at all in IE.  6 & 7 dont have pre-wrap, so you get a scroll bar.  ugh. 
-		$s = "<!--[if IE]><style>pre {white-space: pre; word-wrap:break-word;}</style><![endif]-->\n".
-			"<![if !IE]><style>pre {white-space: pre-wrap;}</style><![endif]>\n";
-
-		$s .= "\n<div id='content'>\n<div id='top'>\n";
-		$s .= "<div id=\"logo\">".$this->logoText( "right" )."</div>\n";
-
-		$s .= $this->pageTitle();
-		$s .= $this->subTitleLines() . "\n";
-
-		// the topLinksBar is hidden (secret egg)
-		$s .= "<div id='topLinksBar' style=display:none>";
-			$s .= $this->topLinks() . "\n<br />";
-	
-			$notice = wfGetSiteNotice();
-			if( $notice ) {
-				$s .= "\n<div id='siteNotice'>$notice</div>\n";
-			}
-			$s .= " |\n" . $this->pageTitleLinks();
-	
-			$ol = $this->otherLanguages();
-			if($ol) $s .= "<br />" . $ol;
-	
-			$cat = $this->getCategoryLinks();
-			if($cat) $s .= "<br />" . $cat;
-
-		$s .= "<br clear='all' /></div>\n";  // closes #topLinksBar
-		
-		if ($cwDoingViewPage) {
-			require_once(dirname(dirname(__FILE__)) .'/extensions/cwView.php');  // needed if no cookies
-
-			// a bar to change the language choices
-			// obsolete $s .= cwChangeLanguageBar();
-		}
-		
-		$s .= "</div>\n</div>\n";  // closes #top, then #content
-
-		// the start of the article.  closing comes later.
-		$s .= "\n<div id='article'>";
-
-		return $s;
-	}
 
 	// links at top of each page
 	function topLinks() {
@@ -254,91 +162,10 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 		return $s;
 	}
 
-	// no longer used in 1.22
-	function doAfterContent() {
-		global $cwHttpHost, $wgScriptPath;
-		$s = "\n</div><br clear='all' />\n";
-		
-				die(__FILE__ . __LINE__);////
-
-		
-		// what do I want to put in the footer....
-		$s .= "<p class=subtitle>\n";
-		$s .= "<a href=http://www.mediawiki.org/ style=float:right >".
-			"<img width=81 height=31 src=http://$cwHttpHost$wgScriptPath/".
-			"skins/common/images/poweredby_mediawiki_88x31.png /></a>\n";
-
-		// no not CrossWise:About $s .= $this->aboutLink() ." &nbsp; |  &nbsp; \n";
-		
-		$s .= "<a href=". cwFullWikiURL("Help:About") .">About</a> &nbsp; |  &nbsp; \n";
-		$s .= "<a href=". cwFullWikiURL("Bug List") .">Bug List</a> &nbsp; |  &nbsp; \n";
-		$s .= "<a href=". cwFullWikiURL("Help:Glossary") .">Glossary</a> &nbsp; |  &nbsp; \n";
-		$s .= "<a href=mailto:allan-at-TactileInt.com?Subject=CrossWise>Feedback\n";
-		$s .= "<img width=16 height=16 ".
-			"src=	$wgScriptPath/skins/crosswise/cwTelecom.gif /></a>\n";
-		$s .= "</p>\n";
-
-		// the normal wiki footer that I mostly ignore.  Hidden.
-		$s .= "\n<div id='footer' style=display:none><hr />";
-
-		$s .= $this->bottomLinks();
-		$s .= "\n<br />" . $this->pageStats();
-		$s .= "\n<br />" . $this->mainPageLink()
-		  . " | " . $this->aboutLink()
-		  . " | " . $this->searchForm();
-
-		$s .= "\n</div>\n";
-
-		return $s;
-	}
 }
 
-
+// Outputs the entire contents of the page
 class CrossWiseTemplate extends BaseTemplate {
-	/**
-	 * Outputs the entire contents of the page
-	 */
-	/**  OLD COMMENT:
-	 * Template filter callback for this skin.
-	 * Takes an associative array of data set from a SkinTemplate-based
-	 * class, and a wrapper for MediaWiki's localization database, and
-	 * outputs a formatted page.
-	 */
-////	public function OldExecute() {
-////		global $wgRequest;
-//// 
-////		$skin = $this->data['skin'];
-//// 
-////		// suppress warnings to prevent notices about missing indexes in $this->data
-////		wfSuppressWarnings();
-//// 
-////		$this->html( 'headelement' );
-////
-////
-////		/////////////////////// adapted from http://www.mediawiki.org/wiki/Manual:Skinning
-////
-////
-////
-////		if( $this->data['sitenotice'] ) {
-////			? > <div id="siteNotice">< ? $this->html('sitenotice') ? ></div>< ? 
-////		} 
-////		
-////	? >
-////		<h1 id="firstHeading">< ? $this->html('title'); ? ></h1>
-////		<div id="contentSub">< ? $this->html('subtitle') ? ></div>
-////	< ?
-////		$this->html('bodytext');
-////		if( $this->data['catlinks'] )
-////			$this->html('catlinks');
-////			
-////		/* recommended by the mediawiki people http://www.mediawiki.org/wiki/Manual:Skinning/Tutorial 
-////			the following, just moving down the page. search for snippets to understand.  */? >
-////		<div id="mw-js-message" style="display:none;"></div>
-////		< ?php if ( $this->data['newtalk'] ) { ? >$this->data['newtalk']< ?php } ? >newtalk
-////		< ?php if ( $this->data['sitenotice'] ) { ? >$this->data['sitenotice']< ?php } ? >sitenotice
-////		< ?php $this->text( 'sitename' ); ? >sitename< ?
-////		
-////	}
 	
 	/////////////////////////////// supporting functions for execute, the template function
 	
@@ -404,9 +231,7 @@ class CrossWiseTemplate extends BaseTemplate {
 			echo <<<HOW_DO_YOU_KNOW_THAT
 			<script>
 			jQuery(function() {
-				$('#langsButton').click(function(ev) {
-					$('#hazyLayer').show();
-				});
+				$('#langsButton').click(openLangsBox);
 			});
 			</script>
 HOW_DO_YOU_KNOW_THAT;
@@ -471,17 +296,19 @@ HOW_DO_YOU_KNOW_THAT;
 		global $wgOut, $wgRequest, $wgTitle;
 		global $cwDoingViewPage, $cwChapter, $cwPageTitle;
  
+ 		// all of this code directly does an echo to stdout
 		// Goes First! generates the <head and stuff above <body
-		$this->html( 'headelement' );
+		$this->html( 'headelement' );		
 
  		// DECIDE on the title and overal kind of page it is (view or not)
  		if ($this->data['title']) {
 			$cwPageTitle = $this->data['title'];
 			if ($cwPageTitle == 'View') {
-				// our hacked-up view page.  Instead of the edit/history buttons, do a language button and a menu choosing .
+				// our hacked-up view page.  Title is really the CW chapter.
+				// Instead of the edit/history buttons, do a language button and a menu choosing .
 			
 				$cwDoingViewPage = true;
-				$cwPageTitle = $wgRequest->getVal('ch', '');
+				$cwPageTitle = str_replace('_', ' ', $wgRequest->getVal('ch', ''));
 				if ($cwPageTitle == '')
 					$cwPageTitle = 'CrossWise Table of Contents';
 				else {

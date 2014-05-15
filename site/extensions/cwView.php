@@ -82,48 +82,48 @@ function formatRulesRow($needCode) {
 	return $html . "</tr>\n";
 }
 
-// draw row with radios that change the language
-function formatLangChoiceRow() {
-	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
-
-	// the language row, headings for each lang column
-	$content = "<tr id=langChoiceRow style=display:none>";
-//flExport($ChosenFeatures);
-
-	// for each column
-	foreach ($ChosenFeatures as $col => $feat) {
-		$content .= "<td style=vertical-align:top' ><div>choose new language for this column:</div>\n";
-		foreach ($allTheLangs as $la){
-			$content .= "<div class=chooseLangsRadios style='background-color:$la->headColor' >".
-					"<input type=radio name=colLang$col id=colLang$la->code$col value=$la->code ". 
-					($feat->lang->code == $la->code ? 'checked />' : '/>') .
-					"<label for=colLang$la->code$col>$la->title</label></div>\n";
-		}
-
-		// 'none' entry
-		$content .= "<div class=chooseLangsRadios style='float:left; background-color:#eee' >".
-				"<input type=radio name=colLang$col id=colLangNone$col value=None ". 
-				"/>".
-				"<label for=colLangNone$col>None</label></div>\n";
-
-		// submit button, only on last col
-		if ($col == count($ChosenFeatures)-1)
-			$content .= "<br clear=both /><div style=float:right>".
-					"<input type=submit name=ChLangCols value='Save Changes' />".
-					"</div>\n";
-	}
-
-	 
-///			$content .= "<input type=radio name=colLang$col id=colLang". $langF->lang ."$col value=". $langF->lang ." $checked/>";
-///			$content .= "<label for=colLang". $langF->lang ."$col>". $langF->lang ." ". $langF->vers ."</label>";
-///			$content .= "</td>\n";
-
-
-	
-			//"<a class=editBut href='/index.php?title=".
-			//		$lang->langName .'_'. $reqCode //."&action=edit'>edit</a>\n";
-	return $content ."</tr>\n";
-}
+////// draw row with radios that change the language
+////function formatLangChoiceRow() {
+////	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
+////
+////	// the language row, headings for each lang column
+////	$content = "<tr id=langChoiceRow style=display:none>";
+//////flExport($ChosenFeatures);
+////
+////	// for each column
+////	foreach ($ChosenFeatures as $col => $feat) {
+////		$content .= "<td style=vertical-align:top' ><div>choose new language for this column:</div>\n";
+////		foreach ($allTheLangs as $la){
+////			$content .= "<div class=chooseLangsRadios style='background-color:$la->headColor' >".
+////					"<input type=radio name=colLang$col id=colLang$la->code$col value=$la->code ". 
+////					($feat->lang->code == $la->code ? 'checked />' : '/>') .
+////					"<label for=colLang$la->code$col>$la->title</label></div>\n";
+////		}
+////
+////		// 'none' entry
+////		$content .= "<div class=chooseLangsRadios style='float:left; background-color:#eee' >".
+////				"<input type=radio name=colLang$col id=colLangNone$col value=None ". 
+////				"/>".
+////				"<label for=colLangNone$col>None</label></div>\n";
+////
+////		// submit button, only on last col
+////		if ($col == count($ChosenFeatures)-1)
+////			$content .= "<br clear=both /><div style=float:right>".
+////					"<input type=submit name=ChLangCols value='Save Changes' />".
+////					"</div>\n";
+////	}
+////
+////	 
+///////			$content .= "<input type=radio name=colLang$col id=colLang". $langF->lang ."$col value=". $langF->lang ." $checked/>";
+///////			$content .= "<label for=colLang". $langF->lang ."$col>". $langF->lang ." ". $langF->vers ."</label>";
+///////			$content .= "</td>\n";
+////
+////
+////	
+////			//"<a class=editBut href='/index.php?title=".
+////			//		$lang->langName .'_'. $reqCode //."&action=edit'>edit</a>\n";
+////	return $content ."</tr>\n";
+////}
 
 // draw top row with lang names in big letters; 
 // also rounded corners for whole table
@@ -133,10 +133,11 @@ function formatLangTitlesRow($reqCode) {
 	// round all corners for the whole table.
 	// this has to go inside the table somewhere.  anywhere. 
 	// but just once.  Also table must be relative.
-	$cornerStuff = "<div class=nwCorn></div>\n".
-			"<div class=neCorn></div>\n".
-			"<div class=swCorn></div>\n".
-			"<div class=seCorn></div>\n";
+	////$cornerStuff = "<div class=nwCorn></div>\n".
+		////	"<div class=neCorn></div>\n".
+			////"<div class=swCorn></div>\n".
+	////		"<div class=seCorn></div>\n";
+	$cornerStuff = '';
 
 	// the language row, headings for each lang column
 	$content = "<tr class=langRow>";
@@ -222,7 +223,7 @@ EOCORNER;
 function drawViewTable(array $args, $reqCode) {
 	global $wgRequest, $wgScriptPath;
 	global $ChosenLangs, $ChosenFeatures;
-	////echo("drawViewTable- ". var_export($args, true) . $reqCode);
+	////flLog("drawViewTable- ". var_export($args, true) . $reqCode);
 	////var_dump('ChosenLangs: ', $ChosenLangs);
 
 	// figure out the colums
@@ -237,14 +238,14 @@ function drawViewTable(array $args, $reqCode) {
 	$content .= drawViewStyles();
 	//$content .= "<br clear=right style='height: 8px'>";
 
-	// hidden lang choice panel, start form in case of edit, then table tag
+	// This form is ... ?? in case user clicks edit?
 	$content .= "<form method=post><table class=rulesTab>";
 	
 	// the col elements including col bg color
 	foreach ($ChosenLangs as $lang)
 		$content .= "<col class=". $lang->langName ."Col style=display:table-column;visibility:on />";
 //Hey this last line: correct it if youre fixing debug stuff.	
-	$content .= formatLangChoiceRow();
+	//$content .= formatLangChoiceRow();
 	$content .= formatLangTitlesRow($reqCode);
 	
 	
@@ -296,7 +297,7 @@ function drawViewTable(array $args, $reqCode) {
 	}
 	$content .= "</table></form>\n";
 	
-//flLog("drawViewTable done ");
+////flLog("drawViewTable done ");
 //flLog("content=`$content` ");
 	//$input = $parser->recursiveTagParse($input);
 	return $content;
@@ -304,9 +305,12 @@ function drawViewTable(array $args, $reqCode) {
 
 // Draw THE view table.  Column languages as specified, 
 // row rules in req order for given req.
-// This is a tag handler.
+// This is a MW tag handler.
 function cwView($input, $args, $parser) {
 	global $wgRequest;
+	////flLog("starting cwView()");
+
+	loadChosenLangs();
 
 ////var_dump($args);////
 ////flExport($args);////
@@ -315,12 +319,15 @@ function cwView($input, $args, $parser) {
 	// this generates html for the (as yet invisible) language choooser box 
 	// put this somewhere; hidden
 	$lcd = drawLangChoiceDialog();
+////flLog("drawLangChoiceDialog() output length: ". strlen($lcd));////
+////flLog("drawLangChoiceDialog() whole texxt sheesh: `$lcd`");////
 
 	// if no req specified on url line, give em the TOC. 
 	$reqCode = $wgRequest->getVal('ch', '');
 	$r = explode('/', $reqCode, 2);  // strip off possible langs
 	$reqCode = $r[0];
 	
+	////flLog("finishing cwView() with reqCode='$reqCode'");
 	if ($reqCode && $reqCode != 'choose')
 		return $lcd . drawViewTable($args, $reqCode);
 	else

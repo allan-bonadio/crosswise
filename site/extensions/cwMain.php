@@ -10,6 +10,7 @@ $wgHooks['EditFormPreloadText'][] = 'initialPagesPopulateL';
 $wgHooks['DoEditSectionLink'][] = 'cwEditSectionLink';
 $wgHooks['EditPage::showEditForm:initial'][] = 'cwAddAuditToEditPageL';
 $wgHooks['ParserAfterTidy'][] = 'cwParserAfterTidy';
+$wgHooks['ArticleViewHeader'][] = 'cwArticleViewHeader';
 // no such code in 1.22 $wgHooks['BeforePageDisplay'][]= 'cwConvertPageTitleBeforePageDisplay';
 
 // somehow this must be done a little bit later
@@ -89,10 +90,17 @@ $parserAfterTidyText = null;
 function cwParserAfterTidy(&$parser, &$text) {
 	global $parserAfterTidyText;
 	
+	////flLog("cwParserAfterTidy: patt: '$parserAfterTidyText'");
+	
 	if ($parserAfterTidyText)
 		$text = str_replace('||ParserAfterTidy||', $parserAfterTidyText, $text);
 	$parserAfterTidyText = null;  // paranoid
 	return true;
+}
+
+function cwArticleViewHeader(&$article, &$outputDone, &$pcache) {
+	global $wgOut;
+	$wgOut->addHTML('<link rel=stylesheet href=/skins/crosswise/CrossWise.css>');
 }
 
 function cwAltContext($input, $args, $parser) {
@@ -103,11 +111,12 @@ function cwSlotmachine($input, $args, $parser) {
 	global $wgScriptPath;
 	
 	return <<<SLOT_MAC_INE
-<table style="border: 8px outset #aaa; background-color: #666; padding: 6px 12px"><td>
-<table style="border: 6px inset #aaa; background-color: #111; padding: 6px 12px"><td>
-<img src=$wgScriptPath/skins/common/images/slotmachine.gif />
-</td></table>
-</td></table>
+<div class=bezelOuter>
+<div class=bezelInner>
+<img src=$wgScriptPath/skins/crosswise/slotmachine.gif />
+</div>
+</div>
+<br clear=both />
 SLOT_MAC_INE;
 }
 
@@ -122,7 +131,7 @@ This is what it looks like.
 * Then comes the first entry, which explains how Ruby Hashes, PHP arrays and JavaScript Objects relate to the same language's Arrays.  
 * The next entry describes how they relate to the same language's Objects.  Each entry on every chapter in CrossWise describes the same detail, in each of the languages you choose.
 <br>&nbsp;⬅ Click on any title to the left to read that chapter.
-<img id=example_page src=$wgScriptPath/skins/common/images/example_page.gif />
+<img id=example_page src=$wgScriptPath/skins/crosswise/example_page.gif />
 </div>
 </td></table>
 
