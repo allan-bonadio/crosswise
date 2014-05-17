@@ -42,12 +42,20 @@ function drawJSVars() {
 	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
 ////	flLog("startin drawin lcjs");////
 
+	// the list of languages available, and their details
 	$jsTheLangs = '{';
-	foreach ($allTheLangs as $langName => $langObj)
-		$jsTheLangs .= "$langName: {title: '$langObj->title', onColor: '$langObj->headColor', offColor: '$langObj->examColor'}, ";
-	$jsTheLangs .= "none: {title: 'none', onColor: '#888', offColor: '#ccc'}}";
+	$jsTheLangsList = '[';
+	$serial = 0;
+	foreach ($allTheLangs as $langName => $langObj) {
+		$jsTheLangs .= "$langName: {title: '$langObj->title', serial: $serial, onColor: '$langObj->headColor', offColor: '$langObj->examColor'}, ";
+		$jsTheLangsList .= "'$langName', ";  // guarantees consistent order
+		$serial++;
+	}
+	$jsTheLangs .= "none: {title: 'none', serial: $serial, onColor: '#888', offColor: '#ccc'}}";
+	$jsTheLangsList .= "'none']";
 	flExport($allTheLangs);
 	
+	// the list of languages that the user selected for viewing
 	$jsLangSettings = '["';
 	if (count($ChosenLangs)) {
 		for ($col = 0; $col < count($ChosenLangs); ++$col)
@@ -58,10 +66,13 @@ function drawJSVars() {
 		$jsLangSettings = '["JavaScript", "PHP"]';
 	}
 
+	$s = <<<EMBEDDED_JS_START
 <script>
 
+var allTheLangs = $jsTheLangs;
+var allTheLangsList = $jsTheLangsList;
 var langSettings = $jsLangSettings;
-var theLangs = $jsTheLangs;
+</script>
 
 EMBEDDED_JS_START;
 
@@ -75,7 +86,7 @@ function drawLCJS() {
 	################################################## Start of Embedded Javascript
 	// single quotes means i don't have to mess with the dollar signs
 	$html = <<<'EMBEDDED_JS_BODY'
-	
+<script>	
 	
 /////////////////////////////////////////////// sliders
 
@@ -88,8 +99,10 @@ function drawOneSlidingStrip(n) {
 	s += "<div class=topShadow></div><div class=bottomShadow></div>\n";
 	s += "<ul class=slidingStrip>\n";
 	
-	for (la in theLangs)
-		s += "<li style=background:"+ theLangs[la].onColor +"> "+ theLangs[la].title +"</li>\n";
+	for (la = 0; la < allTheLangsList.length; la++) {
+		lang = allTheLangs[allTheLangsList[la]];
+		s += "<li style=background:"+ lang.onColor +"> "+ lang.title +"</li>\n";
+	}
 
 	return s + "</ul></div>\n";
 }
@@ -163,8 +176,8 @@ function slideCoast() {
 				slider.slideVelocity -= slider.slidePosition + sliderTotalSlide;
 			else {
 				// slidePosition <= 0 mostly
-				var clickPos = (sliderHalfHeight - slider.slidePosition) % sliderCellHeight - sliderHalfHeight;
-				slider.slideVelocity += clickPos * 4.0;  // acceleration constant
+				var forceRaw = (sliderHalfHeight - slider.slidePosition) % sliderCellHeight - sliderHalfHeight;
+				slider.slideVelocity += forceRaw * 4.0;  // acceleration constant
 			}
 		
 			slider.slideVelocity *= 0.5;  // kinetic friction
@@ -192,7 +205,7 @@ function adjustSlidePosition(dy) {
 	//console.debug("hey adjustSlidePosition("+ dy +") from "+ this.slidePosition +" to "+ (this.slidePosition + dy) +".");
 	if (dy)
 		this.slidePosition += dy;
-	$('.slidingStrip', this).css('top', (this.slidePosition + sliderHalfHeight) +'px');  // actually set position
+	$('.slidingStrip', this).css('top', (this.slidePosition + sliderHalfHeight - 5) +'px');  // actually set position
 }
 
 // set handlers on the sliding strips
@@ -203,63 +216,25 @@ function activateSlidingStrips() {
 	
 	// but drags out to a wider area
 	$('.outerBezel').mousemove(slideMove).mouseup(slideUp);
-	$('.langBox').mousemove(slideMove).mouseup(slideUp).mouseleave(slideUp);
+	$('#langBox').mousemove(slideMove).mouseup(slideUp).mouseleave(slideUp);
 
-	$('.hazyLayer').mousemove(slideUp);
-	
-	sliders = $('.sliderStrip');
-	for (var s = 0; s < sliders.length; s++) {
-		sliders[s].slidePosition = sliderCellHeight * ?;
-		sliders[s].slideVelocity = 0;
-		sliders[s].adjustSlidePosition = adjustSlidePosition;  // install tweaker
-	}
+	$('#hazyLayer').mousemove(slideUp);
 	
 	// must know the height of each language cell
 	sliderCellHeight = $('.sliderStrip li')[1].offsetTop - $('.sliderStrip li')[0].offsetTop;
 	sliderHalfHeight = sliderCellHeight / 2;
 	sliderTotalSlide = $('.slidingStrip')[0].offsetHeight - sliderCellHeight;
+
+	// set each slider to the current lang settings
+	sliders = $('.sliderStrip');
+	for (var s = 0; s < sliders.length; s++) {
+		sliders[s].slidePosition = - sliderCellHeight * allTheLangs[langSettings[s]].serial;
+		sliders[s].slideVelocity = (s == 1) ? 15 : 0;  // start with one of them jiggling
+		sliders[s].adjustSlidePosition = adjustSlidePosition;  // install tweaker
+		sliders[s].adjustSlidePosition();  // actually move into position
+	}
 }
 
-
-////// set button assembly in col to given lang in response to user click or whatever
-////function setLangChoiceCol(col, lang) {
-////	langSettings[col] = lang;
-////	for (var la in theLangs) {
-////		var but = $('#but'+ la +'_'+ col)[0];
-////		if (but) {
-////			if (langSettings[col] == la) {
-////				but.style.backgroundColor = theLangs[la].onColor;
-////				but.style.borderStyle = 'inset';
-////			}
-////			else {
-////				but.style.backgroundColor = '#fff';  //theLangs[la].offColor;
-////				but.style.borderStyle = 'outset';
-////			}
-////		}
-////		else
-////			console.error('no but on setLangChoiceCol('+ col +', '+ lang +')');
-////	}
-////}
-////function plusClick(event) {
-////	var newCol = langSettings.length;
-////	var h = $('#lcCol_'+ newCol)[0];
-////	if (!h) return true;
-////	try {
-////		h.style.display = columnActivateDisplay;
-////	} catch (e) {
-////		// IE strikes again.  v7 and 6.
-////		h.style.display = columnActivateDisplay = 'block';
-////	}
-////	
-////	for (var la in theLangs) {
-////		var td = $('#but'+ la +'_'+ newCol)[0].parentNode;
-////		td.style.display = columnActivateDisplay;
-////		//td.style.display = 'table-cell';
-////	}
-////	setLangChoiceCol(newCol, 'none');
-////	
-////	event.stop();  // or the background will submit it!
-////}
 
 // upon click of the Languages button
 function openLangsBox() {
@@ -272,7 +247,16 @@ function openLangsBox() {
 
 // called when somebody decides to submit it whereupon it constructs a new URL and goes there. 
 function langVirtualSubmit() {
-	$('#hazyLayer').hide();  // instant feedback
+	$('#hazyLayer').hide();  // instant feedback 
+	
+	// retrieve from sliders
+	langString = '';
+	for (var sl = 0; sl < sliders.length; sl++) {
+		var lang = allTheLangsList[Math.round(-sliders[sl].slidePosition / sliderCellHeight)];
+		if (lang != 'none')
+			langString += lang + ',';
+	}
+	langString = langString.slice(0,-1);
 	
 	// take our url and chop off existing lang codes
 	var href = location.href
@@ -280,10 +264,8 @@ function langVirtualSubmit() {
 	// get rid of last segment.  if there.
 	href = href.replace(/\/+(\+\+[^\/]+)\/[^\/]+$/, '/$1');
 	
-	// slap on the new language codes.  But Ulp! omit None entries
-	href += '/' + langSettings.join(',').replace(/,none/g, '').replace(/^none,/, '');
-	////ev.stop();
-	location.href = href;
+	// slap on the new language codes.  
+	location.href = href +'/'+ langString;
 	// doesn't even submit!
 }
 
@@ -336,14 +318,15 @@ function drawLangChoiceDialog() {
 	global $nChLangCols;
 	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
 
-	////flLog("drawLangChoiceDialog() starts");
+	flLog("drawLangChoiceDialog() starts");
 
 	$html = drawLCBox();  // the html
 
 	// unless we do this, wiki spits <p> stuff all over  it.  This is so embarassing
 	// but I can't ram my JS through the MW parser, so there's this workaround.
-	$html = '||CleanCWJavaScript||';
+	$html .= '||CleanCWJavaScript||';
 
+	flLog("drawLangChoiceDialog() ends");
 	return $html;
 }
 
@@ -356,7 +339,7 @@ function cwParserAfterTidy(&$parser, &$text) {
 	$jsStuff = '';
 	$jsStuff .= drawJSVars();  // php values -> js
 	$jsStuff .= drawLCJS();  // the js
-	////flLog("drawLangChoiceDialog() done with s='$html'");
+	////flLog("cwParserAfterTidy() done with s='$html'");
 	
 	
 	if ($jsStuff)
