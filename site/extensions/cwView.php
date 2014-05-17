@@ -312,22 +312,22 @@ function cwView($input, $args, $parser) {
 
 	loadChosenLangs();
 
-////var_dump($args);////
-////flExport($args);////
-////flLog("cwView(input, args, parser)");////
+	////var_dump($args);////
+	////flExport($args);////
+	////flLog("cwView(input, args, parser)");////
 
 	// this generates html for the (as yet invisible) language choooser box 
 	// put this somewhere; hidden
 	$lcd = drawLangChoiceDialog();
-////flLog("drawLangChoiceDialog() output length: ". strlen($lcd));////
-////flLog("drawLangChoiceDialog() whole texxt sheesh: `$lcd`");////
+	////flLog("drawLangChoiceDialog() output length: ". strlen($lcd));////
+	////flLog("drawLangChoiceDialog() whole texxt sheesh: `$lcd`");////
 
 	// if no req specified on url line, give em the TOC. 
 	$reqCode = $wgRequest->getVal('ch', '');
 	$r = explode('/', $reqCode, 2);  // strip off possible langs
 	$reqCode = $r[0];
 	
-	////flLog("finishing cwView() with reqCode='$reqCode'");
+	////flLog("finishing cwView() with reqCode='$reqCode', lcd='$lcd'");
 	if ($reqCode && $reqCode != 'choose')
 		return $lcd . drawViewTable($args, $reqCode);
 	else
