@@ -15,38 +15,47 @@ fi
 case `uname -n` in
 kashmir)	urlStart='http://10.0.0.95/~allan/wiki'
 				temp='/Volumes/orissa'
-				root=~/Sites/wiki
-				#importSurrogate="open $root"
+				wAUX=~/Sites/wiki
+				#importSurrogate="open $wAUX"
 				#surfToSurrogate='open -a Safari'
 				;;
 
 cajamarca*)	urlStart='http://localhost/~allan/wiki'
 				temp='/junk'
-				root=~/Sites/wiki
-				#importSurrogate="open $root"
+				wAUX=~/Sites/wiki
+				#importSurrogate="open $wAUX"
 				#surfToSurrogate='open -a Safari'
 				;;
 
 prague*)	urlStart='http://localhost/~allan/wiki'
 				temp='/tmp'
-				root=~/public_html/wiki
-				#importSurrogate="echo 'import this file:  $root/cwImport.xml'"
+				wAUX=~/public_html/wiki
+				#importSurrogate="echo 'import this file:  $wAUX/cwImport.xml'"
 				#surfToSurrogate='echo "surf to:   " '
 				;;
 
-santiago*)	urlStart='http://cw/~allan/wiki'
+santiago*)	urlStart='http://cw/'
 				temp='/tmp'
-				root=/dvl/crosswise/aux
-				#importSurrogate="echo 'import this file:  $root/cwImport.xml'"
+				wAUX=/dvl/crosswise/aux
+				wROOT=/dvl/crosswise/site
+				#importSurrogate="echo 'import this file:  $wAUX/cwImport.xml'"
+				#surfToSurrogate='echo "surf to:   " '
+				;;
+
+flores*)	urlStart='http://cw/~allan/wiki'
+				temp='/tmp'
+				wAUX=/dvl/crosswise/aux
+				wROOT=/dvl/crosswise/site
+				#importSurrogate="echo 'import this file:  $wAUX/cwImport.xml'"
 				#surfToSurrogate='echo "surf to:   " '
 				;;
 
 pepper.he.net)	urlStart='http://tactileint.com/cw'
 				temp='/tmp'
-				root=`dirname $0`
-				echo "Choosing the distro at " $root
+				wAUX=`dirname $0`
+				echo "Choosing the distro at " $wAUX
 				
-				#importSurrogate="echo 'import this file:  $root/cwImport.xml'"
+				#importSurrogate="echo 'import this file:  $wAUX/cwImport.xml'"
 				#surfToSurrogate='echo "surf to:   " '
 				if [ "$1" = 'dump' ]
 				then
@@ -58,9 +67,9 @@ pepper.he.net)	urlStart='http://tactileint.com/cw'
 *)				echo "do not recognize uname -n value:" `uname -n`
 				exit 5
 esac
-xmlFile=$root/CrossWise.xml
-tempFile=$root/cwRawTemp.xml
-ptbuFile=$root/cwPagesToBackUp.txt
+xmlFile=$wAUX/CrossWise.xml
+tempFile=$wAUX/cwRawTemp.xml
+ptbuFile=$wAUX/cwPagesToBackUp.txt
 if ls -l "$xmlFile"
 then echo
 else exit
@@ -207,7 +216,7 @@ du*)	doDump
 			;;
 			
 *)			echo "Usage:"
-			echo "  \$ $0 import  # read CrossWise.xml file into this wiki"
+			echo "  \$ $0 import  # read aux/CrossWise.xml file into this wiki"
 			echo "  \$ $0 export  # write CrossWise.xml file out from this wiki"
 			echo "  \$ $0 dump  # dump whole database - as for a backup"
 			;;
