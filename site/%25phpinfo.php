@@ -1,5 +1,13 @@
 <h1><small>server</small> <?= $_SERVER["HTTP_HOST"] ?></h1>
-<? phpinfo();
+<? 
+
+// censored for security
+unset($_SERVER["WGDNCP"]);
+unset($_SERVER["WGDUCP"]);
+unset($_SERVER["WGDPCP"]);
+
+
+phpinfo();
 
 echo "<p>\n";
 foreach ($_SERVER as $k => $v)
