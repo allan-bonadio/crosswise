@@ -9,7 +9,7 @@ $wgHooks['ParserFirstCallInit'][] = 'cwTagsInit';
 $wgHooks['EditFormPreloadText'][] = 'initialPagesPopulateL';
 $wgHooks['DoEditSectionLink'][] = 'cwEditSectionLink';
 $wgHooks['EditPage::showEditForm:initial'][] = 'cwAddAuditToEditPageL';
-$wgHooks['ParserAfterTidy'][] = 'cwParserAfterTidy';
+$wgHooks['ParserAfterTidy'][] = 'cwParserAfterTidyL';
 $wgHooks['ArticleViewHeader'][] = 'cwArticleViewHeader';
 // no such code in 1.22 $wgHooks['BeforePageDisplay'][]= 'cwConvertPageTitleBeforePageDisplay';
 
@@ -82,9 +82,9 @@ function cwAddAuditToEditPageL($editPage) {
 	return cwAddAuditToEditPage($editPage);
 }
 
-function cwcwParserAfterTidyL($editPage) {
+function cwParserAfterTidyL(&$parser, &$text) {
 	require_once('cwLangBox.php');
-	return cwParserAfterTidy($editPage);
+	return cwParserAfterTidy($parser, $text);
 }
 
 function cwArticleViewHeader(&$article, &$outputDone, &$pcache) {
