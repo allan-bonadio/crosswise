@@ -13,64 +13,6 @@
 global $nChLangCols;
 $nChLangCols = 3;
 
-////// draw inner part (old)
-////function drawLCRowsCols() {
-////	global $nChLangCols;
-////	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
-////
-////	////flLog("drawLCRowsCols() starting");////
-////
-////	$s = '';
-////
-////	// headings with titles for each column (Column 0, ...)
-////	$s .= "<tr class=langRow>";
-////	for ($col = 0; $col < $nChLangCols; ++$col) {
-////		$vis = ($col < count($ChosenLangs)) ? 'table-cell' : 'none';
-////		$s .= "<th id=lcCol_$col style=display:$vis>Column $col</th>";
-////	}
-////	$s .= "</tr>\n";
-////
-////
-////	// now one row for each language (ultimately: each language version)
-////	foreach($allTheLangs as $langF) {
-////		global $nChLangCols;
-////		////var_dump("tr:  nChLangCols=$nChLangCols langF=", $langF);////
-////		$s .= "<tr class=langChoiceRow>";
-////		for ($col = 0; $col < $nChLangCols; ++$col) {
-////			$vis = ($col < count($ChosenLangs)) ? 'table-cell' : 'none';
-////			$s .= "<td style=display:$vis><div id=but{$langF->langName}_$col class='langChoiceButton langChoiceButtonLook' ". 
-////				"style=background-color:#fff >";
-////			$s .= $langF->langName .' '. $langF->vers;
-////			//$checked = (isset($ChosenLangs[$col]) && $langF->lang == $ChosenLangs[$col]->lang) 
-////			//	? 'checked ' : '';
-////			//$s .= "<input type=radio name=colLang$col id=colLang". $langF->lang ."$col value=". $langF->lang ." $checked/>";
-////			//$s .= "<label for=colLang". $langF->lang ."$col>". $langF->lang ." ". $langF->vers ."</label>";
-////			$s .= "</div></td>\n";
-////		}
-////		$s .= "</tr>";
-////	}
-////
-////	// one row for No Language
-////	$s .= "<tr class=langChoiceRow>";
-////	for ($col = 0; $col < $nChLangCols; ++$col) {
-////		$vis = ($col < count($ChosenLangs)) ? 'table-cell' : 'none';
-////		$s .= "<td style=display:$vis><div id=butnone_$col class='langChoiceButton langChoiceButtonLook' ". 
-////			"style=background-color:#fff  >";
-////		$s .= 'none';
-////		//$checked = !isset($ChosenLangs[$col]) ? 'checked ' : '';
-////		//$s .= "<input type=radio name=colLang$col id=colLangNoDisp$col value=none $checked/>";
-////		//$s .= "<label for=colLangNoDisp$col>none</label>";
-////		$s .= "</div></td>\n";
-////	}
-////	$s .= "</tr></table>";
-////
-////	// help em out
-////	$s .= "<div style=text-align:center;padding:1em;>click None to remove a column</div>";
-////	$s .= "<div class='langRow langChoiceButtonLook' style='padding: 1em; border: outset gray 4px; text-align: center; '>click here to start using your new arrangement</div>";
-////
-////	////flLog("drawLCRowsCols() ending");////
-////	return $s;
-////}
 
 // draw outer part of box (and its insides too) and return html string
 function drawLCBox() {
@@ -81,34 +23,14 @@ function drawLCBox() {
 	$s = <<<cwHAZY_LAYER
 <div id=hazyLayer>
 	<div style=height:4em; ></div>
-	<div id=hazyBox>
-	  <form id=langChoiceForm  class=outerBezel method=post>
-		  <div class=bezelInner>
-			<div >
-				<div id=plusButton title='click to add YET ANOTHER column' style='float:right; cursor:pointer; width: 98px; height:39px; background-image: url(/skins/crosswise/PlusButton.png);'>
-				</div>
-				<br clear=right />
-				<div></div>
-			</div>
-			<div >
-				<div id=plusButton style='float:right;border:solid 2px #000; border-bottom: none;color:black; background-color:ff0; padding: 0 .2em; cursor:pointer; font-size:120%'>
-					click to add YET ANOTHER column + 
-				</div>
-				<br clear=right />
-				<div></div>
-			</div>
-		  </div>
-cwHAZY_LAYER;
-
-	////$s .= drawLCRowsCols();
-
-	$s .= <<<cwHAZY_LAYER_ANNEX
-		<br clear=right />
-		<div></div>
-	  </form>
+	<div id=langBox>
+		<form id=langChoiceForm  class=outerBezel>
+			<div class=innerBezel></div>
+			<div></div>
+		</form>
 	</div>
 </div>
-cwHAZY_LAYER_ANNEX;
+cwHAZY_LAYER;
 
 ////	flLog("drawLCBox() ends, html is ". strlen($s) ." long");////
 ////	flExport($s);////
@@ -118,33 +40,27 @@ cwHAZY_LAYER_ANNEX;
 // php arrays to js vars
 function drawJSVars() {
 	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
-	global $parserAfterTidyText;
 ////	flLog("startin drawin lcjs");////
 
 	$jsTheLangs = '{';
 	foreach ($allTheLangs as $langName => $langObj)
-		$jsTheLangs .= "$langName: {onColor: '$langObj->headColor', offColor: '$langObj->examColor'}, ";
-	$jsTheLangs .= "none: {onColor: '#888', offColor: '#ccc'}}";
+		$jsTheLangs .= "$langName: {title: '$langObj->title', onColor: '$langObj->headColor', offColor: '$langObj->examColor'}, ";
+	$jsTheLangs .= "none: {title: 'none', onColor: '#888', offColor: '#ccc'}}";
+	flExport($allTheLangs);
 	
-	$jsChosenLangs = '["';
-	for ($col = 0; $col < count($ChosenLangs); ++$col)
-		$jsChosenLangs .= $ChosenLangs[$col]->langName .'", "';
-	if (! $jsChosenLangs)
-		$jsChosenLangs = '"JavaScript", "PHP"';
-	else
-		$jsChosenLangs = substr($jsChosenLangs, 0, -3) ."]";
+	$jsLangSettings = '["';
+	if (count($ChosenLangs)) {
+		for ($col = 0; $col < count($ChosenLangs); ++$col)
+			$jsLangSettings .= $ChosenLangs[$col]->langName .'", "';
+		$jsLangSettings = substr($jsLangSettings, 0, -3) ."]";
+	}
+	else {
+		$jsLangSettings = '["JavaScript", "PHP"]';
+	}
 
-	// unless we do this, wiki spits <p> stuff all over  it.  This is so embarassing
-	// but I can't ram my JS through the MW parser, so there's this workaround.
-	global $parserAfterTidyText;
-	$s = '||ParserAfterTidy||';
-
-	// insert these variables, get it out of the way.  This variable will get more appended!
-	$parserAfterTidyText = <<<EMBEDDED_JS_START
 <script>
 
-var origLangSettings = $jsChosenLangs;
-var langSettings = new Array(origLangSettings.length);
+var langSettings = $jsLangSettings;
 var theLangs = $jsTheLangs;
 
 EMBEDDED_JS_START;
@@ -154,72 +70,156 @@ EMBEDDED_JS_START;
 
 // all the javascript as one chunk, returned
 function drawLCJS() {
-	global $parserAfterTidyText;
 	////echo "<br>Starting drawLCJS()<br>";
 	flLog("Starting drawLCJS()<br>");
 	################################################## Start of Embedded Javascript
 	// single quotes means i don't have to mess with the dollar signs
-	global $parserAfterTidyText;
-	$parserAfterTidyText .= <<<'EMBEDDED_JS_BODY'
+	$html = <<<'EMBEDDED_JS_BODY'
 	
 	
 /////////////////////////////////////////////// sliders
 
 // actual dom nodes for the wrapper .sliderStrip 
-var sliders = [];
+var sliders = [], sliderCellHeight, sliderHalfHeight, sliderTotalSlide;
 
 // one of the sliding strips, enclosed in sliding mechanism.  Pass in serial 0, 1, ...
 function drawOneSlidingStrip(n) {
-	var s = "<div class='sliderStrip s"+ n +"'>\n";
+	var la, s = "<div class='sliderStrip s"+ n +"'>\n";
+	s += "<div class=topShadow></div><div class=bottomShadow></div>\n";
 	s += "<ul class=slidingStrip>\n";
 	
-	for (var la = 0; la < theLangs.length; la++)
-		s += "<li>"+ theLangs[la] +"</li>\n";
+	for (la in theLangs)
+		s += "<li style=background:"+ theLangs[la].onColor +"> "+ theLangs[la].title +"</li>\n";
 
-	return s + "</ul></div>";
+	return s + "</ul></div>\n";
 }
 
 function drawAllSlidingStrips() {
-	var s = '';
-	for (var n = 0; n < origLangSettings.length; n++) {
+	var wheels = "<img src=/skins/crosswise/langSliderWheel2.png style=float:left>\n";
+	var s = wheels;
+	for (var n = 0; n < langSettings.length; n++) {
 		s += drawOneSlidingStrip(n);
+		s += wheels;
 	}
-	$('.innerBezel').html(s);
+	s += "<br clear=left>\n";
+	return s;
 }
 
 var whichSlideIsSliding = null;
 var clickDownY = 0;
 
+// mouse down, move and up handlers for each slider
 function slideDown(ev) {
-	whichSlideIsSliding = ev.target.parentNode();
-	clickDownY = ev.pageY - ev.target.offsetTop;
+	whichSlideIsSliding = ev.target; 
+	while (! whichSlideIsSliding.classList.contains('sliderStrip'))
+		whichSlideIsSliding = whichSlideIsSliding.parentNode;  // seek the .sliderStrip node
+	clickDownY = ev.pageY;
+	ev.stopPropagation();  // no submit from a slider click!
+	ev.preventDefault();
 }
 
 function slideMove(ev) {
-	console.log("slideMove: whichSlideIsSliding=" + (whichSlideIsSliding ? whichSlideIsSliding->className : 'null'));
+	// roll the dice.  which browsers do out/leave events, which use which or button, ...
+	if (! ev.which && ! ev.button)
+		return slideUp(ev);
+
+	////console.log("slideMove: whichSlideIsSliding=" + (whichSlideIsSliding ? whichSlideIsSliding.className : 'null'));
 	if (whichSlideIsSliding) {
-		var newY = ev.pageY - clickDownY;
-		ev.target.offsetTop = newY;
+		var deltaY = ev.pageY - clickDownY;
+		whichSlideIsSliding.adjustSlidePosition(deltaY);
+		clickDownY = ev.pageY;
 	}
 	ev.stopPropagation();  // no text selection in slider!
+	ev.preventDefault();
 }
 
 function slideUp(ev) {
-	whichSlideIsSliding = null;
+	if (whichSlideIsSliding) {
+		whichSlideIsSliding = null;
+		ev.stopPropagation();  // no text selection in slider!
+		ev.preventDefault();
+	}
 }
 
+// heartbeat method to effect momentum, runs several times a second to move sliders
+function slideCoast() {
+	////var traceLine = '';
+	for (var s = 0; s < sliders.length; s++) {
+		var slider = sliders[s];
+		
+		if (slider == whichSlideIsSliding) {
+			// this one is being slid by the human - suspend physics till they let go
+			// but measure the velocity, maybe we'll end up coasting
+			var v = slider.slidePosition - slider.slidePrevPosition;  // velocity from human movement
+			slider.slideVelocity = .75 * slider.slideVelocity + .25 * v;  // moving average
+		}
+		else {
+			// now impose the forces
+		
+			// clickstop force
+			if (slider.slidePosition > 0)
+				slider.slideVelocity -= slider.slidePosition;
+			else if (slider.slidePosition < -sliderTotalSlide)
+				slider.slideVelocity -= slider.slidePosition + sliderTotalSlide;
+			else {
+				// slidePosition <= 0 mostly
+				var clickPos = (sliderHalfHeight - slider.slidePosition) % sliderCellHeight - sliderHalfHeight;
+				slider.slideVelocity += clickPos * 4.0;  // acceleration constant
+			}
+		
+			slider.slideVelocity *= 0.5;  // kinetic friction
+			if (Math.abs(slider.slideVelocity) < 1) {  // static friction
+				// stop it moving and put it where the force is zero
+				slider.slideVelocity = 0;
+				slider.slidePosition = Math.round(slider.slidePosition / sliderCellHeight) * sliderCellHeight;
+			}
+			
+			// velocity in units of px per 100ms
+			slider.adjustSlidePosition(slider.slideVelocity);
+		}
+		
+		// the user will also tweak the position thru event handlers; remember this so you'll know how much
+		slider.slidePrevPosition = slider.slidePosition;
+		////traceLine += s +' pos='+ slider.slidePosition.toFixed(2) +' vel='+ slider.slideVelocity.toFixed(2) +'    ';
+	}
+	////console.log(traceLine);
+}
+
+// Actually change the slide position by dy, and display it.  Previous direct setting of slidePosition taken into acct.
+// this is an object specific method we use on our sliders.
+// so 'this' means the node itself, where we attach all sorts of our variables
+function adjustSlidePosition(dy) {
+	//console.debug("hey adjustSlidePosition("+ dy +") from "+ this.slidePosition +" to "+ (this.slidePosition + dy) +".");
+	if (dy)
+		this.slidePosition += dy;
+	$('.slidingStrip', this).css('top', (this.slidePosition + sliderHalfHeight) +'px');  // actually set position
+}
+
+// set handlers on the sliding strips
 function activateSlidingStrips() {
 	// only clickdowns in the strip itself
 	$('.sliderStrip .slidingStrip').mousedown(slideDown);
+	$('.bottomShadow, .topShadow').mousedown(slideDown);
 	
 	// but drags out to a wider area
-	$('.outerBezel').mousemove(slideMove).mousedown(slideUp).mouseout(slideUp);
+	$('.outerBezel').mousemove(slideMove).mouseup(slideUp);
+	$('.langBox').mousemove(slideMove).mouseup(slideUp).mouseleave(slideUp);
+
+	$('.hazyLayer').mousemove(slideUp);
 	
 	sliders = $('.sliderStrip');
+	for (var s = 0; s < sliders.length; s++) {
+		sliders[s].slidePosition = sliderCellHeight * ?;
+		sliders[s].slideVelocity = 0;
+		sliders[s].adjustSlidePosition = adjustSlidePosition;  // install tweaker
+	}
+	
+	// must know the height of each language cell
+	sliderCellHeight = $('.sliderStrip li')[1].offsetTop - $('.sliderStrip li')[0].offsetTop;
+	sliderHalfHeight = sliderCellHeight / 2;
+	sliderTotalSlide = $('.slidingStrip')[0].offsetHeight - sliderCellHeight;
 }
 
-
-/////////////////////////////////////////////// sliders
 
 ////// set button assembly in col to given lang in response to user click or whatever
 ////function setLangChoiceCol(col, lang) {
@@ -240,35 +240,6 @@ function activateSlidingStrips() {
 ////			console.error('no but on setLangChoiceCol('+ col +', '+ lang +')');
 ////	}
 ////}
-////
-////function resetLangSettings() {
-////	var col;
-////	for (col = 0; col < origLangSettings.length; col++)
-////		setLangChoiceCol(col, origLangSettings[col]);
-////	while (langSettings.length > origLangSettings.length)
-////		langSettings.pop();
-////}
-////
-////function downLangChoiceButton(event) {
-////	var butEl = event.target || event.srcElement;
-////	butEl.style.backgroundColor = '#000';
-////}
-////
-////// a click on one of the cells in this table.  don't sumit yet!
-////function clickLangChoiceButton(event) {
-////	var butEl = event.target || event.srcElement;
-////	
-////	// which button is it
-////	var id = butEl.id.split('_', 2);
-////	var lang = id[0].substr(3);
-////	var col = id[1];
-////	setLangChoiceCol(col, lang);
-////	event.stop();
-////}
-////
-////
-////var columnActivateDisplay = 'table-cell';
-////
 ////function plusClick(event) {
 ////	var newCol = langSettings.length;
 ////	var h = $('#lcCol_'+ newCol)[0];
@@ -290,9 +261,19 @@ function activateSlidingStrips() {
 ////	event.stop();  // or the background will submit it!
 ////}
 
-function onLangSubmit(ev) {
-	$('#hazyLayer').hide();  // instant feedback
+// upon click of the Languages button
+function openLangsBox() {
+	$('#hazyLayer').show();
+	$('.innerBezel').html(drawAllSlidingStrips());
+	activateSlidingStrips();
 
+	setInterval(slideCoast, 100);
+}
+
+// called when somebody decides to submit it whereupon it constructs a new URL and goes there. 
+function langVirtualSubmit() {
+	$('#hazyLayer').hide();  // instant feedback
+	
 	// take our url and chop off existing lang codes
 	var href = location.href
 	// 1rmore slashes, plus plus, 1rmore nonslashes,slash, nonslashes to the end
@@ -303,7 +284,7 @@ function onLangSubmit(ev) {
 	href += '/' + langSettings.join(',').replace(/,none/g, '').replace(/^none,/, '');
 	////ev.stop();
 	location.href = href;
-	// doesn't even submit!  never gets here. $('#langChoiceForm').submit();
+	// doesn't even submit!
 }
 
 
@@ -312,8 +293,11 @@ function onLangSubmit(ev) {
 
 // page startup init
 function onLoadLangChoiceDialog() {
-	////resetLangSettings();
-	$('#hazyLayer').bind('click', onLangSubmit);
+	// just submit if user clicks on the hazy layer
+	$('#hazyLayer').mousedown(function(ev) {
+		if (ev.target == ev.currentTarget)
+			langVirtualSubmit();
+	});
 	
 	// all the handlers for all the buttons
 	////$('.langChoiceButton').click(clickLangChoiceButton).mousedown(downLangChoiceButton);
@@ -326,11 +310,6 @@ function onLoadLangChoiceDialog() {
 		});
 }
 
-// upon click of the Languages button
-function openLangsBox() {
-	$('#hazyLayer').show();
-	activateSlidingStrips();
-}
 
 
 
@@ -347,37 +326,59 @@ EMBEDDED_JS_BODY;
 	
 	////flLog( "<br>Finishing drawLCJS()<br>");
 	////echo "<br>Finishing drawLCJS()<br>";
-	return '';
+	return $html;
 }
 
 /////////////////////////////////////////////////////// Main Level
 
-// this 'draws' it, returns an html string.  This is the entry to this file from the lang box code.
+// this 'draws' it, hidden, and returns an html string.  This is the entry to this file from the lang box code.
 function drawLangChoiceDialog() {
 	global $nChLangCols;
 	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
+
 	////flLog("drawLangChoiceDialog() starts");
 
-	$s = drawLCBox();  // the html
-	$s .= drawJSVars();  // php values -> js
-	$s .= drawLCJS();  // the js
-	////flLog("drawLangChoiceDialog() done with s='$s'");
-	return $s;
+	$html = drawLCBox();  // the html
+
+	// unless we do this, wiki spits <p> stuff all over  it.  This is so embarassing
+	// but I can't ram my JS through the MW parser, so there's this workaround.
+	$html = '||CleanCWJavaScript||';
+
+	return $html;
 }
+
+
+// Hook called in the later phases of html generation to get rid of WM's 
+// disruptive formatting, exp <p>s.  
+function cwParserAfterTidy(&$parser, &$text) {
+	
+	////flLog("cwParserAfterTidy: patt: '$parserAfterTidyText'");
+	$jsStuff = '';
+	$jsStuff .= drawJSVars();  // php values -> js
+	$jsStuff .= drawLCJS();  // the js
+	////flLog("drawLangChoiceDialog() done with s='$html'");
+	
+	
+	if ($jsStuff)
+		$text = str_replace('||CleanCWJavaScript||', $jsStuff, $text);
+	return true;
+}
+
+
 
 function someOtherCrap() {////
 	global $nChLangCols;
 
-//<!--[if lt IE 7]><style>#hazyBox {left:8px;right:8px;top:6em;}</style><![endif]-->
-//<!--[if gte IE 7]><style>#hazyBox {left:1px;right:1px;top:6em;}</style><![endif]-->
-//<![if !IE]><style>#hazyBox {left:0;right:0;top:6em;}</style><![endif]>
+//<!--[if lt IE 7]><style>#langBox {left:8px;right:8px;top:6em;}</style><![endif]-->
+//<!--[if gte IE 7]><style>#langBox {left:1px;right:1px;top:6em;}</style><![endif]-->
+//<![if !IE]><style>#langBox {left:0;right:0;top:6em;}</style><![endif]>
 
 
 	// the hazy layer - houses the lang selection (hazy) box
 ////	$s .= <<<HAZYSTUFF
 ////HAZYSTUFF;
 
-	// the style for the hazyBox; the dialog outer frame
+	// the style for the langBox; the dialog outer frame
 	$s .= "";
 
 	// start off with more cols than you need; hide the extra ones till the user clicks +

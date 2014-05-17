@@ -10,7 +10,7 @@
 
 [ -d $wROOT/skins/common ] || echo "\n --- No wROOT set ---\n"
 
-alias ww="cd $wROOT"
+alias ww='cd $wROOT'
 
 #alias wwbin='cd $wROOT/bin'
 #alias wwcon='cd $wROOT/config'
@@ -30,8 +30,7 @@ alias wwm='cd $wROOT/maintenance'
 
 alias wwski='cd $wROOT/skins'
 alias wws='cd $wROOT/skins'
-alias wwsc='cd $wROOT/skins/common'
-alias wwsci='cd $wROOT/skins/common/images'
+alias wwsc='cd $wROOT/skins/crosswise'
 
 #alias wwtes='cd $wROOT/tests'
 
