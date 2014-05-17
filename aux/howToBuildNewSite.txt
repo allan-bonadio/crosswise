@@ -4,8 +4,9 @@ get mediawiki, latest version. Or version 1.22.1 or so.
 unzip it into a dir that does php
 
 
-########################################### From scratch
-surf to / to start the standard installations (as in mw directions)
+########################################### Install MediaWiki at least 1.22
+
+surf to /mw-config/index.php to start the standard installations (as in mw directions)
 	User rights profile: Account creation required
 	Copyright and license:  No license footer
 	Return email address: orgmgr@tactileint.org
@@ -15,29 +16,67 @@ surf to / to start the standard installations (as in mw directions)
 		- Renameuser
 		- SimpleAntiSpam
 		-? Title Blacklist
+		- whatever use whats there by default
 	DISABLE file uploads
 	Settings for object caching: No caching
-Figure out the LocalSettings.php file, some 3-way diff between santiago's and its original.
-toss in a %phpinfo.php file
-
-Anyway, you can surf to /index.php not necessarily /.  OF course %phpinfo.
-You can log in as Allan, or whatever default root account you set for mediawiki.
-
+You have to follow the MW instructions or your site just won't work.  Go thru:
+languages: en, en
+Connect to database: mysql, localhost, cw_dev, cw, solomon, solomon
+Database settings: Use the same account..., InnoDB, UTF-8
+Name: CrossWise, allan, pw, pw, allan@localhost, ask more questions
+Options: Authorised editors, Options, Enable outbound email=ON, crosswise@localhost, turn on all 4 enables
+	
+	Extensions:
 It installs all the plugins but only activates the ones you check on.  So delete the rest:
 rm -Rf Cite Gadgets ImageMap InputBox Interwiki LocalisationUpdate ParserFunctions PdfHandler Poem SpamBlacklist SyntaxHighlight_GeSHi WikiEditor 
 
-Cite/
+check these off, all others on:
+Cite/?
 Gadgets/
 ImageMap/
-InputBox/
+InputBox/?
 Interwiki/
 LocalisationUpdate/
-ParserFunctions/
+ParserFunctions/?
 PdfHandler/
 Poem/
 SpamBlacklist/
 SyntaxHighlight_GeSHi/
-WikiEditor/
+WikiEditor/?
+
+Enable file uploads: off
+Logo URL: 	$wgStylePath/crosswise/CrossWiseLogo.jpg
+Enable Instant Commons: off ? 
+
+No caching: on
+
+Install: continue...
+Done!!  It will download your bran new LocalSettings.php file.
+
+So then you merge it into your existing one, which is under source control.  Don't move this into place yet.
+
+########################################### CW sources
+
+hmmm never figured out exactly the best way but somehow, make a GIT repo directly above your site directory.
+Then pull sources from an existing repo.  And make the site and aux directories line up.
+
+########################################### LocalSettings.php
+
+Now we merge the two LocalSettings.php files.  Sorry there's a lot of mechanism.
+
+toss in a %phpinfo.php file, surf there, proves it works
+
+Anyway, you can surf to /index.php and it's the MW startup main page.  
+
+
+
+
+
+
+
+ not necessarily /.  OF course %phpinfo.
+You can log in as Allan, or whatever default root account you set for mediawiki.
+
 
 Get footlog to work - copy footLog into extensions; hack LocalSettings.php to fit.  Should show up as teal bar at bottom of page content.
 with footlog - http://dcw/index.php?title=Main_Page
@@ -47,7 +86,11 @@ Get cw plugin to work - ath this point just loadingwithout error.  Again copy ov
 
 
 ########################################### From SrcControl
-LocalSettings.php should be under source control.
+should be under source control:
+LocalSettings.php
+skins/crosswise/
+extensions/everything that's not a capitalizzed name of another module, cw*.php
+
 
 ########################################### CW database
 	
@@ -57,7 +100,10 @@ LocalSettings.php should be under source control.
 # mysql> grant all on cw_dev.* to solomon@localhost identified by 'password';
 
 
+########################################### credentials
 
+get a copy of /etc/tactileint from somewhere else
+and install it and make it work.  
 
 
  
