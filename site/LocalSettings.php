@@ -70,16 +70,18 @@ if (isset($_SERVER) && isset($_SERVER['HTTP_HOST'])) {
 	}
 }
 else {
-	// one of the maintenence cmds from the cmd line
+	// one of the maintenence cmds from the cmd line; just bullshit the rest of this
+	$_SERVER['SERVER_NAME'] = 'dcw';
+	$_SERVER['HTTP_HOST'] = 'localhost';
 	$cwHttpHost = 'localhost';
 	$cwSubDom = false;
 	$cwDebug = false;
 	$cwStagingDist = false;
 	$wgShowSQLErrors = true;	
 
-	$wgDBname = "cw_dev";
-	$wgDBuser = $_SERVER['WGDUCP'];
-	$wgDBpassword = $_SERVER['WGDPCP']; 
+	# dont need this if the include file works $wgDBname = "cw_dev";
+	#$wgDBuser = $_SERVER['WGDUCP'];
+	#$wgDBpassword = $_SERVER['WGDPCP']; 
 
 	// must be root to access this file
 	include('/etc/tactileint/crosswise_maintenence_keys.php');
