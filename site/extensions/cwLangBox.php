@@ -82,7 +82,7 @@ function drawLCBox() {
 <div id=hazyLayer>
 	<div style=height:4em; ></div>
 	<div id=hazyBox>
-	  <form id=langChoiceForm  class=bezelOuter method=post>
+	  <form id=langChoiceForm  class=outerBezel method=post>
 		  <div class=bezelInner>
 			<div >
 				<div id=plusButton title='click to add YET ANOTHER column' style='float:right; cursor:pointer; width: 98px; height:39px; background-image: url(/skins/crosswise/PlusButton.png);'>
@@ -196,6 +196,7 @@ function slideDown(ev) {
 }
 
 function slideMove(ev) {
+	console.log("slideMove: whichSlideIsSliding=" + (whichSlideIsSliding ? whichSlideIsSliding->className : 'null'));
 	if (whichSlideIsSliding) {
 		var newY = ev.pageY - clickDownY;
 		ev.target.offsetTop = newY;
@@ -212,7 +213,7 @@ function activateSlidingStrips() {
 	$('.sliderStrip .slidingStrip').mousedown(slideDown);
 	
 	// but drags out to a wider area
-	$('.bezelOuter').mousemove(slideMove).mousedown(slideUp).mouseout(slideUp);
+	$('.outerBezel').mousemove(slideMove).mousedown(slideUp).mouseout(slideUp);
 	
 	sliders = $('.sliderStrip');
 }
