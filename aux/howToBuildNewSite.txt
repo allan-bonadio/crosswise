@@ -4,21 +4,51 @@ get mediawiki, latest version. Or version 1.22.1 or so.
 unzip it into a dir that does php
 
 
+########################################### CW sources
+
+hmmm never figured out exactly the best way but somehow, make a GIT repo directly above your site directory.
+Then pull sources from an existing repo.  And make the site and aux directories line up.
+
+decompress the MW archive as crosswise/site.
+
+should be under source control:
+LocalSettings.php
+skins/crosswise/
+extensions/everything that's not a capitalizzed name of another module, cw*.php
+so somehow make those appear without blowing everything up
+
+
+########################################### credentials
+
+get a copy of /etc/tactileint from somewhere else
+and install it and make it work.  
+
+
+ 
+########################################### create CW database
+	as in the Installation instructions below
+
+# do these to make the dev database givertake.  Sign in to mysql as root.
+# mysql> create database cw_dev default character set utf8;
+# mysql> grant all on cw_dev.* to solomon@localhost identified by 'password';
+
 ########################################### Install MediaWiki at least 1.22
 
 surf to /mw-config/index.php to start the standard installations (as in mw directions)
-	User rights profile: Account creation required
-	Copyright and license:  No license footer
-	Return email address: orgmgr@tactileint.org
-	extensions:
-		- confirmEdit
-		- Nuke
-		- Renameuser
-		- SimpleAntiSpam
-		-? Title Blacklist
-		- whatever use whats there by default
-	DISABLE file uploads
-	Settings for object caching: No caching
+
+User rights profile: Account creation required
+Copyright and license:  No license footer
+Return email address: orgmgr@tactileint.org
+extensions:
+	- confirmEdit
+	- Nuke
+	- Renameuser
+	- SimpleAntiSpam
+	-? Title Blacklist
+	- whatever use whats there by default
+DISABLE file uploads
+Settings for object caching: No caching
+
 You have to follow the MW instructions or your site just won't work.  Go thru:
 languages: en, en
 Connect to database: mysql, localhost, cw_dev, cw, solomon, solomon
@@ -55,26 +85,32 @@ Done!!  It will download your bran new LocalSettings.php file.
 
 So then you merge it into your existing one, which is under source control.  Don't move this into place yet.
 
-########################################### CW sources
-
-hmmm never figured out exactly the best way but somehow, make a GIT repo directly above your site directory.
-Then pull sources from an existing repo.  And make the site and aux directories line up.
-
 ########################################### LocalSettings.php
 
 Now we merge the two LocalSettings.php files.  Sorry there's a lot of mechanism.
 
-toss in a %phpinfo.php file, surf there, proves it works
+toss in a %phpinfo.php file, surf there, proves it works.  If you can't get this to work, the rest is pointless.
 
-Anyway, you can surf to /index.php and it's the MW startup main page.  
-
-
+Anyway, you can surf to /index.php and it's the MW startup main page.  No CW content yet.
 
 
+########################################### Load CW content
+
+go get a  CrossWise.xml content file.
+	wwa
+	pepperf
+		cd public_html/cw
+		get CrossWise.xml
+
+for a more up to date one use the export utility
 
 
 
- not necessarily /.  OF course %phpinfo.
+
+
+
+########################################### success
+
 You can log in as Allan, or whatever default root account you set for mediawiki.
 
 
@@ -85,28 +121,6 @@ without - http://dcw/index.php?title=Main_Page
 Get cw plugin to work - ath this point just loadingwithout error.  Again copy over and hack LocalSettings.php.  No effect on main page.
 
 
-########################################### From SrcControl
-should be under source control:
-LocalSettings.php
-skins/crosswise/
-extensions/everything that's not a capitalizzed name of another module, cw*.php
-
-
-########################################### CW database
-	
-
-# do these to make the dev database givertake
-# mysql> create database cw_dev default character set utf8;
-# mysql> grant all on cw_dev.* to solomon@localhost identified by 'password';
-
-
-########################################### credentials
-
-get a copy of /etc/tactileint from somewhere else
-and install it and make it work.  
-
-
- 
  
  
  
