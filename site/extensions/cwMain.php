@@ -43,7 +43,7 @@ function cwViewL($input, $args, $parser) {
 }
 
 function cwViewTOCL($input, $args, $parser) {
-	require_once('cwView.php');
+	require_once('cwView.php');  // includes LangBox
 	return cwViewTOC($input, $args, $parser);
 }
 
@@ -82,25 +82,14 @@ function cwAddAuditToEditPageL($editPage) {
 	return cwAddAuditToEditPage($editPage);
 }
 
-global $parserAfterTidyText;
-$parserAfterTidyText = null;
-
-// called in the later phases of html generation to get rid of WM's 
-// disruptive formatting, exp <p>s.  
-function cwParserAfterTidy(&$parser, &$text) {
-	global $parserAfterTidyText;
-	
-	////flLog("cwParserAfterTidy: patt: '$parserAfterTidyText'");
-	
-	if ($parserAfterTidyText)
-		$text = str_replace('||ParserAfterTidy||', $parserAfterTidyText, $text);
-	$parserAfterTidyText = null;  // paranoid
-	return true;
+function cwcwParserAfterTidyL($editPage) {
+	require_once('cwLangBox.php');
+	return cwParserAfterTidy($editPage);
 }
 
 function cwArticleViewHeader(&$article, &$outputDone, &$pcache) {
 	global $wgOut;
-	$wgOut->addHTML('<link rel=stylesheet href=/skins/crosswise/CrossWise.css>');
+	////$wgOut->addHTML('<link rel=stylesheet href=/skins/crosswise/CrossWise.css>');
 }
 
 function cwAltContext($input, $args, $parser) {
@@ -577,7 +566,7 @@ class PythonLang extends cwLang {
 
 ///////////////////////////////////////////////////////////// Lang Menu
 
-// generate the languages menu
+// generate the languages menu <select - mostly for audit and FS stuff
 // $language is name of selected one; null i guess defaults to top of menu
 // $itemName is a name to stick to the element name
 // $allItem true to include 'All Langs' item, val='*'
