@@ -319,13 +319,13 @@ $wgNamespaceProtection[NS_CATEGORY] = array( 'editinterface' );
 # Enabled Extensions. Most extensions are enabled by including the base extension file here
 # but check specific extension documentation for more details
 # The following extensions were automatically enabled:
-require_once "$IP/extensions/Cite/Cite.php";
+# not present on santiago require_once "$IP/extensions/Cite/Cite.php";
 require_once "$IP/extensions/ConfirmEdit/ConfirmEdit.php";
-require_once "$IP/extensions/InputBox/InputBox.php";
+# not present on santiago require_once "$IP/extensions/InputBox/InputBox.php";
 require_once "$IP/extensions/Nuke/Nuke.php";
 require_once "$IP/extensions/Renameuser/Renameuser.php";
 require_once "$IP/extensions/SimpleAntiSpam/SimpleAntiSpam.php";
-require_once "$IP/extensions/WikiEditor/WikiEditor.php";
+# not present on santiago require_once "$IP/extensions/WikiEditor/WikiEditor.php";
 
 ###################################### End of automatically generated settings.
 ###################################### Add more configuration options below.
