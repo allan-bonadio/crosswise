@@ -27,9 +27,9 @@ function drawLCBox() {
 		<form id=langChoiceForm  class=outerBezel>
 			<div class=innerBezel></div>
 			<div class=bezelButtonWrapper>
-				<img class='bezelButtons cancel' src=/skins/crosswise/langSelCancel.png>
-				<img class='bezelButtons plus'   src=/skins/crosswise/langSelPlus.png>
-				<img class='bezelButtons ok'     src=/skins/crosswise/langSelOK.png>
+				<img class='bezelButtons cancel' src=/skins/crosswise/langChooserCancel.png>
+				<img class='bezelButtons plus'   src=/skins/crosswise/langChooserPlus.png>
+				<img class='bezelButtons ok'     src=/skins/crosswise/langChooserOK.png>
 			</div>
 		</form>
 	</div>
