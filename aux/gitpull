@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "pull sources from flores"
+cd /dvl/crosswise
+git pull -r /Volumes/flores/dvl/crosswise
