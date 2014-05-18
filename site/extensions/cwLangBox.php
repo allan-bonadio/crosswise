@@ -26,7 +26,11 @@ function drawLCBox() {
 	<div id=langBox>
 		<form id=langChoiceForm  class=outerBezel>
 			<div class=innerBezel></div>
-			<div></div>
+			<div class=bezelButtonWrapper>
+				<img class='bezelButtons cancel' src=/skins/crosswise/langSelCancel.png>
+				<img class='bezelButtons plus'   src=/skins/crosswise/langSelPlus.png>
+				<img class='bezelButtons ok'     src=/skins/crosswise/langSelOK.png>
+			</div>
 		</form>
 	</div>
 </div>
@@ -107,14 +111,15 @@ function drawOneSlidingStrip(n) {
 	return s + "</ul></div>\n";
 }
 
+var interSliderWheelIcon = "<img src=/skins/crosswise/langSliderWheel.png style=float:left>\n";
+
 function drawAllSlidingStrips() {
-	var wheels = "<img src=/skins/crosswise/langSliderWheel2.png style=float:left>\n";
-	var s = wheels;
+	var s = interSliderWheelIcon;
 	for (var n = 0; n < langSettings.length; n++) {
 		s += drawOneSlidingStrip(n);
-		s += wheels;
+		s += interSliderWheelIcon;
 	}
-	s += "<br clear=left>\n";
+	s += "<br class=endOfInnerBezel clear=left>\n";
 	return s;
 }
 
@@ -208,16 +213,27 @@ function adjustSlidePosition(dy) {
 	$('.slidingStrip', this).css('top', (this.slidePosition + sliderHalfHeight - 5) +'px');  // actually set position
 }
 
+// init this slider like a constructor.  slider=node and object itself; index=which lang column or -1 to append on end
+function activateLangSlider(slider, index) {
+	slider.adjustSlidePosition = adjustSlidePosition;  // install tweaker
+
+	// which language to start off selecting (0=js, 1=php, ... or -1=some bland default)
+	var langSerial = (index >= 0) ? allTheLangs[langSettings[index]].serial : 1.3;
+	slider.slidePosition = - sliderCellHeight * langSerial;
+	slider.slideVelocity = (index == 1) ? 15 : 0;  // start with one of them jiggling
+	slider.adjustSlidePosition();  // actually move into position
+}
+
 // set handlers on the sliding strips
 function activateSlidingStrips() {
-	// only clickdowns in the strip itself
-	$('.sliderStrip .slidingStrip').mousedown(slideDown);
-	$('.bottomShadow, .topShadow').mousedown(slideDown);
+	// only clickdowns in the strip itself.  This will catch slidingStrip's events even for new sliders
+	$('.innerBezel').on('mousedown',  '.sliderStrip', slideDown);
+	// superfluous? $('.bottomShadow, .topShadow').mousedown(slideDown);
 	
-	// but drags out to a wider area
+	// but drags out to a wider area.  (the mousedown decides which slider is sliding)
+	// far enough away and it's effectively a mouse release.
 	$('.outerBezel').mousemove(slideMove).mouseup(slideUp);
 	$('#langBox').mousemove(slideMove).mouseup(slideUp).mouseleave(slideUp);
-
 	$('#hazyLayer').mousemove(slideUp);
 	
 	// must know the height of each language cell
@@ -227,12 +243,8 @@ function activateSlidingStrips() {
 
 	// set each slider to the current lang settings
 	sliders = $('.sliderStrip');
-	for (var s = 0; s < sliders.length; s++) {
-		sliders[s].slidePosition = - sliderCellHeight * allTheLangs[langSettings[s]].serial;
-		sliders[s].slideVelocity = (s == 1) ? 15 : 0;  // start with one of them jiggling
-		sliders[s].adjustSlidePosition = adjustSlidePosition;  // install tweaker
-		sliders[s].adjustSlidePosition();  // actually move into position
-	}
+	for (var s = 0; s < sliders.length; s++)
+		activateLangSlider(sliders[s], s);
 }
 
 
@@ -241,13 +253,28 @@ function openLangsBox() {
 	$('#hazyLayer').show();
 	$('.innerBezel').html(drawAllSlidingStrips());
 	activateSlidingStrips();
+	
+	// interactive for the bezel buttons
+	$('#langBox .bezelButtons').mousedown(function(ev) {
+		$(ev.currentTarget).css('border-width', '1px 0 0 1px');
+	});
+	$('#langBox .bezelButtons').mouseup(function(ev) {
+		$(ev.currentTarget).css('border-width', '');  // revert to default
+	});
+	
+	// resulting action for the bezel buttons
+	// these only trigger if the mouseup was in the same obj as the down
+	$('#langBox .ok').click(langVirtualSubmit);
+	$('#langBox .cancel').click(langVirtualDismiss);
+	$('#langBox .plus').click(langPlus);
 
 	setInterval(slideCoast, 100);
 }
 
 // called when somebody decides to submit it whereupon it constructs a new URL and goes there. 
+// not really a form submission.  probably don't need the <form tag
 function langVirtualSubmit() {
-	$('#hazyLayer').hide();  // instant feedback 
+	langVirtualDismiss();
 	
 	// retrieve from sliders
 	langString = '';
@@ -269,14 +296,33 @@ function langVirtualSubmit() {
 	// doesn't even submit!
 }
 
+// get rid of dialog, ready for another attempt later
+function langVirtualDismiss() {
+	$('#hazyLayer').hide();  // instant feedback 
+}
 
+// add another column
+function langPlus() {
+
+	// make the new one, as text
+	var ss = drawOneSlidingStrip(sliders.length);
+	ss += interSliderWheelIcon;
+
+	// insert it before our specially-placed <br tag
+	$('#langBox .endOfInnerBezel').before(ss);
+	
+	// gimme that node and activate it
+	var sNode = $('#langBox .sliderStrip').last()[0];
+	sliders.push(sNode);
+	activateLangSlider(sNode, -1);
+}
 
 /////////////////////////////////////////////// page init
 
 // page startup init
 function onLoadLangChoiceDialog() {
 	// just submit if user clicks on the hazy layer
-	$('#hazyLayer').mousedown(function(ev) {
+	$('#hazyLayer, #langBox').mousedown(function(ev) {
 		if (ev.target == ev.currentTarget)
 			langVirtualSubmit();
 	});
@@ -394,13 +440,13 @@ $ChosenLangs = $ChosenVerss = $ChosenLangList = null;
 function enactLangs(array $langsAr) {
 	global $ChosenLangs, $ChosenVerss, $allTheLangs;
 	
-	// yes it is possible to choose no languages at all
-	if (!isset($langsAr) || !is_array($langsAr) || count($langsAr) < 1)
+	// yes it is possible to choose no languages at all; explode of '' ends up being ['']
+	if (empty($langsAr) || !is_array($langsAr) || count($langsAr) < 1 || empty($langsAr[0]))
 		$langsAr = array('JavaScript', 'PHP');
 		
 	////flLog("enactLangs() of:");
 	flExport($langsAr);
-	flExport($allTheLangs);
+	////flExport($allTheLangs);
 	
 	// collect the real thing.  make sure they're only bonafide langauges.
 	$ChosenLangs = array();
@@ -429,14 +475,19 @@ function getPageLangs() {
 	global $wgRequest, $wgCookiePrefix;
 	global $nChLangCols;
 
-	////flLog("getPageLangs... req=");
-	////flExport($_REQUEST);
+	flLog("getPageLangs... req=");
+	flExport($_REQUEST);
 	$list = null;
+	
+	// make sure $_GET vars override $_COOKIE vars
+	$variables_order = ini_get('variables_order');
+	if (strpos($variables_order, 'G') >= strpos($variables_order, 'C'))
+		die("variables_order EGPCS should have G before C"); 
 
 	// the all-langs-in-one-arg way, as returned by the modern overlay dialog
-	// first priority
-	// no now uses next method if (array_key_exists('langs', $_REQUEST))
-	//	return explode(',', $_REQUEST['langs']);
+	// url (_GET) has prioirity over cookie in _REQUEST
+	if (array_key_exists('langs', $_REQUEST))
+		return explode(',', $_REQUEST['langs']);
 	
 	// best cuz its cacheable: after the req code in the query string.  
 	// As from like "/++Arrays/PHP,Ruby" from a <cw link or the view TOC.
@@ -494,7 +545,7 @@ function loadChosenLangs() {
 // EG "PHP@5.2,JavaScript@1.5"     May return '' if none chosen or they got lost.
 function chosenLangsString() {
 	global $ChosenLangs, $ChosenVerss;
-	////flLog("chosenLangsString() starts ");
+	flLog("chosenLangsString() starts with ChosenLangs=");flExport($ChosenLangs);////
 	$con = '';
 	foreach ($ChosenLangs as $i => $lang) {
 		if (isset($ChosenVerss[$i]))
