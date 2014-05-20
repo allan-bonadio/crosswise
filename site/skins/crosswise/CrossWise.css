@@ -2,7 +2,7 @@ body {
 	margin: 0;
 	/* Background color is set separately on page type with bgcolor attr */
 	background-color: white;
-	color: black; 
+	color: black;
 	font-family: verdana,helvetica,arial;
 }
 #specialform { display: inline; }
@@ -13,7 +13,7 @@ body {
 a.interwiki, a.external { color: #36B; }
 
 /* padding: 2px; border: 0px; text-decoration:underline;  */
-a[href]:link { color: #038; padding: 1px; 
+a[href]:link { color: #038; padding: 1px;
 	text-decoration: underline; line-height:130%}
 a[href]:hover { color: #000;}
 a.new:link { color: #9ac;}
@@ -66,7 +66,7 @@ h1#firstHeading { margin: 0 -.1em; padding: 0;
 	font-size: 4em;
 }
 
-h2, h3, h4, h5, h6 { margin-bottom: 0; 
+h2, h3, h4, h5, h6 { margin-bottom: 0;
 	font-family:Copperplate,Impact,Capitals,Arial Black,Georgia}
 
 #contentActionsToolbar { position: absolute; bottom: 0; right: 0; margin: 0; font-size: .7em;}
@@ -85,7 +85,7 @@ div#top {}
 div#topbar {background-color: #eee; font-size:70%}
 div#article { clear: right; margin-top: 0}
 
-.toc, #toc {margin-top: 10px; border: inset 1px #884; 
+.toc, #toc {margin-top: 10px; border: inset 1px #884;
 	background-color: #f8f8ff; font-size: 70%}
 
 /* cross wise */
@@ -118,10 +118,10 @@ ul.horizontal li {
 /* contains the languages box */
 #hazyLayer {
 	position:fixed;
-	left: 0; top: 0; width: 100%; height:100%; 
+	left: 0; top: 0; width: 100%; height:100%;
 	background-color: rgb(255, 255, 255);
 	background-color: rgba(255, 255, 255, 0.50);
-	z-index:10; 
+	z-index:10;
 	text-align: center;
 	display:none;
 }
@@ -139,14 +139,17 @@ ul.horizontal li {
 /* bezel (frame on lang slider box) is used for front page and for language select dialog */
 .outerBezel {
 	display: inline-block;
-	border: 8px outset #aaa; 
-	background-color: #666; 
+	border: 8px outset #aaa;
+	background-color: #666;
 	padding: 8px 12px;
 	width: auto;
+	
+	/* hard metal background */
+	background-image: url(/skins/crosswise/metalPlate1.jpg);
 }
 .innerBezel {
 	position: relative;
-	border: 6px inset #aaa; 
+	border: 6px inset #aaa;
 	padding: 0 12px;
 	overflow: hidden;
 	height: 6em;
@@ -165,7 +168,7 @@ ul.horizontal li {
 	/* set border like this; gets actuated when i rearrange the widths.  No border showing on topleft. */
 	border: #222;
 	border-style: none solid solid none;
-	border-width: 0 1px 1px 0;
+	border-width: 0 3px 3px 0;
 }
 
 .bezelButtons.cancel { float:left; }
