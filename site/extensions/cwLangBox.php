@@ -27,9 +27,9 @@ function drawLCBox() {
 		<form id=langChoiceForm  class=outerBezel>
 			<div class=innerBezel></div>
 			<div class=bezelButtonWrapper>
-				<img class='bezelButtons cancel' src=/skins/crosswise/langChooserCancel.png>
-				<img class='bezelButtons plus'   src=/skins/crosswise/langChooserPlus.png>
-				<img class='bezelButtons ok'     src=/skins/crosswise/langChooserOK.png>
+				<img class='bezelButtons cancel' src=/skins/crosswise/langChooserCancel.jpg>
+				<img class='bezelButtons plus'   src=/skins/crosswise/langChooserPlus.jpg>
+				<img class='bezelButtons ok'     src=/skins/crosswise/langChooserOK.jpg>
 			</div>
 		</form>
 	</div>
@@ -138,8 +138,8 @@ function slideDown(ev) {
 
 function slideMove(ev) {
 	// roll the dice.  which browsers do out/leave events, which use which or button, ...
-	if (! ev.which && ! ev.button)
-		return slideUp(ev);
+	////if (! ev.which && ! ev.button)
+	////	return slideUp(ev);
 
 	////console.log("slideMove: whichSlideIsSliding=" + (whichSlideIsSliding ? whichSlideIsSliding.className : 'null'));
 	if (whichSlideIsSliding) {
@@ -254,12 +254,21 @@ function openLangsBox() {
 	$('.innerBezel').html(drawAllSlidingStrips());
 	activateSlidingStrips();
 	
+	// set how deep the button is depressed
+	function setButLevel(but, lev) {
+		var totalLevels = 3;
+		var vel = totalLevels - lev;  // lev backwards
+		but.style.borderWidth = lev +'px '+ vel +'px '+ vel +'px '+ lev +'px ';
+		but.style.padding     = vel +'px '+ lev +'px '+ lev +'px '+ vel +'px ';
+	}
+	
 	// interactive for the bezel buttons
 	$('#langBox .bezelButtons').mousedown(function(ev) {
-		$(ev.currentTarget).css('border-width', '1px 0 0 1px');
+		setButLevel(ev.currentTarget, 3);
 	});
 	$('#langBox .bezelButtons').mouseup(function(ev) {
-		$(ev.currentTarget).css('border-width', '');  // revert to default
+		setButLevel(ev.currentTarget, 0);
+		//$(ev.currentTarget).css('border-width', '').css('padding', '');  // revert to default
 	});
 	
 	// resulting action for the bezel buttons
@@ -321,7 +330,7 @@ function langPlus() {
 
 // page startup init
 function onLoadLangChoiceDialog() {
-	// just submit if user clicks on the hazy layer
+	// just submit if user clicks outside the box
 	$('#hazyLayer, #langBox').mousedown(function(ev) {
 		if (ev.target == ev.currentTarget)
 			langVirtualSubmit();
@@ -330,12 +339,12 @@ function onLoadLangChoiceDialog() {
 	// all the handlers for all the buttons
 	////$('.langChoiceButton').click(clickLangChoiceButton).mousedown(downLangChoiceButton);
 	////$('#plusButton').click(plusClick);
-	$('#plusButton').mousedown(function() {
-			$('#plusButton')[0].style.backgroundImage = 'url(/skins/crosswise/PlusButtonPressed.png)';
-		});
-	$('#plusButton').mouseup(function() {
-			$('#plusButton')[0].style.backgroundImage = 'url(/skins/crosswise/PlusButton.png)';
-		});
+	////$('#plusButton').mousedown(function() {
+	////		$('#plusButton')[0].style.backgroundImage = 'url(/skins/crosswise/PlusButtonPressed.png)';
+	////	});
+	////$('#plusButton').mouseup(function() {
+	////		$('#plusButton')[0].style.backgroundImage = 'url(/skins/crosswise/PlusButton.png)';
+	////	});
 }
 
 
