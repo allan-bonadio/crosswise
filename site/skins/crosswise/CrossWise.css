@@ -138,19 +138,37 @@ ul.horizontal li {
 
 /* bezel (frame on lang slider box) is used for front page and for language select dialog */
 .outerBezel {
+	position: relative;
 	display: inline-block;
-	border: 8px outset #aaa;
+	border: 6px outset;
+	border-color: #aaa;
+	border-image-source: url(/skins/crosswise/bezelOuterBorder.png);
+	border-image-slice: 6;
+	border-image-repeat: repeat;
 	background-color: #666;
-	padding: 8px 12px;
+	padding: 8px 50px;
 	width: auto;
 	
 	/* hard metal background */
-	background-image: url(/skins/crosswise/metalPlate1.jpg);
+	background-image: url(/skins/crosswise/metalPlate.jpg);
 }
+
+/* actually a hexnut on the end of a bolt shaft */
+.outerBezelBolt {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-image: url(/skins/crosswise/boltBezel.png);
+	z-index: 20;
+}
+
 .innerBezel {
 	position: relative;
-	border: 6px inset #aaa;
+	border: 4px inset #aaa;
 	padding: 0 12px;
+	border-image-source: url(/skins/crosswise/bezelInnerBorder.png);
+	border-image-slice: 4;
+	border-image-repeat: repeat;
 	overflow: hidden;
 	height: 6em;
 	background-color: #222;
@@ -163,17 +181,18 @@ ul.horizontal li {
 }
 
 .bezelButtons {
+	width: 150px;
+	height: 50px;
 	margin-top: 20px;
+	background-image: url(okCancelPlus.png);
 	
 	/* set border like this; gets actuated when i rearrange the widths.  No border showing on topleft. */
-	border: #222;
-	border-style: none solid solid none;
-	border-width: 0 3px 3px 0;
+	border: #222 groove 2px;
 }
 
-.bezelButtons.cancel { float:left; }
-.bezelButtons.plus { float:right; }
-.bezelButtons.ok { float:right; margin-right: 20px; }
+/* .bezelButtons.cancel { float:left; } .bezelButtons.plus { float:right; } .bezelButtons.ok { float:right; margin-right: 20px; } */
+
+
 
 /* strip that encloses the slidingStrip in the lang choice box.  Same height as inner bezel. */
 .sliderStrip {

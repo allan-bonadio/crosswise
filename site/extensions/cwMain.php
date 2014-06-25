@@ -30,7 +30,7 @@ function cwTagsInit() {
 	$wgParser->setHook('cw', 'cwViewLink');
 	$wgParser->setHook('cwTestLinks', 'cwTestLinksL');
 	$wgParser->setHook('cwAltContext', 'cwAltContext');
-	$wgParser->setHook('cwSlotmachine', 'cwSlotmachine');
+	$wgParser->setHook('cwSlotmachine', 'cwSlotmachineL');
 	$wgParser->setHook('cwExamplePage', 'cwExamplePage');
 	return true;
 }
@@ -87,6 +87,11 @@ function cwParserAfterTidyL(&$parser, &$text) {
 	return cwParserAfterTidy($parser, $text);
 }
 
+function cwSlotmachineL($input, $args, $parser) {
+	require_once('cwLangBox.php');
+	return cwSlotmachine($input, $args, $parser);
+}
+
 function cwArticleViewHeader(&$article, &$outputDone, &$pcache) {
 	global $wgOut;
 	////$wgOut->addHTML('<link rel=stylesheet href=/skins/crosswise/CrossWise.css>');
@@ -94,19 +99,6 @@ function cwArticleViewHeader(&$article, &$outputDone, &$pcache) {
 
 function cwAltContext($input, $args, $parser) {
 	return '';
-}
-
-function cwSlotmachine($input, $args, $parser) {
-	global $wgScriptPath;
-	
-	return <<<SLOT_MAC_INE
-<div class=bezelOuter>
-<div class=bezelInner>
-<img src=$wgScriptPath/skins/crosswise/slotmachine.gif />
-</div>
-</div>
-<br clear=both />
-SLOT_MAC_INE;
 }
 
 function cwExamplePage($input, $args, $parser) {

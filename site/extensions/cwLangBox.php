@@ -5,6 +5,33 @@
 //// if(! defined('MEDIAWIKI')) { echo("\n"); die(-1);}
 
 
+global $fourBolts;
+$fourBolts = <<<E_FOUR_BOLTS
+			<div class=outerBezelBolt style='left: 0; top: 0; background-position: left top;'></div>
+			<div class=outerBezelBolt style='right: 0; top: 0; background-position: right top;'></div>
+			<div class=outerBezelBolt style='left: 0; bottom: 0; background-position: left bottom;'></div>
+			<div class=outerBezelBolt style='right: 0; bottom: 0; background-position: right bottom;'></div>
+E_FOUR_BOLTS;
+
+// similar to lang box but not; the slot machine on the main page
+function cwSlotmachine($input, $args, $parser) {
+	global $wgScriptPath;
+	global $fourBolts;
+	
+	// yes this will run thru MW so <p tag will enclose the <img tag
+	// also must override the height on the innerBezel from the lang box
+	return <<<SLOT_MAC_INE
+<div class=outerBezel>
+	$fourBolts
+	<div class=innerBezel style=height:auto>
+		<img src=$wgScriptPath/skins/crosswise/slotmachine.gif />
+	</div>
+</div>
+<br clear=both />
+SLOT_MAC_INE;
+}
+
+
 /////////////////////////////////////////////////////////// Language Choice
 
 // number of columns shown in Language_choice page (=max possible columns for view)
@@ -16,6 +43,7 @@ $nChLangCols = 3;
 
 // draw outer part of box (and its insides too) and return html string
 function drawLCBox() {
+	global $fourBolts;
 ////debug_print_backtrace();////
 ////	flLog("drawLCBox() starts");////
 	
@@ -25,11 +53,12 @@ function drawLCBox() {
 	<div style=height:4em; ></div>
 	<div id=langBox>
 		<form id=langChoiceForm  class=outerBezel>
+			$fourBolts
 			<div class=innerBezel></div>
 			<div class=bezelButtonWrapper>
-				<img class='bezelButtons cancel' src=/skins/crosswise/langChooserCancel.jpg>
-				<img class='bezelButtons plus'   src=/skins/crosswise/langChooserPlus.jpg>
-				<img class='bezelButtons ok'     src=/skins/crosswise/langChooserOK.jpg>
+				<img class='bezelButtons cancel'  style='background-position: left center'>
+				<img class='bezelButtons ok'      style='background-position: left top'>
+				<img class='bezelButtons plus'    style='background-position: left bottom'>
 			</div>
 		</form>
 	</div>
