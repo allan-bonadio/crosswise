@@ -283,29 +283,6 @@ function openLangsBox() {
 	$('.innerBezel').html(drawAllSlidingStrips());
 	activateSlidingStrips();
 	
-	// set how deep the button is depressed
-	function setButLevel(but, lev) {
-		var totalLevels = 3;
-		var vel = totalLevels - lev;  // lev backwards
-		but.style.borderWidth = lev +'px '+ vel +'px '+ vel +'px '+ lev +'px ';
-		but.style.padding     = vel +'px '+ lev +'px '+ lev +'px '+ vel +'px ';
-	}
-	
-	// interactive for the bezel buttons
-	$('#langBox .bezelButtons').mousedown(function(ev) {
-		setButLevel(ev.currentTarget, 3);
-	});
-	$('#langBox .bezelButtons').mouseup(function(ev) {
-		setButLevel(ev.currentTarget, 0);
-		//$(ev.currentTarget).css('border-width', '').css('padding', '');  // revert to default
-	});
-	
-	// resulting action for the bezel buttons
-	// these only trigger if the mouseup was in the same obj as the down
-	$('#langBox .ok').click(langVirtualSubmit);
-	$('#langBox .cancel').click(langVirtualDismiss);
-	$('#langBox .plus').click(langPlus);
-
 	setInterval(slideCoast, 100);
 }
 
@@ -365,15 +342,41 @@ function onLoadLangChoiceDialog() {
 			langVirtualSubmit();
 	});
 	
-	// all the handlers for all the buttons
-	////$('.langChoiceButton').click(clickLangChoiceButton).mousedown(downLangChoiceButton);
-	////$('#plusButton').click(plusClick);
-	////$('#plusButton').mousedown(function() {
-	////		$('#plusButton')[0].style.backgroundImage = 'url(/skins/crosswise/PlusButtonPressed.png)';
-	////	});
-	////$('#plusButton').mouseup(function() {
-	////		$('#plusButton')[0].style.backgroundImage = 'url(/skins/crosswise/PlusButton.png)';
-	////	});
+	// all the handlers for all the buttons.  Do these once, not once every time you put up the dialog
+
+
+	// set how deep the button is depressed
+	function setButLevel(but, lev) {
+		var totalLevels = 3;
+		var vel = totalLevels - lev;  // lev backwards
+		but.style.borderWidth = lev +'px '+ vel +'px '+ vel +'px '+ lev +'px ';
+		but.style.padding     = vel +'px '+ lev +'px '+ lev +'px '+ vel +'px ';
+	}
+
+	// interactive for the bezel buttons
+	$('#langBox .bezelButtons').mousedown(function(ev) {
+		console.info("mousedown "+ ev.currentTarget.className);
+		setButLevel(ev.currentTarget, 3);
+	});
+	$('#langBox .bezelButtons').mouseup(function(ev) {
+		console.info("mouseup "+ ev.currentTarget.className);
+		setButLevel(ev.currentTarget, 0);
+		//$(ev.currentTarget).css('border-width', '').css('padding', '');  // revert to default
+	});
+
+	// resulting action for the bezel buttons
+	// these only trigger if the mouseup was in the same obj as the down
+	$('#langBox .ok').click(langVirtualSubmit);
+	$('#langBox .cancel').click(langVirtualDismiss);
+	$('#langBox .plus').click(langPlus);
+
+
+
+
+
+
+
+
 }
 
 
