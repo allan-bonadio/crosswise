@@ -41,60 +41,60 @@ class SkinCrossWise extends SkinTemplate {
 		return "CrossWise";
 	}
 
-	// lines near the top of the page, starting with the subtitle 'from Crosswise'
-	function subTitleLines() {
-		global $cwDoingViewPage, $cwChapter, $cwPageTitle, $wgRequest, $wgUser;
-flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
-		
-		die(__FILE__ . __LINE__);////
-
-		// make the subtitle active; activates full header and footer
-		$subTitle = $this->pageSubtitle();
-
-		$subTitle = str_replace("From", 
-			"<span onclick=\"if (!event.shiftKey) return;".
-			"document.getElementById('topLinksBar').style.display='block';".
-			"document.getElementById('footer').style.display='block'\">From</span>\n", 
-			$subTitle);
-		if ($cwDoingViewPage)
-			$thatButton = "<span id=languagesButton ".
-				"class=cwButton style=margin-left:-2px>Languages</span>".
-				"&nbsp; | &nbsp; \n";
-		else
-			$thatButton = $this->editThisPage() ." &nbsp; | &nbsp; \n";
-
-		$reqMenu = "View Chapter &nbsp; ". formatReqMenu(
-			$wgRequest->getVal('ch', 'choose'), false, true, 'cwViewURLPath');
-		$reqMenu = str_replace("<select ", "<select onchange='".
-			'var sel = event.target || event.srcElement; '.
-			'location = sel.value'.
-			"' ", 
-			$reqMenu);
-		//'location = sel.options[sel.selectedIndex].value'.
-
-		// the user part: user name & login/logout
-		$uPart = "\n &nbsp; | &nbsp; ";
-		if ($wgUser->isAnon())
-			$uPart .= $this->specialLink('userlogin');
-		else {
-			// dont incorporate the username for the mass-market URLs
-			// so they can be cached by URL
-			$uName = '';
-			//if (!$cwSubDom || !isset($_REQUEST['langs']))
-			//	$uName = $wgUser->getName() .' ';
-			$uPart .= str_replace('>Preferences<', (">{$uName}Prefs<"), 
-				$this->specialLink('preferences'));
-			$uPart .= " &nbsp; | &nbsp; ";
-			$uPart .= $this->specialLink('userlogout');
-		}
-		
-		$stLines = $uPart ."<br />\n";
-		$stLines .= $thatButton . $reqMenu ." &nbsp; \n". 
-			"</p>\n";
-//flLog('------------ upart: '. $uPart);
-//flLog('------------ stLines ', $stLines);
-		return str_replace('</p>', $stLines, $subTitle);
-	}
+////	// lines near the top of the page, starting with the subtitle 'from Crosswise'
+////	function xxxxxsubTitleLines() {
+////		global $cwDoingViewPage, $cwChapter, $cwPageTitle, $wgRequest, $wgUser;
+////flLog("xxxxsubTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
+////		
+////		die(__FILE__ . __LINE__);////
+////
+////		// make the subtitle active; activates full header and footer
+////		$subTitle = $this->pageSubtitle();
+////
+////		$subTitle = str_replace("From", 
+////			"<span onclick=\"if (!event.shiftKey) return;".
+////			"document.getElementById('topLinksBar').style.display='block';".
+////			"document.getElementById('footer').style.display='block'\">From</span>\n", 
+////			$subTitle);
+////		if ($cwDoingViewPage)
+////			$thatButton = "<span id=languagesButton ".
+////				"class=cwButton style=margin-left:-2px>Languages</span>".
+////				"&nbsp; | &nbsp; \n";
+////		else
+////			$thatButton = $this->editThisPage() ." &nbsp; | &nbsp; \n";
+////
+////		$reqMenu = "View Chapter &nbsp; ". formatReqMenu(
+////			$wgRequest->getVal('ch', 'choose'), false, true, 'cwViewURLPath');
+////		$reqMenu = str_replace("<select ", "<select onchange='".
+////			'var sel = event.target || event.srcElement; '.
+////			'location = sel.value'.
+////			"' ", 
+////			$reqMenu);
+////		//'location = sel.options[sel.selectedIndex].value'.
+////
+////		// the user part: user name & login/logout
+////		$uPart = "\n &nbsp; | &nbsp; ";
+////		if ($wgUser->isAnon())
+////			$uPart .= $this->specialLink('userlogin');
+////		else {
+////			// dont incorporate the username for the mass-market URLs
+////			// so they can be cached by URL
+////			$uName = '';
+////			//if (!$cwSubDom || !isset($_REQUEST['langs']))
+////			//	$uName = $wgUser->getName() .' ';
+////			$uPart .= str_replace('>Preferences<', (">{$uName}Prefs<"), 
+////				$this->specialLink('preferences'));
+////			$uPart .= " &nbsp; | &nbsp; ";
+////			$uPart .= $this->specialLink('userlogout');
+////		}
+////		
+////		$stLines = $uPart ."<br />\n";
+////		$stLines .= $thatButton . $reqMenu ." &nbsp; \n". 
+////			"</p>\n";
+//////flLog('------------ upart: '. $uPart);
+//////flLog('------------ stLines ', $stLines);
+////		return str_replace('</p>', $stLines, $subTitle);
+////	}
 
 
 	// links at top of each page
@@ -156,6 +156,8 @@ flLog("subTitleLines: cwDoingViewPage=$cwDoingViewPage\n");
 			}
 			/* show log out link */
 			$s .= $sep . $this->specialLink( 'userlogout' );
+			
+			// by default it creates the special links like /index.php
 		}
 
 
@@ -193,6 +195,7 @@ class CrossWiseTemplate extends BaseTemplate {
 
 		// "from CrossWise".  watch out something modifies this - it wriggles out of containing elements
 		echo $this->msg( 'tagline' );  /////
+		echo "<span id=fromTrigger onmouseup=if(event.altKey)$('#cwSpecialPagesMenu').show()> &nbsp; </span>";  /////
 
 		echo '</div>';  // end of page title block
 	}
@@ -201,8 +204,12 @@ class CrossWiseTemplate extends BaseTemplate {
 	// login, preferences, etc buttons in top right corner
 	private function exPersonalTools() {
 		echo "<ul id=personalToolsBar class=horizontal>\n";
+			////var_dump('personal tools!', $this->getPersonalTools());////
 			foreach ( $this->getPersonalTools() as $key => $item )
+			{////
+				////var_dump($key, $item['links'][0]);////
 				echo $this->makeListItem($key, $item);
+			}////
 		echo "</ul>\n";
 	}
 		
@@ -371,6 +378,22 @@ HOW_DO_YOU_KNOW_THAT;
  
 			-->
 		<? endif; ?>
+		
+		<?/* special pages menu on bottom */?>
+		<select id=cwSpecialPagesMenu onchange=cwExecSpecialPage(event) style=display:none>
+		<?	
+			$sPages = SpecialPageFactory::getUsablePages();
+			ksort($sPages);
+			foreach ($sPages as $code => $sp)
+				echo "<option value=$code>$code</option>\n";
+		?>
+		</select>
+		<script>
+		function cwExecSpecialPage(ev) {
+			location = '/--Special:' + ev.currentTarget.value;
+		}
+		</script>
+
 
 		</body>
 		</html>
