@@ -86,7 +86,7 @@ function drawJSVars() {
 	}
 	$jsTheLangs .= "none: {title: 'none', serial: $serial, onColor: '#888', offColor: '#ccc'}}";
 	$jsTheLangsList .= "'none']";
-	flExport($allTheLangs);
+	////flExport($allTheLangs);
 	
 	// the list of languages that the user selected for viewing
 	$jsLangSettings = '["';
@@ -115,7 +115,7 @@ EMBEDDED_JS_START;
 // all the javascript as one chunk, returned
 function drawLCJS() {
 	////echo "<br>Starting drawLCJS()<br>";
-	flLog("Starting drawLCJS()<br>");
+	////flLog("Starting drawLCJS()<br>");
 	################################################## Start of Embedded Javascript
 	// single quotes means i don't have to mess with the dollar signs
 	$html = <<<'EMBEDDED_JS_BODY'
@@ -405,7 +405,7 @@ function drawLangChoiceDialog() {
 	global $nChLangCols;
 	global $ChosenLangs, $ChosenFeatures, $allTheLangs;
 
-	flLog("drawLangChoiceDialog() starts");
+	////flLog("drawLangChoiceDialog() starts");
 
 	$html = drawLCBox();  // the html
 
@@ -413,7 +413,7 @@ function drawLangChoiceDialog() {
 	// but I can't ram my JS through the MW parser, so there's this workaround.
 	$html .= '||CleanCWJavaScript||';
 
-	flLog("drawLangChoiceDialog() ends");
+	////flLog("drawLangChoiceDialog() ends");
 	return $html;
 }
 
@@ -486,7 +486,7 @@ function enactLangs(array $langsAr) {
 		$langsAr = array('JavaScript', 'PHP');
 		
 	////flLog("enactLangs() of:");
-	flExport($langsAr);
+	////flExport($langsAr);
 	////flExport($allTheLangs);
 	
 	// collect the real thing.  make sure they're only bonafide langauges.
@@ -516,8 +516,8 @@ function getPageLangs() {
 	global $wgRequest, $wgCookiePrefix;
 	global $nChLangCols;
 
-	flLog("getPageLangs... req=");
-	flExport($_REQUEST);
+	////flLog("getPageLangs... req=");
+	////flExport($_REQUEST);
 	$list = null;
 	
 	// make sure $_GET vars override $_COOKIE vars
@@ -535,7 +535,7 @@ function getPageLangs() {
 	$reqCode = $wgRequest->getVal('ch', '');
 	////flLog("got reqCode from ch attr: `$reqCode`");////
 	$sp = explode('/', $reqCode, 2);
-	flExport( isset($sp[1]) ? explode(',', $sp[1]) : 'no sp1');
+	////flExport( isset($sp[1]) ? explode(',', $sp[1]) : 'no sp1');
 	if (isset($sp[1]))
 		$list = explode(',', $sp[1]);
 	else {
@@ -586,7 +586,7 @@ function loadChosenLangs() {
 // EG "PHP@5.2,JavaScript@1.5"     May return '' if none chosen or they got lost.
 function chosenLangsString() {
 	global $ChosenLangs, $ChosenVerss;
-	flLog("chosenLangsString() starts with ChosenLangs=");flExport($ChosenLangs);////
+	////flLog("chosenLangsString() starts with ChosenLangs=");flExport($ChosenLangs);////
 	$con = '';
 	foreach ($ChosenLangs as $i => $lang) {
 		if (isset($ChosenVerss[$i]))
