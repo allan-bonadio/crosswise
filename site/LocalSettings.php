@@ -98,6 +98,24 @@ else {
 $wgScriptPath = "";
 $wgScriptExtension = ".php";
 
+# MW uses this to format links on the page, esp upper right corner.
+# for arbitrary pages, use /--PageName.  CrossWise generates the /++Arrays urls,
+# and who makes those help URLs with /!! or /?? (new with cwv2)
+# i think this is the default anyway $wgUsePathInfo = true;
+#$wgScript = '';  # default is index.php but we also need to get the ?title= stuff
+$wgArticlePath = '/--$1';
+
+# $wgActionPaths = lots of em.  This fixes urls in the page tools (edit, history...)
+# I'm already doing enough url magic, take it easy here.  urls that used to be
+# /index.php?title=blah&action=edit    become instead
+# /--blah&action=edit
+$actions = array( 'view', 'edit', 'watch', 'unwatch', 'delete','revert', 'rollback',
+  'protect', 'unprotect', 'markpatrolled', 'render', 'submit', 'history', 'purge' );
+foreach ( $actions as $action ) {
+  $wgActionPaths[$action] = "/--$1&action=$action";
+}
+
+
 # the $_SERVER superglobal has the env as the php process starts.  From the command line we're missing some.
 # ??? $_SERVER['SERVER_NAME'] = 'dcw';
 ////var_dump("\$_SERVER=", $_SERVER);////
@@ -370,6 +388,13 @@ else {
 # this is it - the crosswise code.  hope it does't crash.
 require_once("$IP/extensions/cwMain.php");
 
+// ConfirmEdit captcha settings.  Use the cats & dogs one now.
+require_once "$IP/extensions/ConfirmEdit/Asirra.php";
+
+
+# ConfirmEdit settings
+
+# this was the captcha for v1 cw:
 ####	// captcha method: simple lame arithmetic qs
 ####	$wgCaptchaClass = 'SimpleCaptcha';
 ####

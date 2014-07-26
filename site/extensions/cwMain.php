@@ -11,13 +11,15 @@ $wgHooks['DoEditSectionLink'][] = 'cwEditSectionLink';
 $wgHooks['EditPage::showEditForm:initial'][] = 'cwAddAuditToEditPageL';
 $wgHooks['ParserAfterTidy'][] = 'cwParserAfterTidyL';
 $wgHooks['ArticleViewHeader'][] = 'cwArticleViewHeader';
+$wgHooks['GetLocalURL'][] = 'cwGetLocalURL';
+
 // no such code in 1.22 $wgHooks['BeforePageDisplay'][]= 'cwConvertPageTitleBeforePageDisplay';
 
 // somehow this must be done a little bit later
 function cwTagsInit() {
 	global $wgParser;
 
-	// these are all XML element handlers for cw-only tags
+	// these are all XML element handlers for cw-only tags.  L=wrapper func that loads src file
 	$wgParser->setHook('cwView', 'cwViewL');
 	$wgParser->setHook('cwStartFeature', 'cwStartFeatureRender');
 	$wgParser->setHook('cwEndFeature', 'cwEndFeatureRender');
@@ -256,6 +258,19 @@ function drawHtmlEditBut($pageCode, $extraAttrs = '') {
 	return "<a class=editBut href='/index.php?title=".
 					$pageCode ."&action=edit' title='click to edit $pageCode' ".
 					$extraAttrs ." >edit</a>\n";
+}
+
+// MW Hook 'GetLocalURL' last chance to hack URLs for links on pages
+// convert lame index.php urls to cool forms we do
+function cwGetLocalURL($title, $url, $query) {
+	////echo "<br>cwGetLocalURL({title}, $url, $query) => ";////
+	////var_dump("{title}", $title);////
+	
+	// more specific ones first
+	$url = str_replace('/index.php?title=View&ch=', '/++', $url);
+	$url = str_replace('/index.php?title=Help:', '/??', $url);
+	$url = str_replace('/index.php?title=', '/--', $url);
+	////echo "<br>url => $url<br>";////
 }
 
 ////////////////////////////////////////////////////////////////////// Requirement
