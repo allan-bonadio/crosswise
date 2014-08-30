@@ -8,7 +8,7 @@
 #     alias cwww='cd /dvl/crosswise'
 
 
-[ -d $wROOT/skins/common ] || echo "\n --- No wROOT set ---\n"
+##### NO!  this sabotages sftp!  [ -d $wROOT/skins/common ] || echo "\n --- No wROOT set ---\n"
 
 # the root
 alias wwr='cd $wCW'
