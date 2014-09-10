@@ -1,5 +1,10 @@
 #!/bin/bash +x
 
+
+echo OLD
+exit
+
+
 echo "Start a new CrossWise site from scratch:"
 
 

@@ -1,5 +1,9 @@
 #!/bin/bash 
 
+echo OLD
+exit
+
+
 env
 
 cd /home/tactile/public_html

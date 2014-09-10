@@ -1,5 +1,13 @@
 #!/bin/bash 
 
+
+# OLD
+echo OLD
+exit
+
+
+
+
 # make sure mysql & apache are up
 if ! mysql -usolomon -psolomon --execute="select 'MySQL is Up!'"  cw_dev
 then echo "Mysql server not up"
