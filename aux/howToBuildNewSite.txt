@@ -6,10 +6,12 @@ unzip it into a dir that does php
 
 ########################################### CW sources
 
-hmmm never figured out exactly the best way but somehow, make a GIT repo directly above your site directory.
-Then pull sources from an existing repo.  And make the site and aux directories line up.
+git clone https://github.com/allan-bonadio/crosswise.git cwdir
+# where 'cwdir' is the target dir, maybe like the stage dir.
 
-decompress the MW archive as crosswise/site.
+remove the cwdir/site dir; we'll replace it with git
+
+decompress the MW archive as cwdir/site.
 
 should be under source control:
 LocalSettings.php
@@ -21,24 +23,70 @@ so somehow make those appear without blowing everything up
 ########################################### credentials
 
 get a copy of /etc/tactileint from somewhere else
-and install it and make it work.  
+and install it and make it work.  You only need regenMe, then run it.  
 
+########################################### webstuff
 
- 
+Log into fastmail, and add domains for cw/dcw and the stage variations
+
+Add a section to nginx.conf that looks like this:
+---------------------
+        # cross-wise, with php                                                                                                   
+        # cw=crosswise tcw = staging sources  dcw=sources with debug flag turned on                                              
+        server {
+                listen       80;
+                server_name     cw.* dcw.*;
+                root   /dvl/crosswise/prod/site;
+
+                # magic incantations for cw                                                                                      
+                include /dvl/crosswise/prod/cwServer.nginx.conf;
+        }
+
+        # staging for crosswise                                                                                                  
+        server {
+                listen       80;
+                server_name     tcw.* dtcw.*;
+                root   /dvl/crosswise/stage/site;
+
+                include /dvl/crosswise/stage/cwServer.nginx.conf;
+        }
+---------------------
+
 ########################################### create CW database
 	as in the Installation instructions below
+
 
 # do these to make the dev database givertake.  Sign in to mysql as root.
 # mysql> create database cw_dev default character set utf8;
 # mysql> grant all on cw_dev.* to solomon@localhost identified by 'password';
+# mysql> grant all on cw_dev.* to cwadmin@localhost identified by 'password';
+
+where solomon and cwadmin are the users and password is the password
+and cw_dev is the database name.
 
 ########################################### Install MediaWiki at least 1.22
 
-surf to /mw-config/index.php to start the standard installations (as in mw directions)
+surf to cwdir/site/index.php to start the standard installations (as in mw directions)
 
+Must start with NO LocalSettings.php file!  idex.php will point to the way.
+
+Language: english english
+
+page: read thru, continue
+
+db page: do all, continue
+InnoDB
+UTF-8
+
+Name page: CrossWise
+Proj Namespace: Same
+Administrator: allan a cse orgmgr
+
+Options page:
 User rights profile: Account creation required
 Copyright and license:  No license footer
 Return email address: orgmgr@tactileint.org
+enables: defaults
 extensions:
 	- confirmEdit
 	- Nuke
@@ -81,7 +129,10 @@ Enable Instant Commons: off ?
 No caching: on
 
 Install: continue...
-Done!!  It will download your bran new LocalSettings.php file.
+Done!!  It will download your bran new LocalSettings.php file.  Upload from your workstation Downloads dir to the site dir of the target CW, and make sure index.php works and gets you to the default empty main page for MW.
+
+Now rename it LocalSettings.asGenerated.php
+
 
 So then you merge it into your existing one, which is under source control.  Don't move this into place yet.
 

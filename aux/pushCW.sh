@@ -1,7 +1,20 @@
 #!/bin/bash
 
-# hmmmm too personal.  Instead error on SSH_AGENT_PID
-. ~allan/bin/james_bond.sh
+
+echo "Push CW sources up to staging dir on ojibwe.  Just an update; must already be set up"
+
+ssh allan@ojibwe<<ENDOFROBOTSTUFF
+  cd /dvl/crosswise/stage
+  git pull --rebase origin master
+ENDOFROBOTSTUFF
+
+echo "OK, done!"
+exit
+
+
+
+
+#################################### older
 
 echo "Update an existing CrossWise site from SVN etc."
 echo "Only svn checked-in files are pushed onto an original of MediaWiki,"
