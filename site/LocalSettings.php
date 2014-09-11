@@ -136,8 +136,7 @@ $wgLogo             = "$wgStylePath/crosswise/CrossWiseLogo.jpg";
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = "allan@localhost";
-$wgPasswordSender = "allan@localhost";
+include('EmailContacts.php');
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
