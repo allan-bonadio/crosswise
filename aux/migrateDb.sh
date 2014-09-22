@@ -2,6 +2,7 @@
 
 echo "Exports or Imports the content to/from CrossWise"
 echo "   in the process, deletes contributor names & dates"
+echo "   note: http://cw must point to this site, stage or prod"
 cd `dirname $0`
 
 if [ `id -u` != "0" ]
@@ -34,7 +35,7 @@ prague*)	urlStart='http://localhost/~allan/wiki'
 				#surfToSurrogate='echo "surf to:   " '
 				;;
 
-santiago*)	urlStart='http://cw/'
+santiago*)	urlStart='http://dcw.santiago'
 				temp='/tmp'
 				wAUX=/dvl/crosswise/aux
 				wROOT=/dvl/crosswise/site
@@ -42,7 +43,7 @@ santiago*)	urlStart='http://cw/'
 				#surfToSurrogate='echo "surf to:   " '
 				;;
 
-flores*)	urlStart='http://cw/~allan/wiki'
+flores*)		urlStart='http://dcw.flores'
 				temp='/tmp'
 				wAUX=/dvl/crosswise/aux
 				wROOT=/dvl/crosswise/site
@@ -64,6 +65,12 @@ pepper.he.net)	urlStart='http://tactileint.com/cw'
 				fi
 				;;
 
+ojibwe*)		urlStart='http://dcw.tactileint.org/'
+				temp='/tmp'
+				wAUX=/dvl/crosswise/stage/aux
+				wROOT=/dvl/crosswise/stage/site
+				;;
+
 *)				echo "do not recognize uname -n value:" `uname -n`
 				exit 5
 esac
@@ -71,8 +78,10 @@ xmlFile=$wAUX/CrossWise.xml
 tempFile=$wAUX/cwRawTemp.xml
 ptbuFile=$wAUX/cwPagesToBackUp.txt
 if ls -l "$xmlFile"
-then echo
-else exit
+then
+	echo xml file exists
+else
+	echo no xml file, hope you,re exporting
 fi
 
 # get db dump from Wiki by http.  Save XML file and wipe out some of the unneeded
@@ -134,6 +143,10 @@ doExport ( )
 # take xmlFile and import it th right way, whole thing.
 doImport ( )
 {
+	if [ ! -f "$xmlFile" ]
+	then exit 13
+	fi
+	
 	# first put timestamps back into file.  This is how wiki import knows to replace pages.
 	ts=`date -u +%FT%TZ`
 	cat $xmlFile | sed "s|<ts />|<timestamp>$ts</timestamp>|" > $tempFile
@@ -142,11 +155,19 @@ doImport ( )
 	# no, the maint commands get it from LocalSettings.php   source /etc/tactileint/crosswise_keys.sh	
 
 	# the proper way
+	echo the proper way
 	cd $wROOT
-	php maintenance/importDump.php --server=http://cw $tempFile 
+	. /etc/tactileint/crosswise_maintenence_keys.sh  # maybe we dont need these afterall
+	echo php maintenance/importDump.php --server=$urlStart  \
+		"--dbuser=$wgDBadminuser"   "--dbpass=$wgDBadminpassword"   \
+		--globals  --debug   $tempFile 
+	php maintenance/importDump.php --server=$urlStart    $tempFile 
 	#php maintenance/importDump.php --dbuser $wgDBadminuser --dbpass "$wgDBadminpassword" $tempFile 
 ####	echo "importDump script starting in background in pid=$$.  It will take a few mins."
 
+	echo done with importDump.php
+	
+	#echo this never works
 	# this never works.  Need authentication and stuff.
 	#curl --form xmlinput=@$tempFile \
 	#	--form source=upload --form logcomment=exportAll  --form 'submit=Upload File'  \
@@ -216,9 +237,9 @@ du*)	doDump
 			;;
 			
 *)			echo "Usage:"
-			echo "  \$ $0 import  # read aux/CrossWise.xml file into this wiki"
-			echo "  \$ $0 export  # write CrossWise.xml file out from this wiki"
-			echo "  \$ $0 dump  # dump whole database - as for a backup"
+			echo "  \$ $0 import  # upload aux/CrossWise.xml file into wiki on this machine" `uname -n`
+			echo "  \$ $0 export  # download aux/CrossWise.xml file from wiki on this machine" `uname -n`
+			echo "  \$ $0 dump  # mysql dump whole database - as for a backup - from pepper.he.net, remotely (v1)"
 			;;
 esac
 
