@@ -24,6 +24,11 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgSitename = "CrossWise";
 
 ############################################################# start site-specific
+# why the fuck doesn't this work from the php.ini file?!?!?!
+ini_set ('mysql.default_socket' , '/var/run/mysqld/mysqld.sock');
+ini_set ('mysqli.default_socket' , '/var/run/mysqld/mysqld.sock');
+
+
 # well this isn't the only cw-specific stuff chuclke
 #
 # Adapt for subdomains cw.tactileint.org & variations.   decide  on these once.
